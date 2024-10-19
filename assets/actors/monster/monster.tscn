@@ -1,0 +1,29 @@
+[gd_scene load_steps=5 format=3 uid="uid://bumpjbhfi4uxm"]
+
+[ext_resource type="Script" path="res://modules/smooth/smooth_2d.gd" id="1_mn2jf"]
+[ext_resource type="Texture2D" uid="uid://bu6qh00vfaufg" path="res://icon.svg" id="2_x002v"]
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_r14q1"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_gdujy"]
+
+[node name="monster" type="RigidBody2D"]
+mass = 50.0
+physics_material_override = SubResource("PhysicsMaterial_r14q1")
+lock_rotation = true
+continuous_cd = 2
+
+[node name="smooth_2d" type="Node2D" parent="."]
+script = ExtResource("1_mn2jf")
+
+[node name="sprite_2d" type="Sprite2D" parent="smooth_2d"]
+modulate = Color(0, 1, 0, 1)
+scale = Vector2(0.25, 0.25)
+texture = ExtResource("2_x002v")
+offset = Vector2(0, -64)
+
+[node name="collision_shape_2d" type="CollisionShape2D" parent="."]
+rotation = 1.5708
+shape = SubResource("CapsuleShape2D_gdujy")
+
+[node name="animation_player" type="AnimationPlayer" parent="."]
