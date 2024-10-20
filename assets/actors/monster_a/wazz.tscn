@@ -1,0 +1,20 @@
+[gd_scene load_steps=2 format=3 uid="uid://bjmwqxq426bfe"]
+
+[sub_resource type="GDScript" id="GDScript_e1jf2"]
+script/source = "extends Node2D
+
+
+func _ready() -> void:
+	set_notify_transform(true)
+	
+
+func _notification(what: int) -> void:
+	match what:
+		NOTIFICATION_TRANSFORM_CHANGED:
+			print(\"transform changed!\")
+			#global_position.x += 1
+			
+"
+
+[node name="wazz" type="Node2D"]
+script = SubResource("GDScript_e1jf2")
