@@ -151,8 +151,9 @@ func _physics_process(delta: float) -> void:
 		# Spherical interpolate towards face_target_direction.
 		var face_query_speed: float = face_speed * face_speed_modifier * TAU
 		var theta: float = absf(face_direction.angle_to(face_target_direction))
-		var weight: float = clampf((face_query_speed * delta) / theta, 0.0, 1.0)
-		face_direction = face_direction.slerp(face_target_direction, weight)
+		if !is_zero_approx(theta):
+			var weight: float = clampf((face_query_speed * delta) / theta, 0.0, 1.0)
+			face_direction = face_direction.slerp(face_target_direction, weight)
 	
 	# Air Logic #
 	if air_height > 0.0:
