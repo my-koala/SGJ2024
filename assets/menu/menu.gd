@@ -12,5 +12,3 @@ extends Control
 #      - some display with score
 #  - credits w/ songs used, etc.
 # no need to program anything rn. use temporary art/blank white textures
-
-
