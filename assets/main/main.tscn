@@ -1,16 +1,12 @@
 [gd_scene load_steps=2 format=3 uid="uid://ba4vxo3ccjcvh"]
 
-[ext_resource type="PackedScene" uid="uid://bumpjbhfi4uxm" path="res://assets/actors/monster/monster.tscn" id="1_0fggl"]
+[ext_resource type="Script" path="res://assets/main/main.gd" id="1_g15i4"]
 
 [node name="main" type="Node"]
+script = ExtResource("1_g15i4")
 
 [node name="game" type="CanvasLayer" parent="."]
 layer = 0
-
-[node name="camera_2d" type="Camera2D" parent="game"]
-
-[node name="map" type="Node2D" parent="game"]
-
-[node name="monster" parent="game/map" instance=ExtResource("1_0fggl")]
+follow_viewport_enabled = true
 
 [node name="gui" type="CanvasLayer" parent="."]

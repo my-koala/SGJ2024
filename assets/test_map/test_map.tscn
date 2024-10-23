@@ -1,0 +1,375 @@
+[gd_scene load_steps=12 format=3 uid="uid://dmtgrkokjbjn2"]
+
+[ext_resource type="PackedScene" uid="uid://dvfbewn5n6mdq" path="res://assets/actors/tricker/tricker.tscn" id="1_8w4bf"]
+[ext_resource type="Script" path="res://assets/test_map/test_map.gd" id="1_i8ajr"]
+[ext_resource type="PackedScene" uid="uid://bumpjbhfi4uxm" path="res://assets/actors/monster_a/monster_a.tscn" id="1_sik5s"]
+[ext_resource type="PackedScene" uid="uid://baj207k0pptso" path="res://assets/collectables/candy/candy.tscn" id="3_uy7b6"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_1pm8f"]
+size = Vector2(50, 200)
+
+[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_ty0iu"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_0bk6y"]
+radius = 40.12
+
+[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_ieg35"]
+
+[sub_resource type="Animation" id="Animation_a0k24"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("win:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = false
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("win:scale")
+tracks/1/interp = 1
+tracks/1/loop_wrap = false
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1, 1)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("win:anchor_top")
+tracks/2/interp = 1
+tracks/2/loop_wrap = false
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+
+[sub_resource type="Animation" id="Animation_2ej8r"]
+resource_name = "win"
+length = 2.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("win:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = false
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("win:scale")
+tracks/1/interp = 1
+tracks/1/loop_wrap = false
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.533333, 2),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(1, 1), Vector2(1, 1), Vector2(0.5, 0.5)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("win:anchor_top")
+tracks/2/interp = 1
+tracks/2/loop_wrap = false
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.533333, 2),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [0.0, 0.0, 1.0]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_ppkov"]
+_data = {
+&"RESET": SubResource("Animation_a0k24"),
+&"win": SubResource("Animation_2ej8r")
+}
+
+[node name="test_map" type="Node2D" node_paths=PackedStringArray("player")]
+y_sort_enabled = true
+script = ExtResource("1_i8ajr")
+player = NodePath("monster")
+
+[node name="tricker" parent="." instance=ExtResource("1_8w4bf")]
+position = Vector2(58, 5)
+
+[node name="tricker-2" parent="." instance=ExtResource("1_8w4bf")]
+position = Vector2(-54, 37)
+
+[node name="monster" parent="." instance=ExtResource("1_sik5s")]
+player = true
+
+[node name="camera_2d" type="Camera2D" parent="monster"]
+position = Vector2(1, -23)
+process_callback = 0
+
+[node name="monster-2" parent="." instance=ExtResource("1_sik5s")]
+position = Vector2(-202, -129)
+
+[node name="collector_2d" parent="monster-2" index="7"]
+monitoring = false
+
+[node name="camera_2d" type="Camera2D" parent="monster-2"]
+position = Vector2(1, -23)
+process_callback = 0
+
+[node name="candy" parent="." instance=ExtResource("3_uy7b6")]
+position = Vector2(22, 44)
+
+[node name="geometry" type="Node2D" parent="."]
+z_index = -1
+
+[node name="static_body_2d" type="StaticBody2D" parent="geometry"]
+position = Vector2(-381, -55)
+
+[node name="collision_shape_2d" type="CollisionShape2D" parent="geometry/static_body_2d"]
+shape = SubResource("RectangleShape2D_1pm8f")
+
+[node name="sprite_2d" type="Sprite2D" parent="geometry/static_body_2d"]
+modulate = Color(0.501961, 0.584314, 0.592157, 1)
+texture = SubResource("PlaceholderTexture2D_ty0iu")
+region_enabled = true
+region_rect = Rect2(0, 0, 50, 200)
+
+[node name="static_body_2d-12" type="StaticBody2D" parent="geometry"]
+position = Vector2(-526, -212)
+
+[node name="collision_shape_2d" type="CollisionShape2D" parent="geometry/static_body_2d-12"]
+shape = SubResource("RectangleShape2D_1pm8f")
+
+[node name="sprite_2d" type="Sprite2D" parent="geometry/static_body_2d-12"]
+modulate = Color(0.501961, 0.584314, 0.592157, 1)
+texture = SubResource("PlaceholderTexture2D_ty0iu")
+region_enabled = true
+region_rect = Rect2(0, 0, 50, 200)
+
+[node name="static_body_2d-2" type="StaticBody2D" parent="geometry"]
+position = Vector2(-275, 37)
+rotation = 1.5708
+
+[node name="collision_shape_2d" type="CollisionShape2D" parent="geometry/static_body_2d-2"]
+shape = SubResource("RectangleShape2D_1pm8f")
+
+[node name="sprite_2d" type="Sprite2D" parent="geometry/static_body_2d-2"]
+modulate = Color(0.501961, 0.584314, 0.592157, 1)
+texture = SubResource("PlaceholderTexture2D_ty0iu")
+region_enabled = true
+region_rect = Rect2(0, 0, 50, 200)
+
+[node name="static_body_2d-8" type="StaticBody2D" parent="geometry"]
+position = Vector2(-1, -269)
+rotation = 1.5708
+
+[node name="collision_shape_2d" type="CollisionShape2D" parent="geometry/static_body_2d-8"]
+shape = SubResource("RectangleShape2D_1pm8f")
+
+[node name="sprite_2d" type="Sprite2D" parent="geometry/static_body_2d-8"]
+modulate = Color(0.501961, 0.584314, 0.592157, 1)
+texture = SubResource("PlaceholderTexture2D_ty0iu")
+region_enabled = true
+region_rect = Rect2(0, 0, 50, 200)
+
+[node name="static_body_2d-11" type="StaticBody2D" parent="geometry"]
+position = Vector2(-9, 260)
+rotation = 1.5708
+
+[node name="collision_shape_2d" type="CollisionShape2D" parent="geometry/static_body_2d-11"]
+shape = SubResource("RectangleShape2D_1pm8f")
+
+[node name="sprite_2d" type="Sprite2D" parent="geometry/static_body_2d-11"]
+modulate = Color(0.501961, 0.584314, 0.592157, 1)
+texture = SubResource("PlaceholderTexture2D_ty0iu")
+region_enabled = true
+region_rect = Rect2(0, 0, 50, 200)
+
+[node name="static_body_2d-9" type="StaticBody2D" parent="geometry"]
+position = Vector2(-176, -269)
+rotation = 1.5708
+
+[node name="collision_shape_2d" type="CollisionShape2D" parent="geometry/static_body_2d-9"]
+shape = SubResource("RectangleShape2D_1pm8f")
+
+[node name="sprite_2d" type="Sprite2D" parent="geometry/static_body_2d-9"]
+modulate = Color(0.501961, 0.584314, 0.592157, 1)
+texture = SubResource("PlaceholderTexture2D_ty0iu")
+region_enabled = true
+region_rect = Rect2(0, 0, 50, 200)
+
+[node name="static_body_2d-10" type="StaticBody2D" parent="geometry"]
+position = Vector2(-341, -269)
+rotation = 1.5708
+
+[node name="collision_shape_2d" type="CollisionShape2D" parent="geometry/static_body_2d-10"]
+shape = SubResource("RectangleShape2D_1pm8f")
+
+[node name="sprite_2d" type="Sprite2D" parent="geometry/static_body_2d-10"]
+modulate = Color(0.501961, 0.584314, 0.592157, 1)
+texture = SubResource("PlaceholderTexture2D_ty0iu")
+region_enabled = true
+region_rect = Rect2(0, 0, 50, 200)
+
+[node name="static_body_2d-3" type="StaticBody2D" parent="geometry"]
+position = Vector2(131, -6)
+
+[node name="collision_shape_2d" type="CollisionShape2D" parent="geometry/static_body_2d-3"]
+shape = SubResource("RectangleShape2D_1pm8f")
+
+[node name="sprite_2d" type="Sprite2D" parent="geometry/static_body_2d-3"]
+modulate = Color(0.501961, 0.584314, 0.592157, 1)
+texture = SubResource("PlaceholderTexture2D_ty0iu")
+region_enabled = true
+region_rect = Rect2(0, 0, 50, 200)
+
+[node name="static_body_2d-4" type="StaticBody2D" parent="geometry"]
+position = Vector2(105, 105)
+rotation = 0.785398
+
+[node name="collision_shape_2d" type="CollisionShape2D" parent="geometry/static_body_2d-4"]
+shape = SubResource("RectangleShape2D_1pm8f")
+
+[node name="sprite_2d" type="Sprite2D" parent="geometry/static_body_2d-4"]
+modulate = Color(0.501961, 0.584314, 0.592157, 1)
+texture = SubResource("PlaceholderTexture2D_ty0iu")
+region_enabled = true
+region_rect = Rect2(0, 0, 50, 200)
+
+[node name="static_body_2d-5" type="StaticBody2D" parent="geometry"]
+position = Vector2(-122, 100)
+rotation = -0.785398
+
+[node name="collision_shape_2d" type="CollisionShape2D" parent="geometry/static_body_2d-5"]
+shape = SubResource("RectangleShape2D_1pm8f")
+
+[node name="sprite_2d" type="Sprite2D" parent="geometry/static_body_2d-5"]
+modulate = Color(0.501961, 0.584314, 0.592157, 1)
+texture = SubResource("PlaceholderTexture2D_ty0iu")
+region_enabled = true
+region_rect = Rect2(0, 0, 50, 200)
+
+[node name="static_body_2d-7" type="StaticBody2D" parent="geometry"]
+position = Vector2(116, -123)
+rotation = -0.785398
+
+[node name="collision_shape_2d" type="CollisionShape2D" parent="geometry/static_body_2d-7"]
+shape = SubResource("RectangleShape2D_1pm8f")
+
+[node name="sprite_2d" type="Sprite2D" parent="geometry/static_body_2d-7"]
+modulate = Color(0.501961, 0.584314, 0.592157, 1)
+texture = SubResource("PlaceholderTexture2D_ty0iu")
+region_enabled = true
+region_rect = Rect2(0, 0, 50, 200)
+
+[node name="static_body_2d-6" type="StaticBody2D" parent="geometry"]
+position = Vector2(-84, -108)
+rotation = 3.91273
+
+[node name="collision_shape_2d" type="CollisionShape2D" parent="geometry/static_body_2d-6"]
+shape = SubResource("CircleShape2D_0bk6y")
+
+[node name="polygon_2d" type="Polygon2D" parent="geometry/static_body_2d-6"]
+modulate = Color(0.501961, 0.584314, 0.592157, 1)
+texture = SubResource("PlaceholderTexture2D_ieg35")
+polygon = PackedVector2Array(20.0099, 34.9371, 27.1609, 29.3817, 32.2009, 23.089, 37.2611, 15.3822, 39.4931, 7.63502, 40.3111, -0.132278, 39.715, -7.91975, 36.9877, -15.0304, 32.1695, -24.2925, 25.897, -30.7465, 19.6042, -35.7865, 13.2712, -37.9984, 9.74608, -38.7558, -1.54631, -40.3313, -6.50566, -39.6948, -14.3133, -37.6846, -20.7068, -35.6543, -27.878, -28.6848, -33.6351, -21.6951, -37.9984, -13.2712, -39.5133, -6.22098, -39.6141, 0.849365, -38.3211, 9.35395, -34.8968, 17.1817, -30.7554, 24.3126, -24.4829, 30.7667, -17.473, 35.1097, -9.74605, 38.7558, -1.97874, 39.5738, 6.50566, 39.6948, 15.7274, 37.7048)
+
+[node name="canvas_layer" type="CanvasLayer" parent="."]
+
+[node name="goal" type="Label" parent="canvas_layer"]
+modulate = Color(0, 0.807843, 0.376471, 1)
+offset_right = 40.0
+offset_bottom = 23.0
+text = "goal: get candy"
+
+[node name="count" type="Label" parent="canvas_layer"]
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -138.0
+offset_bottom = 23.0
+grow_horizontal = 0
+text = "candy count:"
+
+[node name="win" type="Label" parent="canvas_layer"]
+visible = false
+modulate = Color(1, 0, 1, 1)
+anchors_preset = 13
+anchor_left = 0.5
+anchor_right = 0.5
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+pivot_offset = Vector2(100, 0)
+theme_override_font_sizes/font_size = 47
+text = "you won"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="animation_player" type="AnimationPlayer" parent="canvas_layer"]
+libraries = {
+&"": SubResource("AnimationLibrary_ppkov")
+}
+
+[node name="spawn_kid" type="Button" parent="canvas_layer"]
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_top = -31.0
+offset_right = 87.0
+grow_vertical = 0
+focus_mode = 0
+text = "spawn kid"
+
+[node name="power" type="Label" parent="canvas_layer"]
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -151.0
+offset_top = -65.0
+grow_horizontal = 0
+grow_vertical = 0
+text = "dropkick power"
+horizontal_alignment = 1
+autowrap_mode = 2
+
+[node name="h_slider" type="HSlider" parent="canvas_layer/power"]
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -16.0
+grow_horizontal = 2
+grow_vertical = 0
+max_value = 100000.0
+step = 100.0
+
+[node name="controls" type="Label" parent="canvas_layer"]
+offset_left = 6.0
+offset_top = 33.0
+offset_right = 58.0
+offset_bottom = 105.0
+theme_override_font_sizes/font_size = 10
+text = "controls:
+WASD - move
+E - pickup
+space - shake
+E - dropkick
+F - drop"
+
+[editable path="monster-2"]

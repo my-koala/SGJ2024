@@ -1,9 +1,12 @@
 # code by my-koala ͼ•ᴥ•ͽ #
 @tool
 extends RigidBody2D
-class_name Actor2D
+class_name Entity2D
 
-# Basic actor controller.
+# Basic entity controller.
+# TODO: rework deceleration as functional friction?
+# TODO for other projects: reimplement air friction, ground friction (properly)
+# move move stuff to actor specific scripts
 
 const GRAVITY: float = 490.0
 
@@ -11,7 +14,7 @@ const GRAVITY: float = 490.0
 
 @export_group("Move")
 
-## The actor's base move speed (in pixels per second).
+## The entity's base move speed (in pixels per second).
 @export_range(0.0, 1.0, 0.05, "or_greater", "hide_slider")
 var move_speed: float = 64.0:
 	get:
@@ -19,7 +22,7 @@ var move_speed: float = 64.0:
 	set(value):
 		move_speed = maxf(value, 0.0)
 
-## The actor's base move acceleration (in pixels per second squared).
+## The entity's base move acceleration (in pixels per second squared).
 @export_range(0.0, 1.0, 0.05, "or_greater", "hide_slider")
 var move_acceleration: float = 256.0:
 	get:
@@ -27,9 +30,9 @@ var move_acceleration: float = 256.0:
 	set(value):
 		move_acceleration = maxf(value, 0.0)
 
-## The actor's base move deceleration (in pixels per second squared).
+## The entity's base move deceleration (in pixels per second squared).
 @export_range(0.0, 1.0, 0.05, "or_greater", "hide_slider")
-var move_deceleration: float = 512.0:
+var move_deceleration: float = 2048.0:
 	get:
 		return move_deceleration
 	set(value):
@@ -44,7 +47,7 @@ func is_move_active() -> bool:
 
 @export_group("Face")
 
-## The actor's facing direction. Direction is normalized.
+## The entity's facing direction. Direction is normalized.
 @export
 var face_direction: Vector2 = Vector2.DOWN:
 	get:
@@ -53,7 +56,7 @@ var face_direction: Vector2 = Vector2.DOWN:
 		if !value.is_zero_approx():
 			face_direction = value.normalized()
 
-## The actor's speed when rotating towards face_target_direction (in rotations per second).
+## The entity's speed when rotating towards face_target_direction (in rotations per second).
 @export_range(0.0, 1.0, 0.05, "or_greater", "hide_slider")
 var face_speed: float = 4.0:
 	get:
@@ -61,7 +64,7 @@ var face_speed: float = 4.0:
 	set(value):
 		face_speed = maxf(value, 0.0)
 
-# Targets for controlling actor (via main)
+# Targets for controlling entity (via main)
 
 ## The target direction to move towards. Direction is normalized.
 @export
@@ -108,17 +111,38 @@ var air_control: float = 0.125:
 	set(value):
 		air_control = clampf(value, 0.0, 1.0)
 
+## The Node2D to apply air height to position (sets y).
+@export
+var air_transform: Node2D = null:
+	get:
+		return air_transform
+	set(value):
+		air_transform = value
+
 func is_airborne() -> bool:
 	return air_height > 0.0
 
+var anchor_transform: Node2D = null
+
 #endregion
+
+func _integrate_forces(state: PhysicsDirectBodyState2D) -> void:
+	if Engine.is_editor_hint():
+		return
+	
+	#if is_instance_valid(anchor_transform):
+	#	state.transform = anchor_transform.global_transform
 
 func _physics_process(delta: float) -> void:
 	if Engine.is_editor_hint():
 		return
 	
-	if freeze:
-		return
+	# Air Logic #
+	if !freeze && (air_height > 0.0):
+		air_velocity += GRAVITY * delta
+		air_height = maxf(air_height - (air_velocity * delta), 0.0)
+	else:
+		air_velocity = 0.0
 	
 	# Modifier Logic #
 	var move_speed_modifier: float = 1.0
@@ -131,6 +155,7 @@ func _physics_process(delta: float) -> void:
 	
 	if is_airborne():
 		move_acceleration_modifier *= air_control * air_control_modifier
+		move_deceleration_modifier *= air_control * air_control_modifier
 	
 	# Move Logic #
 	# Calculate necessary acceleration to move towards query direction.
@@ -151,13 +176,9 @@ func _physics_process(delta: float) -> void:
 		# Spherical interpolate towards face_target_direction.
 		var face_query_speed: float = face_speed * face_speed_modifier * TAU
 		var theta: float = absf(face_direction.angle_to(face_target_direction))
-		var weight: float = clampf((face_query_speed * delta) / theta, 0.0, 1.0)
-		face_direction = face_direction.slerp(face_target_direction, weight)
+		if !is_zero_approx(theta):
+			var weight: float = clampf((face_query_speed * delta) / theta, 0.0, 1.0)
+			face_direction = face_direction.slerp(face_target_direction, weight)
 	
-	# Air Logic #
-	if air_height > 0.0:
-		air_velocity += GRAVITY * delta
-		air_height = maxf(air_height - (air_velocity * delta), 0.0)
-	else:
-		air_velocity = 0.0
-	
+	if is_instance_valid(air_transform):
+		air_transform.position.y = -air_height

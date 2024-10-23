@@ -1,51 +1,275 @@
-[gd_scene load_steps=8 format=3 uid="uid://bumpjbhfi4uxm"]
+[gd_scene load_steps=16 format=3 uid="uid://bumpjbhfi4uxm"]
 
 [ext_resource type="Script" path="res://assets/actors/monster_a/monster_a.gd" id="1_0y4s8"]
-[ext_resource type="Texture2D" uid="uid://bu6qh00vfaufg" path="res://icon.svg" id="2_x002v"]
+[ext_resource type="Texture2D" uid="uid://dk3dmeqx3a24b" path="res://assets/actors/monster_a/monster_a.png" id="2_q3g1v"]
 [ext_resource type="Script" path="res://modules/carry/carrier_2d.gd" id="4_2txmg"]
 [ext_resource type="Script" path="res://modules/carry/carriable_2d.gd" id="5_2gv0v"]
+[ext_resource type="AnimationLibrary" uid="uid://dosgopcu4t7w3" path="res://assets/actors/monster_a/monster_a.tres" id="5_er7e0"]
+[ext_resource type="Script" path="res://modules/collect/collector_2d.gd" id="6_2s0vs"]
+[ext_resource type="Texture2D" uid="uid://bg0m48lwhoikh" path="res://assets/common/shadow.png" id="7_n2y5f"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_r14q1"]
+friction = 0.25
+bounce = 0.25
+absorbent = true
 
-[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_gdujy"]
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_2yae3"]
+size = Vector2(20, 12)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_8vxt3"]
+radius = 5.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_no1je"]
+radius = 15.0
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_4s1kk"]
-size = Vector2(40, 34)
+size = Vector2(34, 28)
 
-[node name="monster_a" type="RigidBody2D"]
+[sub_resource type="CircleShape2D" id="CircleShape2D_idteb"]
+radius = 96.0
+
+[sub_resource type="Animation" id="Animation_rwp70"]
+resource_name = "RESET"
+length = 0.0243927
+step = 1.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("avatar/sprite_2d:frame_coords")
+tracks/0/interp = 0
+tracks/0/loop_wrap = false
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2i(0, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("carrier_2d/remote_transform_2d:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = false
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 0)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("carrier_2d/remote_transform_2d/remote_transform_offset_2d:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = false
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 0)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("carrier_2d:target_position")
+tracks/3/interp = 0
+tracks/3/loop_wrap = false
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 16)]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("carrier_2d:enabled")
+tracks/4/interp = 0
+tracks/4/loop_wrap = false
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [true]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath(".:move_speed")
+tracks/5/interp = 0
+tracks/5/loop_wrap = false
+tracks/5/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [80.0]
+}
+tracks/6/type = "value"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath(".:move_acceleration")
+tracks/6/interp = 0
+tracks/6/loop_wrap = false
+tracks/6/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [1024.0]
+}
+tracks/7/type = "value"
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/path = NodePath(".:move_deceleration")
+tracks/7/interp = 0
+tracks/7/loop_wrap = false
+tracks/7/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [2048.0]
+}
+tracks/8/type = "value"
+tracks/8/imported = false
+tracks/8/enabled = true
+tracks/8/path = NodePath(".:face_speed")
+tracks/8/interp = 0
+tracks/8/loop_wrap = false
+tracks/8/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [4.0]
+}
+tracks/9/type = "value"
+tracks/9/imported = false
+tracks/9/enabled = true
+tracks/9/path = NodePath(".:face_direction")
+tracks/9/interp = 0
+tracks/9/loop_wrap = false
+tracks/9/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 1)]
+}
+tracks/10/type = "value"
+tracks/10/imported = false
+tracks/10/enabled = true
+tracks/10/path = NodePath("hitbox_shake_2d:monitorable")
+tracks/10/interp = 0
+tracks/10/loop_wrap = false
+tracks/10/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [false]
+}
+tracks/11/type = "value"
+tracks/11/imported = false
+tracks/11/enabled = true
+tracks/11/path = NodePath("hitbox_dropkick_2d:monitorable")
+tracks/11/interp = 0
+tracks/11/loop_wrap = false
+tracks/11/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [false]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_p1vtb"]
+_data = {
+&"RESET": SubResource("Animation_rwp70")
+}
+
+[node name="monster_a" type="RigidBody2D" node_paths=PackedStringArray("air_transform")]
+collision_layer = 2
+collision_mask = 3
 mass = 50.0
 physics_material_override = SubResource("PhysicsMaterial_r14q1")
-gravity_scale = 0.0
 lock_rotation = true
+freeze_mode = 1
 continuous_cd = 2
 script = ExtResource("1_0y4s8")
+move_speed = 80.0
+move_acceleration = 1024.0
+air_height = 0.125
+air_transform = NodePath("avatar")
 
 [node name="avatar" type="Node2D" parent="."]
 
 [node name="sprite_2d" type="Sprite2D" parent="avatar"]
-scale = Vector2(0.25, 0.25)
-texture = ExtResource("2_x002v")
-offset = Vector2(0, -64)
+texture = ExtResource("2_q3g1v")
+offset = Vector2(0, -24)
+hframes = 32
+vframes = 4
+
+[node name="shadow" type="Sprite2D" parent="."]
+modulate = Color(1, 1, 1, 0.423529)
+z_index = -1
+texture = ExtResource("7_n2y5f")
 
 [node name="collision_shape_2d" type="CollisionShape2D" parent="."]
-rotation = 1.5708
-shape = SubResource("CapsuleShape2D_gdujy")
+position = Vector2(1.76429e-05, 1.66893e-06)
+shape = SubResource("RectangleShape2D_2yae3")
 
-[node name="carry" type="Node2D" parent="."]
-
-[node name="carrier_2d" type="Node2D" parent="carry"]
+[node name="carrier_2d" type="RayCast2D" parent="." node_paths=PackedStringArray("entity", "exclude", "remote_transform", "remote_transform_offset")]
+target_position = Vector2(0, 16)
+hit_from_inside = true
+collide_with_areas = true
 script = ExtResource("4_2txmg")
+entity = NodePath("..")
+exclude = [NodePath("../carriable_2d"), NodePath("..")]
+dropkick_impulse = 6000.0
+dropkick_height_velocity = -160.0
+remote_transform = NodePath("remote_transform_2d")
+remote_transform_offset = NodePath("remote_transform_2d/remote_transform_offset_2d")
 
-[node name="carriable_2d" type="Area2D" parent="carry"]
-gravity_space_override = 4
+[node name="remote_transform_2d" type="RemoteTransform2D" parent="carrier_2d"]
+
+[node name="remote_transform_offset_2d" type="Marker2D" parent="carrier_2d/remote_transform_2d"]
+
+[node name="marker_2d" type="Marker2D" parent="carrier_2d/remote_transform_2d"]
+
+[node name="hitbox_shake_2d" type="Area2D" parent="."]
+collision_layer = 16
+collision_mask = 0
+monitoring = false
+monitorable = false
+
+[node name="collision_shape_2d" type="CollisionShape2D" parent="hitbox_shake_2d"]
+shape = SubResource("CircleShape2D_8vxt3")
+
+[node name="hitbox_dropkick_2d" type="Area2D" parent="."]
+collision_layer = 16
+collision_mask = 0
+monitoring = false
+monitorable = false
+
+[node name="collision_shape_2d" type="CollisionShape2D" parent="hitbox_dropkick_2d"]
+shape = SubResource("CircleShape2D_no1je")
+
+[node name="carriable_2d" type="Area2D" parent="." node_paths=PackedStringArray("entity")]
 script = ExtResource("5_2gv0v")
+entity = NodePath("..")
 
-[node name="collision_shape_2d" type="CollisionShape2D" parent="carry/carriable_2d"]
+[node name="collision_shape_2d" type="CollisionShape2D" parent="carriable_2d"]
 shape = SubResource("RectangleShape2D_4s1kk")
 
-[node name="carry_remote_transform_2d" type="RemoteTransform2D" parent="carry"]
+[node name="collector_2d" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 32
+monitorable = false
+script = ExtResource("6_2s0vs")
+vacuum_force = 512.0
 
-[node name="carry_height_marker_2d" type="Marker2D" parent="carry"]
-position = Vector2(0, -48)
+[node name="collision_shape_2d" type="CollisionShape2D" parent="collector_2d"]
+shape = SubResource("CircleShape2D_idteb")
 
 [node name="animation_player" type="AnimationPlayer" parent="."]
+callback_mode_process = 0
+callback_mode_method = 1
+libraries = {
+&"": SubResource("AnimationLibrary_p1vtb"),
+&"monster_a": ExtResource("5_er7e0")
+}

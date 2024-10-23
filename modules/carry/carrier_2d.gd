@@ -1,5 +1,5 @@
 @tool
-extends Node2D
+extends RayCast2D
 class_name Carrier2D
 
 # queue_cast -> next physics frame, raycast for pickups
@@ -12,84 +12,94 @@ class_name Carrier2D
 # NOTE: on pickup, disable collision (only the body collision for the pickupable/tricker)
 # keep hitbox so candy can drop on shake
 
-signal carry_started(carriable: Carriable2D)
-signal carry_stopped(carriable: Carriable2D)
+@export
+var entity: Entity2D = owner as Entity2D
 
 @export
-var enabled: bool = true
+var exclude: Array[CollisionObject2D] = []:
+	get:
+		return exclude
+	set(value):
+		for collision_object: CollisionObject2D in exclude:
+			remove_exception(collision_object)
+		exclude = value
+		for collision_object: CollisionObject2D in exclude:
+			add_exception(collision_object)
 
 @export
-var cast_position: Vector2 = Vector2.DOWN * 16.0
-
-@export_flags_2d_physics
-var collision_mask: int = 1 << 0
-
-@export_group("Collide With", "collide_with_")
+var dropkick_impulse: float = 12000.0
 @export
-var collide_with_areas: bool = true
+var dropkick_height_velocity: float = -64.0
+
 @export
-var collide_with_bodies: bool = false
+var remote_transform: RemoteTransform2D = null
 
-var _queue_cast: bool = false
-func cast() -> void:
-	# Defer cast to physics frame.
-	_queue_cast = true
-
-func drop() -> void:
-	if !is_instance_valid(_carriable):
-		return
-	
-	carry_stopped.emit(_carriable)
-	_carriable.carry_stopped.emit(self)
-	_carriable._carrier = null
-	_carriable = null
+@export
+var remote_transform_offset: Node2D = null
 
 var _carriable: Carriable2D = null
+
 func get_carriable() -> Carriable2D:
 	return _carriable
 
 func has_carriable() -> bool:
 	return is_instance_valid(_carriable)
 
+func grab() -> void:
+	if has_carriable() || !is_colliding():
+		return
+	
+	var carriable: Carriable2D = get_collider() as Carriable2D
+	if !is_instance_valid(carriable):
+		return
+	
+	if carriable.has_carrier():
+		return
+	
+	_carriable = carriable
+	carriable._carrier = self
+	
+	remote_transform.remote_path = remote_transform.get_path_to(_carriable.entity)
+	#_carriable.entity.anchor_transform = remote_transform
+	entity.add_collision_exception_with(_carriable.entity)
+	_carriable.entity.freeze = true
+
+func drop() -> void:
+	if !has_carriable():
+		return
+	
+	remote_transform.remote_path = NodePath()
+	#_carriable.entity.anchor_transform = null
+	entity.remove_collision_exception_with(_carriable.entity)
+	_carriable.entity.freeze = false
+	
+	_carriable._carrier = null
+	_carriable = null
+
+func dropkick(direction: Vector2) -> void:
+	if !has_carriable():
+		return
+	
+	remote_transform.remote_path = NodePath()
+	entity.remove_collision_exception_with(_carriable.entity)
+	_carriable.entity.freeze = false
+	
+	_carriable.entity.air_velocity = dropkick_height_velocity
+	_carriable.entity.apply_central_impulse(direction * dropkick_impulse)
+	
+	_carriable._carrier = null
+	_carriable = null
+
 func _physics_process(delta: float) -> void:
 	if Engine.is_editor_hint():
 		return
 	
-	if !_queue_cast:
-		return
-	_queue_cast = false
-	
-	if !enabled:
-		return
-	
-	if is_instance_valid(_carriable):
-		return
-	
-	# Query a ray cast in physics space. TODO: exclude parent?
-	var dss: PhysicsDirectSpaceState2D = get_world_2d().direct_space_state
-	var query: PhysicsRayQueryParameters2D = PhysicsRayQueryParameters2D.new()
-	query.collide_with_areas = collide_with_areas
-	query.collide_with_bodies = collide_with_bodies
-	query.collision_mask = collision_mask
-	query.from = global_position
-	query.to = global_position + cast_position
-	query.hit_from_inside = false
-	query.exclude = []
-	
-	var result: Dictionary = dss.intersect_ray(query)
-	if result.is_empty():
-		return
-	
-	var carriable: Carriable2D = result["collider"] as Carriable2D
-	if !is_instance_valid(carriable):
-		return
-	
-	# Can't pick up something that's already picked up! (for now...)
-	if is_instance_valid(carriable._carrier):
-		return
-	
-	carriable._carrier = self
-	_carriable = carriable
-	
-	carry_started.emit(_carriable)
-	_carriable.carry_started.emit(self)
+	if has_carriable():
+		var air_height: float = remote_transform.global_position.y
+		air_height -= remote_transform_offset.global_position.y
+		
+		_carriable.entity.air_height = air_height
+		
+		var momentum: Vector2 = entity.mass * entity.linear_velocity
+		var total_mass: float = entity.mass + (_carriable.entity.mass * 0.75)# arbitrary coeff for speeed
+		entity.linear_velocity = momentum / total_mass
