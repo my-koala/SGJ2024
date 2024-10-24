@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bba7qy1oeyp76"
-path="res://.godot/imported/Side_Profile_stuffed.png-f47e8caa134e0eea71da09ca467f093a.ctex"
+uid="uid://43tjceop8fdo"
+path="res://.godot/imported/Frank Main menu.png-9adeb17f55db4afbbc5241ea924a1611.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/menu/Monster Side Profiles/Side_Profile_stuffed.png"
-dest_files=["res://.godot/imported/Side_Profile_stuffed.png-f47e8caa134e0eea71da09ca467f093a.ctex"]
+source_file="res://assets/menu/Main Menu Artwork/Frank Main menu.png"
+dest_files=["res://.godot/imported/Frank Main menu.png-9adeb17f55db4afbbc5241ea924a1611.ctex"]
 
 [params]
 
