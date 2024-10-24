@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://d3h1qo3ed8m5s"]
+[gd_scene load_steps=9 format=3 uid="uid://d3h1qo3ed8m5s"]
 
 [ext_resource type="Script" path="res://assets/menu/menu.gd" id="1_80ymb"]
 [ext_resource type="Texture2D" uid="uid://cs1pqckh7cyjg" path="res://assets/menu/Pause Menu Artwork/Side_Profile_empty.png" id="2_uje2l"]
@@ -7,6 +7,7 @@
 [ext_resource type="Script" path="res://assets/menu/pause_menu_gui.gd" id="3_ahm3t"]
 [ext_resource type="Texture2D" uid="uid://igh08kyx80ug" path="res://assets/menu/Button_base.png" id="5_1vfqf"]
 [ext_resource type="Texture2D" uid="uid://k7jxupfu4mbs" path="res://assets/menu/Button_selected.png" id="6_4lq1n"]
+[ext_resource type="Texture2D" uid="uid://d38ptit2ix7up" path="res://assets/menu/Win Menu Artwork/Frank win.png" id="8_482cb"]
 
 [node name="menu" type="Control"]
 layout_mode = 3
@@ -18,6 +19,7 @@ grow_vertical = 2
 script = ExtResource("1_80ymb")
 
 [node name="title_screen" type="Control" parent="."]
+visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -38,8 +40,22 @@ offset_bottom = 40.0
 
 [node name="buttons_container" type="VBoxContainer" parent="title_screen"]
 layout_mode = 0
-offset_right = 40.0
-offset_bottom = 40.0
+offset_left = 15.0
+offset_top = 111.0
+offset_right = 159.0
+offset_bottom = 175.0
+
+[node name="texture_button" type="TextureButton" parent="title_screen/buttons_container"]
+layout_mode = 2
+texture_normal = ExtResource("5_1vfqf")
+texture_pressed = ExtResource("6_4lq1n")
+texture_hover = ExtResource("6_4lq1n")
+
+[node name="texture_button-2" type="TextureButton" parent="title_screen/buttons_container"]
+layout_mode = 2
+texture_normal = ExtResource("5_1vfqf")
+texture_pressed = ExtResource("6_4lq1n")
+texture_hover = ExtResource("6_4lq1n")
 
 [node name="game_paused" type="Control" parent="." node_paths=PackedStringArray("side_profile_node")]
 visible = false
@@ -51,41 +67,6 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("3_ahm3t")
 side_profile_node = NodePath("side_profile")
-
-[node name="buttons" type="Control" parent="game_paused"]
-anchors_preset = 0
-offset_right = 40.0
-offset_bottom = 40.0
-
-[node name="texture_button" type="TextureButton" parent="game_paused/buttons"]
-layout_mode = 0
-offset_left = 37.0
-offset_top = 21.0
-offset_right = 181.0
-offset_bottom = 61.0
-texture_normal = ExtResource("5_1vfqf")
-texture_pressed = ExtResource("6_4lq1n")
-texture_hover = ExtResource("6_4lq1n")
-
-[node name="texture_button-2" type="TextureButton" parent="game_paused/buttons"]
-layout_mode = 0
-offset_left = 28.0
-offset_top = 62.0
-offset_right = 172.0
-offset_bottom = 102.0
-texture_normal = ExtResource("5_1vfqf")
-texture_pressed = ExtResource("6_4lq1n")
-texture_hover = ExtResource("6_4lq1n")
-
-[node name="texture_button-3" type="TextureButton" parent="game_paused/buttons"]
-layout_mode = 0
-offset_left = 22.0
-offset_top = 105.0
-offset_right = 166.0
-offset_bottom = 145.0
-texture_normal = ExtResource("5_1vfqf")
-texture_pressed = ExtResource("6_4lq1n")
-texture_hover = ExtResource("6_4lq1n")
 
 [node name="side_profile-background" type="TextureRect" parent="game_paused"]
 layout_mode = 0
@@ -101,6 +82,31 @@ offset_bottom = 225.0
 texture = ExtResource("2_uje2l")
 script = ExtResource("3_ahm3t")
 
+[node name="buttons_container" type="VBoxContainer" parent="game_paused"]
+layout_mode = 0
+offset_left = 37.0
+offset_top = 73.0
+offset_right = 181.0
+offset_bottom = 171.0
+
+[node name="texture_button" type="TextureButton" parent="game_paused/buttons_container"]
+layout_mode = 2
+texture_normal = ExtResource("5_1vfqf")
+texture_pressed = ExtResource("6_4lq1n")
+texture_hover = ExtResource("6_4lq1n")
+
+[node name="texture_button-2" type="TextureButton" parent="game_paused/buttons_container"]
+layout_mode = 2
+texture_normal = ExtResource("5_1vfqf")
+texture_pressed = ExtResource("6_4lq1n")
+texture_hover = ExtResource("6_4lq1n")
+
+[node name="texture_button-3" type="TextureButton" parent="game_paused/buttons_container"]
+layout_mode = 2
+texture_normal = ExtResource("5_1vfqf")
+texture_pressed = ExtResource("6_4lq1n")
+texture_hover = ExtResource("6_4lq1n")
+
 [node name="game_over" type="Control" parent="."]
 layout_mode = 1
 anchors_preset = 15
@@ -108,3 +114,16 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+
+[node name="win_screen" type="Control" parent="."]
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="texture_rect" type="TextureRect" parent="win_screen"]
+layout_mode = 0
+offset_left = 3.0
+offset_top = -1.0
+offset_right = 403.0
+offset_bottom = 224.0
+texture = ExtResource("8_482cb")
