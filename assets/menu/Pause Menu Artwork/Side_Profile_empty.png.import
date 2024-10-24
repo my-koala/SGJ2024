@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://clw883jios6dx"
-path="res://.godot/imported/side_profile_background.png-e48f27a704034f0ed7e4b6a193ab2aed.ctex"
+uid="uid://cs1pqckh7cyjg"
+path="res://.godot/imported/Side_Profile_empty.png-1a24669d5838e1e440438916c08b5bb9.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/menu/Monster Side Profiles/side_profile_background.png"
-dest_files=["res://.godot/imported/side_profile_background.png-e48f27a704034f0ed7e4b6a193ab2aed.ctex"]
+source_file="res://assets/menu/Pause Menu Artwork/Side_Profile_empty.png"
+dest_files=["res://.godot/imported/Side_Profile_empty.png-1a24669d5838e1e440438916c08b5bb9.ctex"]
 
 [params]
 

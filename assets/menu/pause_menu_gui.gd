@@ -27,14 +27,20 @@ func _ready() -> void:
 
 func update_side_profile(value: int) -> void:
 	var texture: ImageTexture = ImageTexture.new()
+	var backgroundTexture: ImageTexture = ImageTexture.new()
+
 	if value < half_full_threshold:
 		texture.create_from_image(load("res://assets/menu/Monster Side Profiles/Side_Profile_empty.png"))
+		backgroundTexture.create_from_image(load("res://assets/menu/Monster Side Profiles/side_profile_background.png"))
 	elif value < full_threshold:
-		texture.create_from_image(load("res://assets/menu/Monster Side Profiles/Head_Revision_half_full.png"))
+		texture.create_from_image(load("res://assets/menu/Monster Side Profiles/Side_Profile_half.png"))
+		backgroundTexture.create_from_image(load("res://assets/menu/Monster Side Profiles/Side_Profile_half-background.png"))
 	else:
-		texture.create_from_image(load("res://assets/menu/Monster Side Profiles/Head_Revision_Full-export.png"))
-
+		texture.create_from_image(load("res://assets/menu/Monster Side Profiles/Side_Profile_stuffed.png"))
+		backgroundTexture.create_from_image(load("res://assets/menu/Monster Side Profiles/Side_Profile_stuffed-background.png"))
+		
 	side_profile_node.texture = texture
+	second_profile_node.texture = backgroundTexture
 
 func show_slide() -> void:
 	# Ensure both nodes are visible before sliding
