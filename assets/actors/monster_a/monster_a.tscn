@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=3 uid="uid://bumpjbhfi4uxm"]
+[gd_scene load_steps=18 format=3 uid="uid://bumpjbhfi4uxm"]
 
 [ext_resource type="Script" path="res://assets/actors/monster_a/monster_a.gd" id="1_0y4s8"]
 [ext_resource type="Texture2D" uid="uid://dk3dmeqx3a24b" path="res://assets/actors/monster_a/monster_a.png" id="2_q3g1v"]
@@ -7,6 +7,7 @@
 [ext_resource type="AnimationLibrary" uid="uid://dosgopcu4t7w3" path="res://assets/actors/monster_a/monster_a.tres" id="5_er7e0"]
 [ext_resource type="Script" path="res://modules/collect/collector_2d.gd" id="6_2s0vs"]
 [ext_resource type="Texture2D" uid="uid://bg0m48lwhoikh" path="res://assets/common/shadow.png" id="7_n2y5f"]
+[ext_resource type="Script" path="res://modules/detect/detectable_2d.gd" id="8_77wx1"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_r14q1"]
 friction = 0.25
@@ -21,6 +22,9 @@ radius = 5.0
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_no1je"]
 radius = 15.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_f180j"]
+radius = 16.0
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_4s1kk"]
 size = Vector2(34, 28)
@@ -213,24 +217,6 @@ texture = ExtResource("7_n2y5f")
 position = Vector2(1.76429e-05, 1.66893e-06)
 shape = SubResource("RectangleShape2D_2yae3")
 
-[node name="carrier_2d" type="RayCast2D" parent="." node_paths=PackedStringArray("entity", "exclude", "remote_transform", "remote_transform_offset")]
-target_position = Vector2(0, 16)
-hit_from_inside = true
-collide_with_areas = true
-script = ExtResource("4_2txmg")
-entity = NodePath("..")
-exclude = [NodePath("../carriable_2d"), NodePath("..")]
-dropkick_impulse = 6000.0
-dropkick_height_velocity = -160.0
-remote_transform = NodePath("remote_transform_2d")
-remote_transform_offset = NodePath("remote_transform_2d/remote_transform_offset_2d")
-
-[node name="remote_transform_2d" type="RemoteTransform2D" parent="carrier_2d"]
-
-[node name="remote_transform_offset_2d" type="Marker2D" parent="carrier_2d/remote_transform_2d"]
-
-[node name="marker_2d" type="Marker2D" parent="carrier_2d/remote_transform_2d"]
-
 [node name="hitbox_shake_2d" type="Area2D" parent="."]
 collision_layer = 16
 collision_mask = 0
@@ -249,7 +235,37 @@ monitorable = false
 [node name="collision_shape_2d" type="CollisionShape2D" parent="hitbox_dropkick_2d"]
 shape = SubResource("CircleShape2D_no1je")
 
+[node name="detectable_2d" type="Area2D" parent="."]
+collision_layer = 64
+collision_mask = 0
+monitoring = false
+script = ExtResource("8_77wx1")
+
+[node name="collision_shape_2d" type="CollisionShape2D" parent="detectable_2d"]
+shape = SubResource("CircleShape2D_f180j")
+
+[node name="carrier_2d" type="RayCast2D" parent="." node_paths=PackedStringArray("entity", "exclude", "remote_transform", "remote_transform_offset")]
+target_position = Vector2(0, 16)
+collision_mask = 128
+hit_from_inside = true
+collide_with_areas = true
+script = ExtResource("4_2txmg")
+entity = NodePath("..")
+exclude = [NodePath("../carriable_2d"), NodePath("..")]
+dropkick_impulse = 6000.0
+dropkick_height_velocity = -160.0
+remote_transform = NodePath("remote_transform_2d")
+remote_transform_offset = NodePath("remote_transform_2d/remote_transform_offset_2d")
+
+[node name="remote_transform_2d" type="RemoteTransform2D" parent="carrier_2d"]
+
+[node name="remote_transform_offset_2d" type="Marker2D" parent="carrier_2d/remote_transform_2d"]
+
+[node name="marker_2d" type="Marker2D" parent="carrier_2d/remote_transform_2d"]
+
 [node name="carriable_2d" type="Area2D" parent="." node_paths=PackedStringArray("entity")]
+collision_layer = 128
+collision_mask = 0
 script = ExtResource("5_2gv0v")
 entity = NodePath("..")
 
@@ -265,6 +281,10 @@ vacuum_force = 512.0
 
 [node name="collision_shape_2d" type="CollisionShape2D" parent="collector_2d"]
 shape = SubResource("CircleShape2D_idteb")
+
+[node name="navigation_obstacle_2d" type="NavigationObstacle2D" parent="."]
+radius = 32.0
+vertices = PackedVector2Array(-11, -7, -11, 7, 11, 7, 11, -7)
 
 [node name="animation_player" type="AnimationPlayer" parent="."]
 callback_mode_process = 0

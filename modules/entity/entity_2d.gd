@@ -157,12 +157,14 @@ func _physics_process(delta: float) -> void:
 		move_acceleration_modifier *= air_control * air_control_modifier
 		move_deceleration_modifier *= air_control * air_control_modifier
 	
+	# TODO: redo acceleration stuff. temporarily using only deceleration
+	
 	# Move Logic #
 	# Calculate necessary acceleration to move towards query direction.
 	var move_query_velocity: Vector2 = move_target_direction * move_speed * move_speed_modifier
 	var move_query_acceleration: Vector2 = (move_query_velocity - linear_velocity) / delta
 	if !move_target_direction.is_zero_approx():
-		move_query_acceleration = move_query_acceleration.limit_length(move_acceleration * move_acceleration_modifier)
+		move_query_acceleration = move_query_acceleration.limit_length(move_deceleration * move_deceleration_modifier)
 		_move_active = true
 	else:
 		move_query_acceleration = move_query_acceleration.limit_length(move_deceleration * move_deceleration_modifier)

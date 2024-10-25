@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="SGJ2024"
-run/main_scene="res://assets/test_map/test_map.tscn"
+run/main_scene="res://assets/map/map.tscn"
 config/features=PackedStringArray("4.4", "Forward Plus")
 run/max_fps=60
 boot_splash/bg_color=Color(0.172833, 0.172833, 0.172833, 1)
@@ -101,6 +101,8 @@ dropkick={
 2d_physics/layer_2="actor"
 2d_physics/layer_5="hit"
 2d_physics/layer_6="collect"
+2d_physics/layer_7="detect"
+2d_physics/layer_8="carry"
 
 [physics]
 

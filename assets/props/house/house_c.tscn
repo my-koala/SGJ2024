@@ -1,0 +1,11 @@
+[gd_scene load_steps=2 format=3 uid="uid://m0fkrejo5gq3"]
+
+[ext_resource type="PackedScene" uid="uid://e61pk8ahrknt" path="res://assets/props/house/house.tscn" id="1_4qhly"]
+
+[node name="house_c" instance=ExtResource("1_4qhly")]
+
+[node name="collision_polygon_2d" parent="." index="0"]
+polygon = PackedVector2Array(-73, 49, 72, 48, 72, 38, 84, 38, 84, 0, 71, 0, 71, -72, -73, -72)
+
+[node name="sprite_2d" parent="." index="1"]
+region_rect = Rect2(752, 384, 176, 208)

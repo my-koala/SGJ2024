@@ -107,9 +107,12 @@ player = NodePath("monster")
 
 [node name="tricker" parent="." instance=ExtResource("1_8w4bf")]
 position = Vector2(58, 5)
+navigate = true
+infinite_candy = false
 
 [node name="tricker-2" parent="." instance=ExtResource("1_8w4bf")]
 position = Vector2(-54, 37)
+infinite_candy = false
 
 [node name="monster" parent="." instance=ExtResource("1_sik5s")]
 player = true
@@ -121,7 +124,7 @@ process_callback = 0
 [node name="monster-2" parent="." instance=ExtResource("1_sik5s")]
 position = Vector2(-202, -129)
 
-[node name="collector_2d" parent="monster-2" index="7"]
+[node name="collector_2d" parent="monster-2" index="8"]
 monitoring = false
 
 [node name="camera_2d" type="Camera2D" parent="monster-2"]
@@ -293,6 +296,7 @@ modulate = Color(0, 0.807843, 0.376471, 1)
 offset_right = 40.0
 offset_bottom = 23.0
 text = "goal: get candy"
+metadata/_edit_use_anchors_ = true
 
 [node name="count" type="Label" parent="canvas_layer"]
 anchors_preset = 1
@@ -302,6 +306,7 @@ offset_left = -138.0
 offset_bottom = 23.0
 grow_horizontal = 0
 text = "candy count:"
+metadata/_edit_use_anchors_ = true
 
 [node name="win" type="Label" parent="canvas_layer"]
 visible = false
@@ -332,6 +337,7 @@ offset_right = 87.0
 grow_vertical = 0
 focus_mode = 0
 text = "spawn kid"
+metadata/_edit_use_anchors_ = true
 
 [node name="power" type="Label" parent="canvas_layer"]
 anchors_preset = 3
@@ -346,6 +352,7 @@ grow_vertical = 0
 text = "dropkick power"
 horizontal_alignment = 1
 autowrap_mode = 2
+metadata/_edit_use_anchors_ = true
 
 [node name="h_slider" type="HSlider" parent="canvas_layer/power"]
 layout_mode = 1
@@ -358,6 +365,7 @@ grow_horizontal = 2
 grow_vertical = 0
 max_value = 100000.0
 step = 100.0
+metadata/_edit_use_anchors_ = true
 
 [node name="controls" type="Label" parent="canvas_layer"]
 offset_left = 6.0
@@ -371,5 +379,6 @@ E - pickup
 space - shake
 E - dropkick
 F - drop"
+metadata/_edit_use_anchors_ = true
 
 [editable path="monster-2"]

@@ -1,0 +1,47 @@
+[gd_scene load_steps=6 format=3 uid="uid://dplih4xner27"]
+
+[ext_resource type="Texture2D" uid="uid://dxxkyh42xfxw7" path="res://assets/common/global.png" id="1_fieqp"]
+[ext_resource type="Texture2D" uid="uid://c81leqcqy50g7" path="res://assets/common/lights/light_round_256x256.png" id="1_p4tgo"]
+[ext_resource type="Texture2D" uid="uid://dwv2m2qbnbam1" path="res://assets/common/lights/light_cone_256x256.png" id="2_xm580"]
+[ext_resource type="Texture2D" uid="uid://bu6qh00vfaufg" path="res://icon.svg" id="3_x6mxe"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_mpql7"]
+radius = 4.0
+
+[node name="street_light" type="StaticBody2D"]
+
+[node name="sprite_2d" type="Sprite2D" parent="."]
+texture = ExtResource("1_fieqp")
+offset = Vector2(-0.5, -48)
+region_enabled = true
+region_rect = Rect2(576, 272, 16, 96)
+
+[node name="lights" type="Node2D" parent="."]
+
+[node name="light_round" type="PointLight2D" parent="lights"]
+position = Vector2(0, 10)
+color = Color(1, 1, 0.776471, 1)
+energy = 0.63
+texture = ExtResource("1_p4tgo")
+texture_scale = 0.75
+
+[node name="light_cone" type="PointLight2D" parent="lights"]
+position = Vector2(0, 10)
+energy = 0.2
+texture = ExtResource("2_xm580")
+texture_scale = 0.75
+
+[node name="temp" type="Node2D" parent="."]
+visible = false
+
+[node name="darkness" type="DirectionalLight2D" parent="temp"]
+blend_mode = 1
+height = 0.5
+
+[node name="sprite_2d" type="Sprite2D" parent="temp"]
+scale = Vector2(3.035, 3.035)
+texture = ExtResource("3_x6mxe")
+
+[node name="collision_shape_2d" type="CollisionShape2D" parent="."]
+position = Vector2(0, -3)
+shape = SubResource("CircleShape2D_mpql7")

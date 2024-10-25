@@ -1,10 +1,14 @@
-[gd_scene load_steps=10 format=3 uid="uid://dvfbewn5n6mdq"]
+[gd_scene load_steps=19 format=3 uid="uid://dvfbewn5n6mdq"]
 
 [ext_resource type="Script" path="res://assets/actors/tricker/tricker.gd" id="1_mqmke"]
 [ext_resource type="PackedScene" uid="uid://baj207k0pptso" path="res://assets/collectables/candy/candy.tscn" id="2_v4jvc"]
 [ext_resource type="Texture2D" uid="uid://cm121ewwk7jhb" path="res://assets/actors/tricker/tricker.png" id="2_ypw4m"]
 [ext_resource type="Script" path="res://modules/carry/carriable_2d.gd" id="3_cxku4"]
 [ext_resource type="Texture2D" uid="uid://bg0m48lwhoikh" path="res://assets/common/shadow.png" id="4_k8mfx"]
+[ext_resource type="Texture2D" uid="uid://dgpahasnejwoi" path="res://assets/common/scared_icon_background.png" id="5_2i0xn"]
+[ext_resource type="Texture2D" uid="uid://dvw7vxqdkowaj" path="res://assets/collectables/candy/candy.png" id="5_rvs45"]
+[ext_resource type="Texture2D" uid="uid://k4qef78jhqe3" path="res://assets/common/scared_icon.png" id="5_syxq7"]
+[ext_resource type="Script" path="res://modules/detect/detector_2d.gd" id="9_j84tw"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_v0la8"]
 friction = 0.25
@@ -14,11 +18,72 @@ bounce = 0.75
 radius = 6.00004
 height = 16.0
 
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_76ud7"]
+light_mode = 1
+
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_3fl5v"]
 size = Vector2(16, 8)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_0udtk"]
 size = Vector2(32, 32)
+
+[sub_resource type="Animation" id="Animation_wnc6f"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("avatar/sprite_2d:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+
+[sub_resource type="Animation" id="Animation_rf37g"]
+resource_name = "spin"
+length = 0.40001
+loop_mode = 1
+step = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("avatar/sprite_2d:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = false
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.4),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [0.0, 6.28319]
+}
+
+[sub_resource type="Animation" id="Animation_dbano"]
+resource_name = "idle"
+length = 0.40001
+loop_mode = 1
+step = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("avatar/sprite_2d:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = false
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_wtkwg"]
+_data = {
+&"RESET": SubResource("Animation_wnc6f"),
+&"spin": SubResource("Animation_rf37g"),
+&"idle": SubResource("Animation_dbano")
+}
 
 [node name="tricker" type="RigidBody2D" node_paths=PackedStringArray("air_transform")]
 collision_layer = 2
@@ -29,27 +94,91 @@ physics_material_override = SubResource("PhysicsMaterial_v0la8")
 lock_rotation = true
 freeze_mode = 1
 continuous_cd = 1
+contact_monitor = true
+max_contacts_reported = 16
 script = ExtResource("1_mqmke")
 candy_scene = ExtResource("2_v4jvc")
+infinite_candy = null
+move_speed = 48.0
+air_control = 0.05
 air_transform = NodePath("avatar")
+
+[node name="collision_shape_2d" type="CollisionShape2D" parent="."]
+position = Vector2(6.67585e-06, -3.62396e-05)
+rotation = 1.5708
+shape = SubResource("CapsuleShape2D_eplpf")
 
 [node name="avatar" type="Node2D" parent="."]
 
 [node name="sprite_2d" type="Sprite2D" parent="avatar"]
+position = Vector2(0, -12)
 texture = ExtResource("2_ypw4m")
-offset = Vector2(0.5, -12)
+offset = Vector2(0.5, 0)
 hframes = 4
 vframes = 4
+
+[node name="display" type="Control" parent="avatar"]
+material = SubResource("CanvasItemMaterial_76ud7")
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="candy" type="TextureRect" parent="avatar/display"]
+use_parent_material = true
+layout_mode = 1
+anchors_preset = -1
+offset_left = -16.0
+offset_top = -42.0
+offset_bottom = -26.0
+grow_vertical = 2
+texture = ExtResource("5_rvs45")
+expand_mode = 3
+
+[node name="label" type="Label" parent="avatar/display/candy"]
+use_parent_material = true
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 16.0
+offset_right = 16.0
+theme_override_font_sizes/font_size = 8
+text = "x3"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="scare" type="TextureProgressBar" parent="avatar/display"]
+use_parent_material = true
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -28.0
+offset_top = -76.0
+offset_right = -12.0
+offset_bottom = -60.0
+grow_horizontal = 2
+grow_vertical = 2
+max_value = 1.0
+step = 0.0
+value = 1.0
+fill_mode = 3
+texture_under = ExtResource("5_2i0xn")
+texture_progress = ExtResource("5_syxq7")
 
 [node name="shadow" type="Sprite2D" parent="."]
 modulate = Color(1, 1, 1, 0.423529)
 z_index = -1
 texture = ExtResource("4_k8mfx")
 
-[node name="collision_shape_2d" type="CollisionShape2D" parent="."]
-position = Vector2(6.67585e-06, -3.62396e-05)
-rotation = 1.5708
-shape = SubResource("CapsuleShape2D_eplpf")
+[node name="detector_2d" type="Node2D" parent="."]
+script = ExtResource("9_j84tw")
+vision_radius = 72.0
+vision_theta = 1.5708
+collision_mask = 64
 
 [node name="hurtbox_2d" type="Area2D" parent="."]
 collision_layer = 0
@@ -60,10 +189,21 @@ monitorable = false
 shape = SubResource("RectangleShape2D_3fl5v")
 
 [node name="carriable_2d" type="Area2D" parent="." node_paths=PackedStringArray("entity")]
+collision_layer = 128
+collision_mask = 0
 script = ExtResource("3_cxku4")
 entity = NodePath("..")
 
 [node name="collision_shape_2d" type="CollisionShape2D" parent="carriable_2d"]
 shape = SubResource("RectangleShape2D_0udtk")
 
+[node name="navigation_agent_2d" type="NavigationAgent2D" parent="."]
+path_desired_distance = 16.0
+target_desired_distance = 8.0
+path_max_distance = 32.0
+simplify_path = true
+
 [node name="animation_player" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_wtkwg")
+}

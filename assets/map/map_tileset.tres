@@ -1,0 +1,35 @@
+[gd_resource type="TileSet" load_steps=3 format=3 uid="uid://fr16vnlhh3d8"]
+
+[ext_resource type="Texture2D" uid="uid://dxxkyh42xfxw7" path="res://assets/common/global.png" id="1_onscw"]
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_us2x1"]
+texture = ExtResource("1_onscw")
+21:21/0 = 0
+22:21/0 = 0
+24:21/0 = 0
+25:21/0 = 0
+27:21/0 = 0
+28:21/0 = 0
+30:21/0 = 0
+31:21/0 = 0
+32:21/0 = 0
+33:21/0 = 0
+24:22/0 = 0
+25:22/0 = 0
+27:22/0 = 0
+28:22/0 = 0
+30:22/0 = 0
+31:22/0 = 0
+32:22/0 = 0
+33:22/0 = 0
+30:23/0 = 0
+31:23/0 = 0
+32:23/0 = 0
+33:23/0 = 0
+30:24/0 = 0
+31:24/0 = 0
+32:24/0 = 0
+33:24/0 = 0
+
+[resource]
+sources/0 = SubResource("TileSetAtlasSource_us2x1")
