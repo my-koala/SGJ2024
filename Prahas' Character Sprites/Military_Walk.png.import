@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://b6xki136m3gqh"
-path="res://.godot/imported/Hunter_Walk (1).png-728f51124930ee4abf6ef90df32cca2d.ctex"
+uid="uid://3hlw8t8r7di0"
+path="res://.godot/imported/Military_Walk.png-846529e6ef398fa621bc4ab0652d3069.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Prahas' Character Sprites/Hunter_Walk (1).png"
-dest_files=["res://.godot/imported/Hunter_Walk (1).png-728f51124930ee4abf6ef90df32cca2d.ctex"]
+source_file="res://Prahas' Character Sprites/Military_Walk.png"
+dest_files=["res://.godot/imported/Military_Walk.png-846529e6ef398fa621bc4ab0652d3069.ctex"]
 
 [params]
 
