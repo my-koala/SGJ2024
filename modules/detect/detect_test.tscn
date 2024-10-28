@@ -1,0 +1,78 @@
+[gd_scene load_steps=5 format=3 uid="uid://baftg1ffx2exm"]
+
+[ext_resource type="Script" path="res://modules/detect/detector_2d.gd" id="1_b1cl2"]
+[ext_resource type="Script" path="res://modules/detect/detectable_2d.gd" id="2_e85cm"]
+
+[sub_resource type="GDScript" id="GDScript_db7kw"]
+script/source = "extends Node2D
+
+@onready
+var _detector: Detector2D = $detector_2d as Detector2D
+@onready
+var _detectable: Detectable2D = $detectable_2d as Detectable2D
+@onready
+var _rotation_slider: Slider = $canvas_layer/rotation/slider as Slider
+
+func _ready() -> void:
+	_detector.detectable_entered.connect(_on_detector_detectable_entered)
+	_detector.detectable_exited.connect(_on_detector_detectable_exited)
+
+func _on_detector_detectable_entered(detectable: Detectable2D) -> void:
+	modulate = Color.RED
+
+func _on_detector_detectable_exited(detectable: Detectable2D) -> void:
+	modulate = Color.WHITE
+
+var _move: Vector2 = Vector2.ZERO
+
+func _input(event: InputEvent) -> void:
+	_move = Vector2.ZERO
+	_move.x += float(Input.is_action_pressed(&\"move_x+\"))
+	_move.x -= float(Input.is_action_pressed(&\"move_x-\"))
+	_move.y += float(Input.is_action_pressed(&\"move_y+\"))
+	_move.y -= float(Input.is_action_pressed(&\"move_y-\"))
+
+func _physics_process(delta: float) -> void:
+	_detector.global_rotation = _rotation_slider.value * (PI / 180.0)
+	_detectable.global_position += _move * delta * 10.0
+"
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_rvwxl"]
+
+[node name="detect_test" type="Node2D"]
+script = SubResource("GDScript_db7kw")
+
+[node name="detector_2d" type="Node2D" parent="."]
+script = ExtResource("1_b1cl2")
+vision_radius = 48.0
+vision_theta = 0.785398
+debug_draw = true
+
+[node name="detectable_2d" type="Area2D" parent="."]
+position = Vector2(27, -19)
+script = ExtResource("2_e85cm")
+
+[node name="collision_shape_2d" type="CollisionShape2D" parent="detectable_2d"]
+shape = SubResource("CircleShape2D_rvwxl")
+
+[node name="camera_2d" type="Camera2D" parent="."]
+zoom = Vector2(2, 2)
+process_callback = 0
+
+[node name="canvas_layer" type="CanvasLayer" parent="."]
+
+[node name="rotation" type="Label" parent="canvas_layer"]
+offset_left = 35.0
+offset_top = 19.0
+offset_right = 98.0
+offset_bottom = 42.0
+text = "rotation"
+
+[node name="slider" type="HSlider" parent="canvas_layer/rotation"]
+layout_mode = 0
+offset_left = 3.0
+offset_top = 18.0
+offset_right = 58.0
+offset_bottom = 39.0
+min_value = -360.0
+max_value = 360.0

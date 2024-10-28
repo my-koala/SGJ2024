@@ -1,6 +1,8 @@
 @tool
 extends Node2D
 
+const DoorNetwork: = preload("res://assets/props/door/door_network.gd")
+
 @export
 var player: Entity2D = null
 
@@ -26,6 +28,9 @@ var _power_slider: Slider = $canvas_layer/power/h_slider
 @onready
 var _power_label: Label = $canvas_layer/power as Label
 
+@export
+var door_network: DoorNetwork = null
+
 @onready var _player_carrier: Carrier2D = player.get_node_or_null("carrier_2d") as Carrier2D
 @onready var _player_collector: Collector2D = player.get_node_or_null("collector_2d") as Collector2D
 
@@ -41,6 +46,7 @@ func _button_spawn_kid_pressed() -> void:
 	var tricker: Entity2D = TRICKER.instantiate() as Entity2D
 	tricker.global_position = player.global_position + (Vector2.DOWN * 16.0)
 	tricker.set(&"infinite_candy", true)
+	tricker.set(&"door_network", door_network)
 	add_child(tricker)
 
 func _physics_process(delta: float) -> void:

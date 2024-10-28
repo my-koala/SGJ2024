@@ -1,0 +1,55 @@
+[gd_scene load_steps=7 format=3 uid="uid://cflfxr6fhq8xo"]
+
+[ext_resource type="Script" path="res://modules/entity/entity_2d.gd" id="1_046cf"]
+[ext_resource type="Texture2D" uid="uid://ctr02n0ud7thb" path="res://assets/actors/hunter/hunter.png" id="2_kgiqm"]
+[ext_resource type="Texture2D" uid="uid://dgpahasnejwoi" path="res://assets/common/scared_icon_background.png" id="4_1pvsc"]
+[ext_resource type="Script" path="res://modules/detect/detector_2d.gd" id="5_f1ttn"]
+[ext_resource type="Texture2D" uid="uid://k4qef78jhqe3" path="res://assets/common/scared_icon.png" id="5_tiv77"]
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_imq2g"]
+light_mode = 1
+
+[node name="hunter" type="RigidBody2D"]
+script = ExtResource("1_046cf")
+
+[node name="avatar" type="Node2D" parent="."]
+
+[node name="sprite_2d" type="Sprite2D" parent="avatar"]
+position = Vector2(0, -12)
+texture = ExtResource("2_kgiqm")
+offset = Vector2(0.5, 0)
+hframes = 2
+vframes = 2
+
+[node name="display" type="Control" parent="avatar"]
+material = SubResource("CanvasItemMaterial_imq2g")
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+metadata/_edit_use_anchors_ = true
+
+[node name="scare" type="TextureProgressBar" parent="avatar/display"]
+use_parent_material = true
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -28.0
+offset_top = -76.0
+offset_right = -12.0
+offset_bottom = -60.0
+grow_horizontal = 2
+grow_vertical = 2
+max_value = 1.0
+step = 0.0
+value = 1.0
+fill_mode = 3
+texture_under = ExtResource("4_1pvsc")
+texture_progress = ExtResource("5_tiv77")
+metadata/_edit_use_anchors_ = true
+
+[node name="detector_2d" type="Node2D" parent="."]
+script = ExtResource("5_f1ttn")

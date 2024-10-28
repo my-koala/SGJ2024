@@ -2,6 +2,8 @@
 extends Area2D
 class_name Carriable2D
 
+signal drop_kicked()
+
 @export
 var entity: Entity2D = null
 

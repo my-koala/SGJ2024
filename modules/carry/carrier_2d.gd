@@ -87,6 +87,8 @@ func dropkick(direction: Vector2) -> void:
 	_carriable.entity.air_velocity = dropkick_height_velocity
 	_carriable.entity.apply_central_impulse(direction * dropkick_impulse)
 	
+	_carriable.drop_kicked.emit()
+	
 	_carriable._carrier = null
 	_carriable = null
 

@@ -39,7 +39,6 @@ var _animation_player: AnimationPlayer = $animation_player as AnimationPlayer
 func _ready() -> void:
 	if Engine.is_editor_hint():
 		return
-	
 	_animation_player.callback_mode_process = AnimationMixer.ANIMATION_CALLBACK_MODE_PROCESS_MANUAL
 
 var _input_move: Vector2 = Vector2.ZERO

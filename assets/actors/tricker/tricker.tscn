@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=3 uid="uid://dvfbewn5n6mdq"]
+[gd_scene load_steps=31 format=3 uid="uid://dvfbewn5n6mdq"]
 
 [ext_resource type="Script" path="res://assets/actors/tricker/tricker.gd" id="1_mqmke"]
 [ext_resource type="PackedScene" uid="uid://baj207k0pptso" path="res://assets/collectables/candy/candy.tscn" id="2_v4jvc"]
@@ -9,14 +9,26 @@
 [ext_resource type="Texture2D" uid="uid://dvw7vxqdkowaj" path="res://assets/collectables/candy/candy.png" id="5_rvs45"]
 [ext_resource type="Texture2D" uid="uid://k4qef78jhqe3" path="res://assets/common/scared_icon.png" id="5_syxq7"]
 [ext_resource type="Script" path="res://modules/detect/detector_2d.gd" id="9_j84tw"]
+[ext_resource type="AudioStream" uid="uid://nhi86draomii" path="res://assets/actors/tricker/screams/1.wav" id="10_02k42"]
+[ext_resource type="AudioStream" uid="uid://b1ygea3aoyif5" path="res://assets/actors/tricker/screams/2.wav" id="11_52x0w"]
+[ext_resource type="AudioStream" uid="uid://d4hymiwcj636t" path="res://assets/actors/tricker/screams/3.wav" id="12_mijov"]
+[ext_resource type="AudioStream" uid="uid://c3jjbgstw6ewr" path="res://assets/actors/tricker/screams/4.wav" id="13_nbprp"]
+[ext_resource type="AudioStream" uid="uid://i836l4ot1iye" path="res://assets/actors/tricker/screams/5.wav" id="14_ao551"]
+[ext_resource type="AudioStream" uid="uid://cxvnpb0mt40gx" path="res://assets/actors/tricker/screams/6.wav" id="15_epsqm"]
+[ext_resource type="AudioStream" uid="uid://bs4e3fbu5mw4h" path="res://assets/actors/tricker/screams/7.wav" id="16_1gtaa"]
+[ext_resource type="AudioStream" uid="uid://bvdoaowhs2uwm" path="res://assets/actors/tricker/screams/8.wav" id="17_p21vx"]
+[ext_resource type="AudioStream" uid="uid://b75m52qtgchfd" path="res://assets/actors/tricker/screams/9.wav" id="18_t1po4"]
+[ext_resource type="AudioStream" uid="uid://cjhgk4v7guqrc" path="res://assets/actors/tricker/screams/10.wav" id="19_lolem"]
+[ext_resource type="AudioStream" uid="uid://y0kqy3nv5i57" path="res://assets/actors/tricker/screams/11.wav" id="20_7jv24"]
+[ext_resource type="Texture2D" uid="uid://vad6ujblvojl" path="res://assets/common/lights/light_cone_x64.png" id="21_xr1ug"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_v0la8"]
 friction = 0.25
 bounce = 0.75
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_eplpf"]
-radius = 6.00004
-height = 16.0
+radius = 6.0
+height = 12.0
 
 [sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_76ud7"]
 light_mode = 1
@@ -81,8 +93,8 @@ tracks/0/keys = {
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_wtkwg"]
 _data = {
 &"RESET": SubResource("Animation_wnc6f"),
-&"spin": SubResource("Animation_rf37g"),
-&"idle": SubResource("Animation_dbano")
+&"idle": SubResource("Animation_dbano"),
+&"spin": SubResource("Animation_rf37g")
 }
 
 [node name="tricker" type="RigidBody2D" node_paths=PackedStringArray("air_transform")]
@@ -98,8 +110,10 @@ contact_monitor = true
 max_contacts_reported = 16
 script = ExtResource("1_mqmke")
 candy_scene = ExtResource("2_v4jvc")
-infinite_candy = null
+scare_speed = 2.0
+navigate = true
 move_speed = 48.0
+face_speed = 0.5
 air_control = 0.05
 air_transform = NodePath("avatar")
 
@@ -123,6 +137,7 @@ layout_mode = 3
 anchors_preset = 0
 offset_right = 40.0
 offset_bottom = 40.0
+metadata/_edit_use_anchors_ = true
 
 [node name="candy" type="TextureRect" parent="avatar/display"]
 use_parent_material = true
@@ -134,6 +149,7 @@ offset_bottom = -26.0
 grow_vertical = 2
 texture = ExtResource("5_rvs45")
 expand_mode = 3
+metadata/_edit_use_anchors_ = true
 
 [node name="label" type="Label" parent="avatar/display/candy"]
 use_parent_material = true
@@ -147,6 +163,7 @@ theme_override_font_sizes/font_size = 8
 text = "x3"
 horizontal_alignment = 1
 vertical_alignment = 1
+metadata/_edit_use_anchors_ = true
 
 [node name="scare" type="TextureProgressBar" parent="avatar/display"]
 use_parent_material = true
@@ -168,6 +185,7 @@ value = 1.0
 fill_mode = 3
 texture_under = ExtResource("5_2i0xn")
 texture_progress = ExtResource("5_syxq7")
+metadata/_edit_use_anchors_ = true
 
 [node name="shadow" type="Sprite2D" parent="."]
 modulate = Color(1, 1, 1, 0.423529)
@@ -179,6 +197,12 @@ script = ExtResource("9_j84tw")
 vision_radius = 72.0
 vision_theta = 1.5708
 collision_mask = 64
+
+[node name="lantern_light" type="PointLight2D" parent="detector_2d"]
+color = Color(0.999999, 0.557728, 0.112623, 1)
+energy = 0.5
+texture = ExtResource("21_xr1ug")
+offset = Vector2(0, 32)
 
 [node name="hurtbox_2d" type="Area2D" parent="."]
 collision_layer = 0
@@ -198,10 +222,101 @@ entity = NodePath("..")
 shape = SubResource("RectangleShape2D_0udtk")
 
 [node name="navigation_agent_2d" type="NavigationAgent2D" parent="."]
-path_desired_distance = 16.0
+path_desired_distance = 4.0
 target_desired_distance = 8.0
-path_max_distance = 32.0
+path_max_distance = 10.0
 simplify_path = true
+debug_enabled = true
+
+[node name="audio" type="Node2D" parent="."]
+
+[node name="scream_1" type="AudioStreamPlayer2D" parent="audio"]
+stream = ExtResource("10_02k42")
+volume_db = -20.0
+max_distance = 300.0
+attenuation = 2.73208
+panning_strength = 2.0
+bus = &"Scream"
+
+[node name="scream_2" type="AudioStreamPlayer2D" parent="audio"]
+stream = ExtResource("11_52x0w")
+volume_db = -20.0
+max_distance = 300.0
+attenuation = 2.73208
+panning_strength = 2.0
+bus = &"Scream"
+
+[node name="scream_3" type="AudioStreamPlayer2D" parent="audio"]
+stream = ExtResource("12_mijov")
+volume_db = -20.0
+max_distance = 300.0
+attenuation = 2.73208
+panning_strength = 2.0
+bus = &"Scream"
+
+[node name="scream_4" type="AudioStreamPlayer2D" parent="audio"]
+stream = ExtResource("13_nbprp")
+volume_db = -20.0
+max_distance = 300.0
+attenuation = 2.73208
+panning_strength = 2.0
+bus = &"Scream"
+
+[node name="scream_5" type="AudioStreamPlayer2D" parent="audio"]
+stream = ExtResource("14_ao551")
+volume_db = -20.0
+max_distance = 300.0
+attenuation = 2.73208
+panning_strength = 2.0
+bus = &"Scream"
+
+[node name="scream_6" type="AudioStreamPlayer2D" parent="audio"]
+stream = ExtResource("15_epsqm")
+volume_db = -20.0
+max_distance = 300.0
+attenuation = 2.73208
+panning_strength = 2.0
+bus = &"Scream"
+
+[node name="scream_7" type="AudioStreamPlayer2D" parent="audio"]
+stream = ExtResource("16_1gtaa")
+volume_db = -20.0
+max_distance = 300.0
+attenuation = 2.73208
+panning_strength = 2.0
+bus = &"Scream"
+
+[node name="scream_8" type="AudioStreamPlayer2D" parent="audio"]
+stream = ExtResource("17_p21vx")
+volume_db = -20.0
+max_distance = 300.0
+attenuation = 2.73208
+panning_strength = 2.0
+bus = &"Scream"
+
+[node name="scream_9" type="AudioStreamPlayer2D" parent="audio"]
+stream = ExtResource("18_t1po4")
+volume_db = -20.0
+max_distance = 300.0
+attenuation = 2.73208
+panning_strength = 2.0
+bus = &"Scream"
+
+[node name="scream_10" type="AudioStreamPlayer2D" parent="audio"]
+stream = ExtResource("19_lolem")
+volume_db = -20.0
+max_distance = 300.0
+attenuation = 2.73208
+panning_strength = 2.0
+bus = &"Scream"
+
+[node name="scream_11" type="AudioStreamPlayer2D" parent="audio"]
+stream = ExtResource("20_7jv24")
+volume_db = -20.0
+max_distance = 300.0
+attenuation = 2.73208
+panning_strength = 2.0
+bus = &"Scream"
 
 [node name="animation_player" type="AnimationPlayer" parent="."]
 libraries = {

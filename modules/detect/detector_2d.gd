@@ -17,6 +17,9 @@ func get_detectables() -> Array[Detectable2D]:
 func get_detectable_count() -> int:
 	return _detectables.size()
 
+func get_detectable(index: int) -> Detectable2D:
+	return _detectables[index]
+
 @export
 var enabled: bool = true
 
@@ -48,7 +51,12 @@ var vision_attenuation: float = 0.75:
 var collision_mask: int = 1
 
 @export
-var debug_draw: bool = false
+var debug_draw: bool = false:
+	get:
+		return debug_draw
+	set(value):
+		debug_draw = value
+		queue_redraw()
 
 var _detectables: Array[Detectable2D] = []
 
@@ -99,8 +107,9 @@ func _physics_process(delta: float) -> void:
 				continue
 			
 			var theta: float = global_position.angle_to_point(detectable.global_position)
-			if absf(theta - fposmod(ROTATION_OFFSET + global_rotation, TAU)) > vision_theta / 2.0:
+			if absf(angle_difference(theta, ROTATION_OFFSET + global_rotation)) > vision_theta / 2.0:
 				continue# Outside vision cone #
+				
 			
 			detectables.append(detectable)
 		PhysicsServer2D.free_rid(shape_rid)

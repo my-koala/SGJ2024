@@ -1,9 +1,19 @@
-[gd_scene load_steps=7 format=3 uid="uid://dvq6i3iph7ot4"]
+[gd_scene load_steps=12 format=3 uid="uid://dvq6i3iph7ot4"]
 
 [ext_resource type="Texture2D" uid="uid://dxxkyh42xfxw7" path="res://assets/common/global.png" id="1_6sqmf"]
+[ext_resource type="Script" path="res://assets/props/door/door.gd" id="1_pd4qh"]
+[ext_resource type="Texture2D" uid="uid://cpio1ami5ytom" path="res://assets/common/white.png" id="2_64ikr"]
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_j5xvb"]
+light_mode = 1
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_e6fbc"]
+size = Vector2(36, 4)
 
 [sub_resource type="Animation" id="Animation_r5k5k"]
 resource_name = "closed"
+loop_mode = 1
+step = 1.0
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -49,17 +59,61 @@ tracks/0/keys = {
 "values": [2]
 }
 
+[sub_resource type="Animation" id="Animation_ujsmh"]
+resource_name = "opening"
+length = 0.200007
+step = 0.0666667
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("sprite_2d:frame")
+tracks/0/interp = 0
+tracks/0/loop_wrap = false
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.0666667, 0.133333, 0.2),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [0, 1, 2, 2]
+}
+
+[sub_resource type="Animation" id="Animation_531x2"]
+resource_name = "closing"
+length = 0.200007
+step = 0.0666667
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("sprite_2d:frame")
+tracks/0/interp = 0
+tracks/0/loop_wrap = false
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.0666667, 0.133333, 0.2),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [2, 1, 0, 0]
+}
+
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_pue7b"]
 _data = {
 &"closed": SubResource("Animation_r5k5k"),
 &"RESET": SubResource("Animation_u7pug"),
+&"opening": SubResource("Animation_ujsmh"),
+&"closing": SubResource("Animation_531x2"),
 &"opened": SubResource("Animation_i70vc")
 }
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_e6fbc"]
-size = Vector2(36, 4)
+[node name="door" type="StaticBody2D" node_paths=PackedStringArray("root")]
+script = ExtResource("1_pd4qh")
+root = NodePath("root")
 
-[node name="door" type="StaticBody2D"]
+[node name="back" type="Sprite2D" parent="."]
+modulate = Color(1, 1, 0.745098, 1)
+material = SubResource("CanvasItemMaterial_j5xvb")
+texture = ExtResource("2_64ikr")
+offset = Vector2(0, -18)
+hframes = 3
+region_enabled = true
+region_rect = Rect2(0, 0, 97.595, 36)
 
 [node name="sprite_2d" type="Sprite2D" parent="."]
 texture = ExtResource("1_6sqmf")
@@ -68,11 +122,16 @@ hframes = 3
 region_enabled = true
 region_rect = Rect2(312, 456, 240, 48)
 
-[node name="animation_player" type="AnimationPlayer" parent="."]
-libraries = {
-&"": SubResource("AnimationLibrary_pue7b")
-}
-
 [node name="collision_shape_2d" type="CollisionShape2D" parent="."]
 position = Vector2(0, -2)
 shape = SubResource("RectangleShape2D_e6fbc")
+
+[node name="root" type="Marker2D" parent="."]
+position = Vector2(0, 16)
+
+[node name="animation_player" type="AnimationPlayer" parent="."]
+callback_mode_process = 0
+callback_mode_method = 1
+libraries = {
+&"": SubResource("AnimationLibrary_pue7b")
+}

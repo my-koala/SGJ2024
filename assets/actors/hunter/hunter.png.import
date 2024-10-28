@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dk3dmeqx3a24b"
-path="res://.godot/imported/monster_a.png-01370bed282eb3f0d984e3f019342f9d.ctex"
+uid="uid://ctr02n0ud7thb"
+path="res://.godot/imported/hunter.png-4471c03e7864c9e6305a3a4906feb934.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/actors/monster_a/monster_a.png"
-dest_files=["res://.godot/imported/monster_a.png-01370bed282eb3f0d984e3f019342f9d.ctex"]
+source_file="res://assets/actors/hunter/hunter.png"
+dest_files=["res://.godot/imported/hunter.png-4471c03e7864c9e6305a3a4906feb934.ctex"]
 
 [params]
 

@@ -2,7 +2,7 @@
 
 [ext_resource type="PackedScene" uid="uid://dvfbewn5n6mdq" path="res://assets/actors/tricker/tricker.tscn" id="1_8w4bf"]
 [ext_resource type="Script" path="res://assets/test_map/test_map.gd" id="1_i8ajr"]
-[ext_resource type="PackedScene" uid="uid://bumpjbhfi4uxm" path="res://assets/actors/monster_a/monster_a.tscn" id="1_sik5s"]
+[ext_resource type="PackedScene" uid="uid://bumpjbhfi4uxm" path="res://assets/actors/monster/monster.tscn" id="1_sik5s"]
 [ext_resource type="PackedScene" uid="uid://baj207k0pptso" path="res://assets/collectables/candy/candy.tscn" id="3_uy7b6"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_1pm8f"]
