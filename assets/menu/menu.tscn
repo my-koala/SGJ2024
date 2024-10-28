@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://d3h1qo3ed8m5s"]
+[gd_scene load_steps=12 format=3 uid="uid://d3h1qo3ed8m5s"]
 
 [ext_resource type="Script" path="res://assets/menu/menu.gd" id="1_80ymb"]
 [ext_resource type="Texture2D" uid="uid://cs1pqckh7cyjg" path="res://assets/menu/Pause Menu Artwork/Side_Profile_empty.png" id="2_uje2l"]
@@ -7,6 +7,7 @@
 [ext_resource type="Script" path="res://assets/menu/pause_menu_gui.gd" id="3_ahm3t"]
 [ext_resource type="Texture2D" uid="uid://igh08kyx80ug" path="res://assets/menu/Button_base.png" id="5_1vfqf"]
 [ext_resource type="Texture2D" uid="uid://k7jxupfu4mbs" path="res://assets/menu/Button_selected.png" id="6_4lq1n"]
+[ext_resource type="Texture2D" uid="uid://d0yo3hhmhdwnu" path="res://assets/menu/Lose Menu Artwork/Frank lose.png" id="8_412gn"]
 [ext_resource type="Texture2D" uid="uid://d38ptit2ix7up" path="res://assets/menu/Win Menu Artwork/Frank win.png" id="8_482cb"]
 [ext_resource type="Texture2D" uid="uid://bm5c0ibofqj3h" path="res://assets/menu/Game UI Artwork/Frank UI base.png" id="9_1mv0i"]
 [ext_resource type="Texture2D" uid="uid://dbotpdnfxlt0c" path="res://assets/menu/Game UI Artwork/Frank UI mask.png" id="10_oy14p"]
@@ -110,13 +111,36 @@ texture_pressed = ExtResource("6_4lq1n")
 texture_hover = ExtResource("6_4lq1n")
 
 [node name="game_over" type="Control" parent="."]
-visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+
+[node name="texture_rect" type="TextureRect" parent="game_over"]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+texture = ExtResource("8_412gn")
+
+[node name="buttons_container" type="VBoxContainer" parent="game_over"]
+offset_left = 238.0
+offset_top = 60.0
+offset_right = 382.0
+offset_bottom = 124.0
+
+[node name="texture_button" type="TextureButton" parent="game_over/buttons_container"]
+layout_mode = 2
+texture_normal = ExtResource("5_1vfqf")
+texture_pressed = ExtResource("6_4lq1n")
+texture_hover = ExtResource("6_4lq1n")
+
+[node name="texture_button-2" type="TextureButton" parent="game_over/buttons_container"]
+layout_mode = 2
+texture_normal = ExtResource("5_1vfqf")
+texture_pressed = ExtResource("6_4lq1n")
+texture_hover = ExtResource("6_4lq1n")
 
 [node name="win_screen" type="Control" parent="."]
 visible = false

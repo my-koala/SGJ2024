@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://djqccxguesnaf"
-path="res://.godot/imported/Frank wint.png-3ada183523d0d20c8b53b00be328855b.ctex"
+uid="uid://d0yo3hhmhdwnu"
+path="res://.godot/imported/Frank lose.png-a4e1366e28253dc11869a52185de013a.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/menu/Main Menu Artwork/Frank wint.png"
-dest_files=["res://.godot/imported/Frank wint.png-3ada183523d0d20c8b53b00be328855b.ctex"]
+source_file="res://assets/menu/Lose Menu Artwork/Frank lose.png"
+dest_files=["res://.godot/imported/Frank lose.png-a4e1366e28253dc11869a52185de013a.ctex"]
 
 [params]
 
