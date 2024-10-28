@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://b3utmvmqsvk7h"
+path="res://.godot/imported/Waltz of Nightmares.mp3-da9b0a130e66faca783d196ce94d98b1.mp3str"
+
+[deps]
+
+source_file="res://assets/sound/music/Waltz of Nightmares.mp3"
+dest_files=["res://.godot/imported/Waltz of Nightmares.mp3-da9b0a130e66faca783d196ce94d98b1.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

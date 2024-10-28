@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://d3h1qo3ed8m5s"]
+[gd_scene load_steps=14 format=3 uid="uid://d3h1qo3ed8m5s"]
 
 [ext_resource type="Script" path="res://assets/menu/menu.gd" id="1_80ymb"]
 [ext_resource type="Texture2D" uid="uid://cs1pqckh7cyjg" path="res://assets/menu/Pause Menu Artwork/Side_Profile_empty.png" id="2_uje2l"]
@@ -11,6 +11,8 @@
 [ext_resource type="Texture2D" uid="uid://d38ptit2ix7up" path="res://assets/menu/Win Menu Artwork/Frank win.png" id="8_482cb"]
 [ext_resource type="Texture2D" uid="uid://bm5c0ibofqj3h" path="res://assets/menu/Game UI Artwork/Frank UI base.png" id="9_1mv0i"]
 [ext_resource type="Texture2D" uid="uid://dbotpdnfxlt0c" path="res://assets/menu/Game UI Artwork/Frank UI mask.png" id="10_oy14p"]
+[ext_resource type="Texture2D" uid="uid://xg6xsg0g6lk" path="res://assets/menu/Game UI Artwork/Health_Bar_base.png" id="12_apfbv"]
+[ext_resource type="Texture2D" uid="uid://6da4t8djxar8" path="res://assets/menu/Game UI Artwork/Health_Bar_bar.png" id="13_y3gn8"]
 
 [node name="menu" type="Control"]
 layout_mode = 3
@@ -111,6 +113,7 @@ texture_pressed = ExtResource("6_4lq1n")
 texture_hover = ExtResource("6_4lq1n")
 
 [node name="game_over" type="Control" parent="."]
+visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -168,7 +171,7 @@ offset_right = 40.0
 offset_bottom = 40.0
 texture = ExtResource("9_1mv0i")
 
-[node name="texture_progress_bar" type="TextureProgressBar" parent="game_ui"]
+[node name="bar_fear_meter" type="TextureProgressBar" parent="game_ui"]
 layout_mode = 0
 offset_right = 60.0
 offset_bottom = 80.0
@@ -176,3 +179,19 @@ fill_mode = 3
 texture_under = ExtResource("10_oy14p")
 texture_over = ExtResource("10_oy14p")
 texture_progress = ExtResource("10_oy14p")
+
+[node name="base_health_meter" type="TextureRect" parent="game_ui"]
+layout_mode = 0
+offset_left = 245.0
+offset_right = 400.0
+offset_bottom = 44.0
+texture = ExtResource("12_apfbv")
+
+[node name="bar_health_meter" type="TextureProgressBar" parent="game_ui"]
+layout_mode = 0
+offset_left = 250.0
+offset_right = 394.0
+offset_bottom = 44.0
+texture_under = ExtResource("13_y3gn8")
+texture_over = ExtResource("13_y3gn8")
+texture_progress = ExtResource("13_y3gn8")
