@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=3 uid="uid://d3h1qo3ed8m5s"]
+[gd_scene load_steps=15 format=3 uid="uid://d3h1qo3ed8m5s"]
 
 [ext_resource type="Script" path="res://assets/menu/menu.gd" id="1_80ymb"]
 [ext_resource type="Texture2D" uid="uid://cs1pqckh7cyjg" path="res://assets/menu/Pause Menu Artwork/Side_Profile_empty.png" id="2_uje2l"]
@@ -6,6 +6,7 @@
 [ext_resource type="Texture2D" uid="uid://clw883jios6dx" path="res://assets/menu/Pause Menu Artwork/side_profile_background.png" id="3_2ps03"]
 [ext_resource type="Script" path="res://assets/menu/pause_menu_gui.gd" id="3_ahm3t"]
 [ext_resource type="Texture2D" uid="uid://igh08kyx80ug" path="res://assets/menu/Button_base.png" id="5_1vfqf"]
+[ext_resource type="FontFile" uid="uid://ba2lll8udy5ll" path="res://assets/fonts/Crang.ttf" id="5_a8sbs"]
 [ext_resource type="Texture2D" uid="uid://k7jxupfu4mbs" path="res://assets/menu/Button_selected.png" id="6_4lq1n"]
 [ext_resource type="Texture2D" uid="uid://d0yo3hhmhdwnu" path="res://assets/menu/Lose Menu Artwork/Frank lose.png" id="8_412gn"]
 [ext_resource type="Texture2D" uid="uid://d38ptit2ix7up" path="res://assets/menu/Win Menu Artwork/Frank win.png" id="8_482cb"]
@@ -56,11 +57,29 @@ texture_normal = ExtResource("5_1vfqf")
 texture_pressed = ExtResource("6_4lq1n")
 texture_hover = ExtResource("6_4lq1n")
 
+[node name="label" type="Label" parent="title_screen/buttons_container/texture_button"]
+offset_right = 144.0
+offset_bottom = 30.0
+theme_override_colors/font_color = Color(0.294118, 0.411765, 0.184314, 1)
+theme_override_fonts/font = ExtResource("5_a8sbs")
+text = "Play"
+horizontal_alignment = 1
+vertical_alignment = 1
+
 [node name="texture_button-2" type="TextureButton" parent="title_screen/buttons_container"]
 layout_mode = 2
 texture_normal = ExtResource("5_1vfqf")
 texture_pressed = ExtResource("6_4lq1n")
 texture_hover = ExtResource("6_4lq1n")
+
+[node name="label" type="Label" parent="title_screen/buttons_container/texture_button-2"]
+offset_right = 144.0
+offset_bottom = 30.0
+theme_override_colors/font_color = Color(0.294118, 0.411765, 0.184314, 1)
+theme_override_fonts/font = ExtResource("5_a8sbs")
+text = "Close Game"
+horizontal_alignment = 1
+vertical_alignment = 1
 
 [node name="game_paused" type="Control" parent="." node_paths=PackedStringArray("side_profile_node")]
 visible = false
@@ -100,17 +119,47 @@ texture_normal = ExtResource("5_1vfqf")
 texture_pressed = ExtResource("6_4lq1n")
 texture_hover = ExtResource("6_4lq1n")
 
+[node name="label" type="Label" parent="game_paused/buttons_container/texture_button"]
+layout_mode = 0
+offset_right = 144.0
+offset_bottom = 30.0
+theme_override_colors/font_color = Color(0.294118, 0.411765, 0.184314, 1)
+theme_override_fonts/font = ExtResource("5_a8sbs")
+text = "Play"
+horizontal_alignment = 1
+vertical_alignment = 1
+
 [node name="texture_button-2" type="TextureButton" parent="game_paused/buttons_container"]
 layout_mode = 2
 texture_normal = ExtResource("5_1vfqf")
 texture_pressed = ExtResource("6_4lq1n")
 texture_hover = ExtResource("6_4lq1n")
 
+[node name="label" type="Label" parent="game_paused/buttons_container/texture_button-2"]
+offset_right = 144.0
+offset_bottom = 30.0
+theme_override_colors/font_color = Color(0.294118, 0.411765, 0.184314, 1)
+theme_override_fonts/font = ExtResource("5_a8sbs")
+text = "Main Menu
+"
+horizontal_alignment = 1
+vertical_alignment = 1
+
 [node name="texture_button-3" type="TextureButton" parent="game_paused/buttons_container"]
 layout_mode = 2
 texture_normal = ExtResource("5_1vfqf")
 texture_pressed = ExtResource("6_4lq1n")
 texture_hover = ExtResource("6_4lq1n")
+
+[node name="label" type="Label" parent="game_paused/buttons_container/texture_button-3"]
+offset_right = 144.0
+offset_bottom = 30.0
+theme_override_colors/font_color = Color(0.294118, 0.411765, 0.184314, 1)
+theme_override_fonts/font = ExtResource("5_a8sbs")
+text = "Close Game
+"
+horizontal_alignment = 1
+vertical_alignment = 1
 
 [node name="game_over" type="Control" parent="."]
 visible = false
@@ -130,9 +179,9 @@ texture = ExtResource("8_412gn")
 [node name="buttons_container" type="VBoxContainer" parent="game_over"]
 layout_mode = 0
 offset_left = 238.0
-offset_top = 60.0
+offset_top = 29.0
 offset_right = 382.0
-offset_bottom = 124.0
+offset_bottom = 127.0
 
 [node name="texture_button" type="TextureButton" parent="game_over/buttons_container"]
 layout_mode = 2
@@ -140,14 +189,46 @@ texture_normal = ExtResource("5_1vfqf")
 texture_pressed = ExtResource("6_4lq1n")
 texture_hover = ExtResource("6_4lq1n")
 
+[node name="label" type="Label" parent="game_over/buttons_container/texture_button"]
+offset_right = 144.0
+offset_bottom = 30.0
+theme_override_colors/font_color = Color(0.294118, 0.411765, 0.184314, 1)
+theme_override_fonts/font = ExtResource("5_a8sbs")
+text = "Retry"
+horizontal_alignment = 1
+vertical_alignment = 1
+
 [node name="texture_button-2" type="TextureButton" parent="game_over/buttons_container"]
 layout_mode = 2
 texture_normal = ExtResource("5_1vfqf")
 texture_pressed = ExtResource("6_4lq1n")
 texture_hover = ExtResource("6_4lq1n")
 
+[node name="label" type="Label" parent="game_over/buttons_container/texture_button-2"]
+offset_right = 144.0
+offset_bottom = 30.0
+theme_override_colors/font_color = Color(0.294118, 0.411765, 0.184314, 1)
+theme_override_fonts/font = ExtResource("5_a8sbs")
+text = "Main Menu"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="texture_button-3" type="TextureButton" parent="game_over/buttons_container"]
+layout_mode = 2
+texture_normal = ExtResource("5_1vfqf")
+texture_pressed = ExtResource("6_4lq1n")
+texture_hover = ExtResource("6_4lq1n")
+
+[node name="label" type="Label" parent="game_over/buttons_container/texture_button-3"]
+offset_right = 144.0
+offset_bottom = 30.0
+theme_override_colors/font_color = Color(0.294118, 0.411765, 0.184314, 1)
+theme_override_fonts/font = ExtResource("5_a8sbs")
+text = "Close Game"
+horizontal_alignment = 1
+vertical_alignment = 1
+
 [node name="win_screen" type="Control" parent="."]
-visible = false
 anchors_preset = 0
 offset_right = 40.0
 offset_bottom = 40.0
@@ -160,7 +241,59 @@ offset_right = 403.0
 offset_bottom = 224.0
 texture = ExtResource("8_482cb")
 
+[node name="buttons_container" type="VBoxContainer" parent="win_screen"]
+offset_left = 248.0
+offset_top = 21.0
+offset_right = 392.0
+offset_bottom = 119.0
+
+[node name="texture_button" type="TextureButton" parent="win_screen/buttons_container"]
+layout_mode = 2
+texture_normal = ExtResource("5_1vfqf")
+texture_pressed = ExtResource("6_4lq1n")
+texture_hover = ExtResource("6_4lq1n")
+
+[node name="label" type="Label" parent="win_screen/buttons_container/texture_button"]
+offset_right = 144.0
+offset_bottom = 30.0
+theme_override_colors/font_color = Color(0.294118, 0.411765, 0.184314, 1)
+theme_override_fonts/font = ExtResource("5_a8sbs")
+text = "Play again"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="texture_button-2" type="TextureButton" parent="win_screen/buttons_container"]
+layout_mode = 2
+texture_normal = ExtResource("5_1vfqf")
+texture_pressed = ExtResource("6_4lq1n")
+texture_hover = ExtResource("6_4lq1n")
+
+[node name="label" type="Label" parent="win_screen/buttons_container/texture_button-2"]
+offset_right = 144.0
+offset_bottom = 30.0
+theme_override_colors/font_color = Color(0.294118, 0.411765, 0.184314, 1)
+theme_override_fonts/font = ExtResource("5_a8sbs")
+text = "Main Menu"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="texture_button-3" type="TextureButton" parent="win_screen/buttons_container"]
+layout_mode = 2
+texture_normal = ExtResource("5_1vfqf")
+texture_pressed = ExtResource("6_4lq1n")
+texture_hover = ExtResource("6_4lq1n")
+
+[node name="label" type="Label" parent="win_screen/buttons_container/texture_button-3"]
+offset_right = 144.0
+offset_bottom = 30.0
+theme_override_colors/font_color = Color(0.294118, 0.411765, 0.184314, 1)
+theme_override_fonts/font = ExtResource("5_a8sbs")
+text = "Close Game"
+horizontal_alignment = 1
+vertical_alignment = 1
+
 [node name="game_ui" type="Control" parent="."]
+visible = false
 anchors_preset = 0
 offset_right = 40.0
 offset_bottom = 40.0
