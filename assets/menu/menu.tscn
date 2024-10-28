@@ -125,6 +125,7 @@ offset_bottom = 40.0
 texture = ExtResource("8_412gn")
 
 [node name="buttons_container" type="VBoxContainer" parent="game_over"]
+layout_mode = 0
 offset_left = 238.0
 offset_top = 60.0
 offset_right = 382.0
