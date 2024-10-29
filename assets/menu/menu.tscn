@@ -25,6 +25,7 @@ grow_vertical = 2
 script = ExtResource("1_80ymb")
 
 [node name="title_screen" type="Control" parent="."]
+visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -57,6 +58,7 @@ texture_pressed = ExtResource("6_4lq1n")
 texture_hover = ExtResource("6_4lq1n")
 
 [node name="label" type="Label" parent="title_screen/buttons_container/texture_button"]
+layout_mode = 0
 offset_right = 144.0
 offset_bottom = 30.0
 theme_override_colors/font_color = Color(0.294118, 0.411765, 0.184314, 1)
@@ -79,6 +81,7 @@ offset_right = 129.0
 offset_bottom = 23.0
 
 [node name="label" type="Label" parent="title_screen/buttons_container/texture_button-4"]
+layout_mode = 0
 offset_left = 27.0
 offset_right = 144.0
 offset_bottom = 30.0
@@ -101,6 +104,7 @@ offset_right = 129.0
 offset_bottom = 23.0
 
 [node name="label" type="Label" parent="title_screen/buttons_container/texture_button-5"]
+layout_mode = 0
 offset_left = 11.0
 offset_right = 128.0
 offset_bottom = 30.0
@@ -116,6 +120,7 @@ texture_pressed = ExtResource("6_4lq1n")
 texture_hover = ExtResource("6_4lq1n")
 
 [node name="label" type="Label" parent="title_screen/buttons_container/texture_button-2"]
+layout_mode = 0
 offset_right = 144.0
 offset_bottom = 30.0
 theme_override_colors/font_color = Color(0.294118, 0.411765, 0.184314, 1)
@@ -163,6 +168,7 @@ texture_pressed = ExtResource("6_4lq1n")
 texture_hover = ExtResource("6_4lq1n")
 
 [node name="label" type="Label" parent="game_paused/buttons_container/texture_button"]
+layout_mode = 0
 offset_right = 144.0
 offset_bottom = 30.0
 theme_override_colors/font_color = Color(0.294118, 0.411765, 0.184314, 1)
@@ -178,6 +184,7 @@ texture_pressed = ExtResource("6_4lq1n")
 texture_hover = ExtResource("6_4lq1n")
 
 [node name="label" type="Label" parent="game_paused/buttons_container/texture_button-2"]
+layout_mode = 0
 offset_right = 144.0
 offset_bottom = 30.0
 theme_override_colors/font_color = Color(0.294118, 0.411765, 0.184314, 1)
@@ -193,6 +200,7 @@ texture_pressed = ExtResource("6_4lq1n")
 texture_hover = ExtResource("6_4lq1n")
 
 [node name="label" type="Label" parent="game_paused/buttons_container/texture_button-3"]
+layout_mode = 0
 offset_right = 144.0
 offset_bottom = 30.0
 theme_override_colors/font_color = Color(0.294118, 0.411765, 0.184314, 1)
@@ -215,6 +223,7 @@ offset_right = 129.0
 offset_bottom = 23.0
 
 [node name="label" type="Label" parent="game_paused/buttons_container/texture_button-4"]
+layout_mode = 0
 offset_left = 27.0
 offset_right = 144.0
 offset_bottom = 30.0
@@ -237,6 +246,7 @@ offset_right = 129.0
 offset_bottom = 23.0
 
 [node name="label" type="Label" parent="game_paused/buttons_container/texture_button-5"]
+layout_mode = 0
 offset_left = 11.0
 offset_right = 128.0
 offset_bottom = 30.0
@@ -245,26 +255,32 @@ theme_override_fonts/font = ExtResource("5_j10mr")
 text = "Music"
 vertical_alignment = 1
 
-[node name="game_over" type="Control" parent="."]
-visible = false
+[node name="game_over" type="Control" parent="." node_paths=PackedStringArray("side_profile_node", "buttons_node")]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+script = ExtResource("3_ahm3t")
+side_profile_node = NodePath("texture_rect")
+buttons_node = NodePath("buttons_container")
+face_start_position = Vector2(0, 226)
+buttons_start_position = Vector2(238, 330)
+buttons_end_position = Vector2(238, 29)
+buttons_slide_duration = 0.15
 
 [node name="texture_rect" type="TextureRect" parent="game_over"]
 layout_mode = 0
-offset_right = 40.0
-offset_bottom = 40.0
+offset_right = 400.0
+offset_bottom = 225.0
 texture = ExtResource("8_412gn")
 
 [node name="buttons_container" type="VBoxContainer" parent="game_over"]
 layout_mode = 0
-offset_left = 238.0
+offset_left = 239.0
 offset_top = 29.0
-offset_right = 382.0
+offset_right = 383.0
 offset_bottom = 127.0
 
 [node name="texture_button" type="TextureButton" parent="game_over/buttons_container"]
@@ -274,6 +290,7 @@ texture_pressed = ExtResource("6_4lq1n")
 texture_hover = ExtResource("6_4lq1n")
 
 [node name="label" type="Label" parent="game_over/buttons_container/texture_button"]
+layout_mode = 0
 offset_right = 144.0
 offset_bottom = 30.0
 theme_override_colors/font_color = Color(0.294118, 0.411765, 0.184314, 1)
@@ -289,6 +306,7 @@ texture_pressed = ExtResource("6_4lq1n")
 texture_hover = ExtResource("6_4lq1n")
 
 [node name="label" type="Label" parent="game_over/buttons_container/texture_button-2"]
+layout_mode = 0
 offset_right = 144.0
 offset_bottom = 30.0
 theme_override_colors/font_color = Color(0.294118, 0.411765, 0.184314, 1)
@@ -304,6 +322,7 @@ texture_pressed = ExtResource("6_4lq1n")
 texture_hover = ExtResource("6_4lq1n")
 
 [node name="label" type="Label" parent="game_over/buttons_container/texture_button-3"]
+layout_mode = 0
 offset_right = 144.0
 offset_bottom = 30.0
 theme_override_colors/font_color = Color(0.294118, 0.411765, 0.184314, 1)
