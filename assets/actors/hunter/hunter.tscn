@@ -1,25 +1,140 @@
-[gd_scene load_steps=7 format=3 uid="uid://cflfxr6fhq8xo"]
+[gd_scene load_steps=19 format=3 uid="uid://cflfxr6fhq8xo"]
 
-[ext_resource type="Script" path="res://modules/entity/entity_2d.gd" id="1_046cf"]
-[ext_resource type="Texture2D" uid="uid://ctr02n0ud7thb" path="res://assets/actors/hunter/hunter.png" id="2_kgiqm"]
+[ext_resource type="Script" path="res://assets/actors/hunter/hunter.gd" id="1_yadwm"]
+[ext_resource type="Texture2D" uid="uid://lfvn81ia207t" path="res://assets/actors/hunter/hunter_b.png" id="2_gfl0d"]
 [ext_resource type="Texture2D" uid="uid://dgpahasnejwoi" path="res://assets/common/scared_icon_background.png" id="4_1pvsc"]
 [ext_resource type="Script" path="res://modules/detect/detector_2d.gd" id="5_f1ttn"]
 [ext_resource type="Texture2D" uid="uid://k4qef78jhqe3" path="res://assets/common/scared_icon.png" id="5_tiv77"]
+[ext_resource type="Texture2D" uid="uid://bg0m48lwhoikh" path="res://assets/common/shadow.png" id="6_hwreo"]
+[ext_resource type="Texture2D" uid="uid://cpio1ami5ytom" path="res://assets/common/white.png" id="7_b4awl"]
+[ext_resource type="Script" path="res://modules/carry/carriable_2d.gd" id="7_fktmr"]
+[ext_resource type="Texture2D" uid="uid://y5rthwjmjb5i" path="res://assets/actors/hunter/guns.png" id="7_i6rv7"]
+[ext_resource type="AnimationLibrary" uid="uid://c8w217arny40s" path="res://assets/actors/hunter/hunter_c.tres" id="10_ioixa"]
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_vwver"]
+friction = 0.5
+bounce = 0.75
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_upxfi"]
+radius = 5.0
+height = 14.0
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_ncn67"]
+light_mode = 1
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_konxi"]
+atlas = ExtResource("7_b4awl")
+region = Rect2(0, 0, 4, 4)
 
 [sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_imq2g"]
 light_mode = 1
 
-[node name="hunter" type="RigidBody2D"]
-script = ExtResource("1_046cf")
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_r2ad2"]
+
+[sub_resource type="Animation" id="Animation_leo4l"]
+length = 0.001
+step = 1.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("avatar/sprite_2d:frame_coords")
+tracks/0/interp = 0
+tracks/0/loop_wrap = false
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2i(0, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("avatar/sprite_2d:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = false
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("avatar/sprite_2d/gun_sprite:flip_h")
+tracks/2/interp = 0
+tracks/2/loop_wrap = false
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [false]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("avatar/sprite_2d/gun_sprite:position")
+tracks/3/interp = 0
+tracks/3/loop_wrap = false
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(18, -4)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_gajsr"]
+_data = {
+&"RESET": SubResource("Animation_leo4l")
+}
+
+[node name="hunter" type="RigidBody2D" node_paths=PackedStringArray("air_transform")]
+collision_layer = 2
+collision_mask = 3
+mass = 40.0
+physics_material_override = SubResource("PhysicsMaterial_vwver")
+lock_rotation = true
+freeze_mode = 1
+continuous_cd = 1
+script = ExtResource("1_yadwm")
+scare_speed = 2.0
+move_speed = 32.0
+air_transform = NodePath("avatar")
+
+[node name="collision_shape_2d" type="CollisionShape2D" parent="."]
+rotation = 1.5708
+shape = SubResource("CapsuleShape2D_upxfi")
 
 [node name="avatar" type="Node2D" parent="."]
 
 [node name="sprite_2d" type="Sprite2D" parent="avatar"]
-position = Vector2(0, -12)
-texture = ExtResource("2_kgiqm")
-offset = Vector2(0.5, 0)
-hframes = 2
+position = Vector2(0, -16)
+texture = ExtResource("2_gfl0d")
+offset = Vector2(0.5, -8)
+hframes = 4
 vframes = 2
+
+[node name="gun_sprite" type="Sprite2D" parent="avatar/sprite_2d"]
+position = Vector2(18, -4)
+texture = ExtResource("7_i6rv7")
+region_enabled = true
+region_rect = Rect2(0, 0, 32, 8)
+
+[node name="gun_particles" type="CPUParticles2D" parent="avatar/sprite_2d/gun_sprite"]
+material = SubResource("CanvasItemMaterial_ncn67")
+position = Vector2(10, -2)
+emitting = false
+amount = 4
+lifetime = 0.1
+one_shot = true
+explosiveness = 1.0
+texture = SubResource("AtlasTexture_konxi")
+direction = Vector2(0, 1)
+spread = 5.0
+gravity = Vector2(0, 0)
+initial_velocity_min = 1250.0
+initial_velocity_max = 1500.0
+color = Color(1, 1, 0.207843, 1)
 
 [node name="display" type="Control" parent="avatar"]
 material = SubResource("CanvasItemMaterial_imq2g")
@@ -32,11 +147,11 @@ metadata/_edit_use_anchors_ = true
 [node name="scare" type="TextureProgressBar" parent="avatar/display"]
 use_parent_material = true
 layout_mode = 1
-anchors_preset = 8
+anchors_preset = -1
 anchor_left = 0.5
-anchor_top = 0.5
+anchor_top = 0.425
 anchor_right = 0.5
-anchor_bottom = 0.5
+anchor_bottom = 0.425
 offset_left = -28.0
 offset_top = -76.0
 offset_right = -12.0
@@ -53,3 +168,42 @@ metadata/_edit_use_anchors_ = true
 
 [node name="detector_2d" type="Node2D" parent="."]
 script = ExtResource("5_f1ttn")
+vision_radius = 128.0
+vision_theta = 1.309
+collision_mask = 64
+debug_draw = true
+
+[node name="navigation_agent_2d" type="NavigationAgent2D" parent="."]
+path_desired_distance = 8.0
+target_desired_distance = 8.0
+path_max_distance = 10.0
+simplify_path = true
+
+[node name="shadow" type="Sprite2D" parent="."]
+modulate = Color(1, 1, 1, 0.501961)
+z_index = -1
+texture = ExtResource("6_hwreo")
+
+[node name="gun" type="Node2D" parent="."]
+
+[node name="ray_cast_2d" type="RayCast2D" parent="gun"]
+target_position = Vector2(0, 192)
+collision_mask = 4097
+hit_from_inside = true
+collide_with_areas = true
+
+[node name="carriable_2d" type="Area2D" parent="." node_paths=PackedStringArray("entity")]
+collision_layer = 128
+collision_mask = 0
+monitoring = false
+script = ExtResource("7_fktmr")
+entity = NodePath("..")
+
+[node name="collision_shape_2d" type="CollisionShape2D" parent="carriable_2d"]
+shape = SubResource("RectangleShape2D_r2ad2")
+
+[node name="animation_player" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_gajsr"),
+&"hunter": ExtResource("10_ioixa")
+}

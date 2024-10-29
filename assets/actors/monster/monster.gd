@@ -24,6 +24,10 @@ extends Entity2D
 
 # TODO: add drop kicking wtfff
 
+const HunterTarget: = preload("res://assets/actors/hunter/hunter_target.gd")
+
+signal died()
+
 @export
 var player: bool = false
 
@@ -35,11 +39,37 @@ var _carrier: Carrier2D = $carrier_2d as Carrier2D
 var _carriable: Carriable2D = $carriable_2d as Carriable2D
 @onready
 var _animation_player: AnimationPlayer = $animation_player as AnimationPlayer
+@onready
+var _hunter_target: HunterTarget = $hunter_target as HunterTarget
+@export
+var health: float = 100.0
+var _health: float = 100.0
+@onready
+var _audio_hurt: AudioStreamPlayer2D = $audio/hurt as AudioStreamPlayer2D
+@onready
+var _avatar_sprite: Sprite2D = $avatar/sprite_2d as Sprite2D
 
 func _ready() -> void:
 	if Engine.is_editor_hint():
 		return
+	
+	_health = health
+	_hunter_target.hit.connect(_on_hunter_target_hit)
 	_animation_player.callback_mode_process = AnimationMixer.ANIMATION_CALLBACK_MODE_PROCESS_MANUAL
+
+func _on_hunter_target_hit(damage: float) -> void:
+	_health -= damage
+	if _health < 0.0:
+		died.emit()
+	_audio_hurt.play()
+	
+	# red flash
+	var tween: Tween = create_tween()
+	tween.set_ease(Tween.EASE_IN_OUT)
+	tween.set_process_mode(Tween.TWEEN_PROCESS_IDLE)
+	tween.tween_property(_avatar_sprite, NodePath("modulate"), Color.RED, 0.05)
+	tween.set_parallel(false)
+	tween.tween_property(_avatar_sprite, NodePath("modulate"), Color.WHITE, 0.125)
 
 var _input_move: Vector2 = Vector2.ZERO
 var _input_carry: bool = false
@@ -69,7 +99,15 @@ func _physics_process(delta: float) -> void:
 	if Engine.is_editor_hint():
 		return
 	
-	#_animation_player.advance(delta)
+	if _health < 0.0:
+		# play death animation
+		move_target_direction = Vector2.ZERO
+		face_target_direction = Vector2.ZERO
+		_animation_player.play(&"monster_a/death")
+		_animation_player.advance(delta)
+		#linear_velocity = Vector2.ZERO
+		super(delta)
+		return
 	
 	move_target_direction = _input_move
 	if !_input_move.is_zero_approx():

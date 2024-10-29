@@ -1,0 +1,30 @@
+[gd_scene load_steps=3 format=3 uid="uid://cx6kepjtr4iee"]
+
+[ext_resource type="PackedScene" uid="uid://cflfxr6fhq8xo" path="res://assets/actors/hunter/hunter.tscn" id="1_2pjld"]
+[ext_resource type="Texture2D" uid="uid://cdsm4sm6hw737" path="res://assets/actors/hunter/hunter_c.png" id="2_murv8"]
+
+[node name="hunter_c" instance=ExtResource("1_2pjld")]
+scare_speed = 4.0
+scare_timer = 5.0
+shoot_pellets = 1
+shoot_distance = 160.0
+shoot_cooldown = 0.1
+shoot_damage = 5.0
+move_speed = 48.0
+
+[node name="sprite_2d" parent="avatar" index="0"]
+texture = ExtResource("2_murv8")
+offset = Vector2(0.5, 0)
+
+[node name="gun_sprite" parent="avatar/sprite_2d" index="0"]
+region_rect = Rect2(0, 24, 32, 8)
+
+[node name="gun_particles" parent="avatar/sprite_2d/gun_sprite" index="0"]
+amount = 1
+lifetime = 0.09
+initial_velocity_min = 2000.0
+initial_velocity_max = 2500.0
+
+[node name="detector_2d" parent="." index="2"]
+vision_radius = 192.0
+vision_theta = 1.0472

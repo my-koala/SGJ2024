@@ -1,4 +1,4 @@
-[gd_scene load_steps=22 format=4 uid="uid://d4jqq6myyund6"]
+[gd_scene load_steps=23 format=4 uid="uid://d4jqq6myyund6"]
 
 [ext_resource type="Script" path="res://assets/map/map.gd" id="1_4uwkn"]
 [ext_resource type="PackedScene" uid="uid://bumpjbhfi4uxm" path="res://assets/actors/monster/monster.tscn" id="2_5nbb4"]
@@ -6,8 +6,11 @@
 [ext_resource type="PackedScene" uid="uid://dplih4xner27" path="res://assets/props/street_light/street_light.tscn" id="3_fb24n"]
 [ext_resource type="PackedScene" uid="uid://dvfbewn5n6mdq" path="res://assets/actors/tricker/tricker.tscn" id="3_keq82"]
 [ext_resource type="TileSet" uid="uid://fr16vnlhh3d8" path="res://assets/map/map_tileset.tres" id="3_kn3jh"]
+[ext_resource type="PackedScene" uid="uid://dg230o75xwy4f" path="res://assets/actors/hunter/hunter_a.tscn" id="3_wa2ha"]
 [ext_resource type="PackedScene" uid="uid://cds7rbd7qsk7f" path="res://assets/props/house/house_a.tscn" id="4_8j0al"]
+[ext_resource type="PackedScene" uid="uid://cx6kepjtr4iee" path="res://assets/actors/hunter/hunter_c.tscn" id="4_845b5"]
 [ext_resource type="PackedScene" uid="uid://dvq6i3iph7ot4" path="res://assets/props/door/door.tscn" id="4_b10cx"]
+[ext_resource type="PackedScene" uid="uid://bmhh30nnu0c6r" path="res://assets/actors/hunter/hunter_b.tscn" id="4_xd2k4"]
 [ext_resource type="PackedScene" uid="uid://m0fkrejo5gq3" path="res://assets/props/house/house_c.tscn" id="5_kekeg"]
 [ext_resource type="PackedScene" uid="uid://c86teevh8ienc" path="res://assets/props/house/house_b.tscn" id="6_d2106"]
 [ext_resource type="Texture2D" uid="uid://dxxkyh42xfxw7" path="res://assets/common/global.png" id="9_7lww4"]
@@ -54,97 +57,18 @@ agent_radius = 8.0
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_3xlxx"]
 size = Vector2(96, 7)
 
-[sub_resource type="Animation" id="Animation_a0k24"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("win:visible")
-tracks/0/interp = 1
-tracks/0/loop_wrap = false
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [false]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("win:scale")
-tracks/1/interp = 1
-tracks/1/loop_wrap = false
-tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector2(1, 1)]
-}
-tracks/2/type = "value"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath("win:anchor_top")
-tracks/2/interp = 1
-tracks/2/loop_wrap = false
-tracks/2/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [0.0]
-}
-
-[sub_resource type="Animation" id="Animation_2ej8r"]
-resource_name = "win"
-length = 2.0
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("win:visible")
-tracks/0/interp = 1
-tracks/0/loop_wrap = false
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [true]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("win:scale")
-tracks/1/interp = 1
-tracks/1/loop_wrap = false
-tracks/1/keys = {
-"times": PackedFloat32Array(0, 0.533333, 2),
-"transitions": PackedFloat32Array(1, 1, 1),
-"update": 0,
-"values": [Vector2(1, 1), Vector2(1, 1), Vector2(0.5, 0.5)]
-}
-tracks/2/type = "value"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath("win:anchor_top")
-tracks/2/interp = 1
-tracks/2/loop_wrap = false
-tracks/2/keys = {
-"times": PackedFloat32Array(0, 0.533333, 2),
-"transitions": PackedFloat32Array(1, 1, 1),
-"update": 0,
-"values": [0.0, 0.0, 1.0]
-}
-
-[sub_resource type="AnimationLibrary" id="AnimationLibrary_ppkov"]
-_data = {
-&"RESET": SubResource("Animation_a0k24"),
-&"win": SubResource("Animation_2ej8r")
-}
+[sub_resource type="Environment" id="Environment_51u15"]
+background_mode = 3
+adjustment_enabled = true
 
 [node name="map" type="Node2D" node_paths=PackedStringArray("player", "door_network") groups=["navigation_polygon_source_geometry_group"]]
 y_sort_enabled = true
 script = ExtResource("1_4uwkn")
 player = NodePath("actors/monster")
-candy_to_win = 8
 door_network = NodePath("props/doors/door_network")
+global_scare_threshold_a = 10.0
+global_scare_threshold_b = 15.0
+global_scare_threshold_c = 30.0
 
 [node name="navigation" type="Node2D" parent="."]
 visible = false
@@ -168,13 +92,33 @@ navigation_polygon = SubResource("NavigationPolygon_510gk")
 [node name="actors" type="Node2D" parent="."]
 y_sort_enabled = true
 
+[node name="hunters_a" type="Node2D" parent="actors"]
+y_sort_enabled = true
+
+[node name="hunter_a" parent="actors/hunters_a" node_paths=PackedStringArray("patrol_waypoints") instance=ExtResource("3_wa2ha")]
+position = Vector2(169, 63)
+patrol_waypoints = [NodePath("../../../hunter_waypoints/waypoint-0"), NodePath("../../../hunter_waypoints/waypoint-1")]
+
+[node name="hunters_b" type="Node2D" parent="actors"]
+y_sort_enabled = true
+
+[node name="hunter_b" parent="actors/hunters_b" node_paths=PackedStringArray("patrol_waypoints") instance=ExtResource("4_xd2k4")]
+position = Vector2(-98, 107)
+patrol_waypoints = [NodePath("../../../hunter_waypoints/waypoint-0"), NodePath("../../../hunter_waypoints/waypoint-1")]
+
+[node name="hunters_c" type="Node2D" parent="actors"]
+y_sort_enabled = true
+
+[node name="hunter_c" parent="actors/hunters_c" node_paths=PackedStringArray("patrol_waypoints") instance=ExtResource("4_845b5")]
+position = Vector2(-259, -30)
+patrol_waypoints = [NodePath("../../../hunter_waypoints/waypoint-0"), NodePath("../../../hunter_waypoints/waypoint-1")]
+
 [node name="trickers" type="Node2D" parent="actors"]
 y_sort_enabled = true
 
 [node name="tricker" parent="actors/trickers" node_paths=PackedStringArray("door_network") instance=ExtResource("3_keq82")]
 position = Vector2(-34, 46)
 door_network = NodePath("../../../props/doors/door_network")
-candy_count = 7
 
 [node name="tricker-2" parent="actors/trickers" node_paths=PackedStringArray("door_network") instance=ExtResource("3_keq82")]
 position = Vector2(-114, -49)
@@ -188,7 +132,6 @@ position = Vector2(-164, 89)
 door_network = NodePath("../../../props/doors/door_network")
 assigned_door = 2
 candy_count = 3
-infinite_candy = true
 
 [node name="monster" parent="actors" instance=ExtResource("2_5nbb4")]
 position = Vector2(-82, -9)
@@ -197,6 +140,14 @@ player = true
 [node name="camera_2d" type="Camera2D" parent="actors/monster"]
 position = Vector2(0, -24)
 process_callback = 0
+
+[node name="hunter_waypoints" type="Node2D" parent="."]
+
+[node name="waypoint-0" type="Node2D" parent="hunter_waypoints"]
+position = Vector2(292, 78)
+
+[node name="waypoint-1" type="Node2D" parent="hunter_waypoints"]
+position = Vector2(-253, 77)
 
 [node name="props" type="Node2D" parent="."]
 y_sort_enabled = true
@@ -349,98 +300,9 @@ height = 0.5
 color = Color(0.541723, 0.49362, 0.947717, 1)
 height = 0.5
 
-[node name="canvas_layer" type="CanvasLayer" parent="."]
-
-[node name="goal" type="Label" parent="canvas_layer"]
-modulate = Color(0, 0.807843, 0.376471, 1)
-offset_right = 40.0
-offset_bottom = 23.0
-text = "goal: get candy"
-metadata/_edit_use_anchors_ = true
-
-[node name="count" type="Label" parent="canvas_layer"]
-anchors_preset = 1
-anchor_left = 1.0
-anchor_right = 1.0
-offset_left = -138.0
-offset_bottom = 23.0
-grow_horizontal = 0
-text = "candy count:"
-metadata/_edit_use_anchors_ = true
-
-[node name="win" type="Label" parent="canvas_layer"]
-visible = false
-modulate = Color(1, 0, 1, 1)
-anchors_preset = 13
-anchor_left = 0.5
-anchor_right = 0.5
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-pivot_offset = Vector2(100, 0)
-theme_override_font_sizes/font_size = 47
-text = "you won"
-horizontal_alignment = 1
-vertical_alignment = 1
-
-[node name="animation_player" type="AnimationPlayer" parent="canvas_layer"]
-libraries = {
-&"": SubResource("AnimationLibrary_ppkov")
-}
-
-[node name="spawn_kid" type="Button" parent="canvas_layer"]
-anchors_preset = 2
-anchor_top = 1.0
-anchor_bottom = 1.0
-offset_top = -31.0
-offset_right = 87.0
-grow_vertical = 0
-focus_mode = 0
-text = "spawn kid"
-metadata/_edit_use_anchors_ = true
-
-[node name="power" type="Label" parent="canvas_layer"]
-anchors_preset = 3
-anchor_left = 1.0
-anchor_top = 1.0
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = -151.0
-offset_top = -65.0
-grow_horizontal = 0
-grow_vertical = 0
-text = "dropkick power"
-horizontal_alignment = 1
-autowrap_mode = 2
-metadata/_edit_use_anchors_ = true
-
-[node name="h_slider" type="HSlider" parent="canvas_layer/power"]
-layout_mode = 1
-anchors_preset = 12
-anchor_top = 1.0
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_top = -16.0
-grow_horizontal = 2
-grow_vertical = 0
-max_value = 100000.0
-step = 100.0
-metadata/_edit_use_anchors_ = true
-
-[node name="controls" type="Label" parent="canvas_layer"]
-offset_left = 6.0
-offset_top = 33.0
-offset_right = 58.0
-offset_bottom = 105.0
-theme_override_font_sizes/font_size = 10
-text = "controls:
-WASD - move
-E - pickup
-HOLD space - shake
-E - dropkick
-F - drop"
-metadata/_edit_use_anchors_ = true
-
 [node name="sprite_2d" type="Sprite2D" parent="."]
 position = Vector2(73, -142)
 texture = ExtResource("12_mmlga")
+
+[node name="world_environment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_51u15")

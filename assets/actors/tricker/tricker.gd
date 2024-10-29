@@ -15,6 +15,8 @@ const DoorNetwork: = preload("res://assets/props/door/door_network.gd")
 # TODO:
 # assign each tricker a specific scream rather than random?
 
+signal scared_started()
+
 @export
 var door_network: DoorNetwork = null
 
@@ -30,27 +32,29 @@ var door_timer: float = 2.0
 var _door_timer: float = 0.0
 
 @export
-var scare_factor: float = 0.0
-@export
 var scare_speed: float = 1.0
 var _scare_persist: bool = false
-var _scared: bool = false
 var _scarer: Node2D = null
 var _scare_fled: bool = false
+var _scare_factor: float = 0.0
 
 @export
 var scare_timer: float = 5.0
 var _scare_timer: float = 0.0
-var _scare_await_airborne: bool = false
 
-@export
-var candy_count: int = 0
 @export
 var navigate: bool = false
 var _navigation_sync: bool = false
 
 @export
+var candy_count: int = 0
+@export
+var candy_count_max: int = 5
+@export
 var infinite_candy: bool = false
+
+@export
+var scream_index: int = 0
 
 @onready
 var _carriable: Carriable2D = $carriable_2d as Carriable2D
@@ -73,6 +77,9 @@ var _animation_player: AnimationPlayer = $animation_player as AnimationPlayer
 var _lantern_light: PointLight2D = $detector_2d/lantern_light as PointLight2D
 
 @onready
+var _home_icon: TextureRect = $avatar/display/home as TextureRect
+
+@onready
 var _audio_screams: Array[AudioStreamPlayer2D] = [
 	$audio/scream_1 as AudioStreamPlayer2D,
 	$audio/scream_2 as AudioStreamPlayer2D,
@@ -93,7 +100,7 @@ enum AIState {
 	GO_DOOR,
 	AT_DOOR,
 	SCARE,
-	HOME,
+	GO_HOME,
 }
 
 var _ai_state_curr: AIState = AIState.NONE
@@ -106,10 +113,14 @@ func _ready() -> void:
 	body_entered.connect(_on_body_entered)
 	_carriable.drop_kicked.connect(_on_carriable_drop_kicked)
 	
-	global_position = door_network.doors[assigned_door % door_network.doors.size()].global_position
+	var home_index: int = assigned_door % door_network.doors.size()
+	var home_position: Vector2 = door_network.doors[home_index].root.global_position
+	global_position = home_position
 
 func _on_carriable_drop_kicked() -> void:
-	_audio_screams[randi_range(0, 10)].play()# scream
+	var index: int = scream_index % _audio_screams.size()
+	_audio_screams[index].pitch_scale = randf_range(0.9, 1.1)
+	_audio_screams[index].play()# scream
 
 func _on_hurtbox_area_entered(area: Area2D) -> void:
 	drop_candy()
@@ -162,18 +173,21 @@ func _physics_process(delta: float) -> void:
 		_display_candy_label.text = "x" + str(candy_count)
 	
 	# scare stuff
-	if _carriable.has_carrier():
-		scare_factor = 1.0
+	if _carriable.has_carrier() || _scare_persist:
+		_scare_factor = 1.0
 	elif _detector.get_detectable_count() > 0:
-		scare_factor = minf(scare_factor + (delta * scare_speed), 1.0)
-	elif !_scare_persist:
-		scare_factor = maxf(scare_factor - (delta * scare_speed), 0.0)
-	_scared = is_equal_approx(scare_factor, 1.0)
-	_display_scare.value = lerpf(_display_scare.min_value, _display_scare.max_value, scare_factor)
-	_display_scare.visible = !is_zero_approx(scare_factor)
+		_scare_factor = minf(_scare_factor + (delta * scare_speed), 1.0)
+	else:
+		_scare_factor = maxf(_scare_factor - (delta * scare_speed), 0.0)
+	var scared: bool = is_equal_approx(_scare_factor, 1.0)
+	_display_scare.value = lerpf(_display_scare.min_value, _display_scare.max_value, _scare_factor)
+	_display_scare.visible = !is_zero_approx(_scare_factor)
 	
 	move_speed = 48.0
 	face_speed = 0.5
+	
+	var has_max_candy: bool = candy_count >= candy_count_max
+	_home_icon.visible = false
 	
 	# beeb boop
 	match _ai_state_curr:
@@ -184,9 +198,17 @@ func _physics_process(delta: float) -> void:
 			# get next door
 			_door_index_target += door_index_skip
 			_door_index_target = _door_index_target % door_network.doors.size()
+			var home_index: int = assigned_door % door_network.doors.size()
+			if _door_index_target == home_index:
+				_door_index_target += 1
+				_door_index_target = _door_index_target % door_network.doors.size()
+			assert(_door_index_target != home_index)
 			
 			_navigation_agent.target_position = door_network.doors[_door_index_target].root.global_position
 			_ai_state_curr = AIState.GO_DOOR
+			
+			if has_max_candy:
+				_ai_state_curr = AIState.GO_HOME
 		AIState.GO_DOOR:
 			if _navigation_agent.is_navigation_finished():
 				if !_navigation_agent.is_target_reachable():
@@ -197,8 +219,11 @@ func _physics_process(delta: float) -> void:
 					door_network.doors[_door_index_target].add_candy_getter()
 					_ai_state_curr = AIState.AT_DOOR
 			
-			if _scared:
+			if scared:
 				_ai_state_curr = AIState.SCARE
+				scared_started.emit.call_deferred()
+			elif has_max_candy:
+				_ai_state_curr = AIState.GO_HOME
 		AIState.AT_DOOR:
 			# do some timer?
 			_door_timer += delta
@@ -208,10 +233,13 @@ func _physics_process(delta: float) -> void:
 				take_candy()
 				_ai_state_curr = AIState.FIND_DOOR
 			
-			if _scared:
+			if scared:
 				door_network.doors[_door_index_target].remove_candy_getter()
 				_door_timer = 0.0
 				_ai_state_curr = AIState.SCARE
+				scared_started.emit.call_deferred()
+			elif has_max_candy:
+				_ai_state_curr = AIState.GO_HOME
 		AIState.SCARE:
 			_scare_persist = true
 			_scare_timer += delta
@@ -244,7 +272,24 @@ func _physics_process(delta: float) -> void:
 				_scarer = null
 				_scare_fled = false
 				# do some check for max scares?
-				_ai_state_curr = AIState.FIND_DOOR
+				if has_max_candy:
+					_ai_state_curr = AIState.GO_HOME
+				else:
+					_ai_state_curr = AIState.FIND_DOOR
+		AIState.GO_HOME:
+			_home_icon.visible = true
+			var home_index: int = assigned_door % door_network.doors.size()
+			var home_position: Vector2 = door_network.doors[home_index].root.global_position
+			# TODO: enable some sort of home icon to indicate going home?
+			
+			_navigation_agent.target_position = home_position
+			
+			if _navigation_agent.is_navigation_finished():
+				queue_free()
+			
+			if scared:
+				_ai_state_curr = AIState.SCARE
+				scared_started.emit.call_deferred()
 	
 	if !_navigation_sync:
 		_navigation_sync = true

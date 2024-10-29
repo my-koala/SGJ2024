@@ -1,4 +1,4 @@
-[gd_scene load_steps=31 format=3 uid="uid://dvfbewn5n6mdq"]
+[gd_scene load_steps=32 format=3 uid="uid://dvfbewn5n6mdq"]
 
 [ext_resource type="Script" path="res://assets/actors/tricker/tricker.gd" id="1_mqmke"]
 [ext_resource type="PackedScene" uid="uid://baj207k0pptso" path="res://assets/collectables/candy/candy.tscn" id="2_v4jvc"]
@@ -8,6 +8,7 @@
 [ext_resource type="Texture2D" uid="uid://dgpahasnejwoi" path="res://assets/common/scared_icon_background.png" id="5_2i0xn"]
 [ext_resource type="Texture2D" uid="uid://dvw7vxqdkowaj" path="res://assets/collectables/candy/candy.png" id="5_rvs45"]
 [ext_resource type="Texture2D" uid="uid://k4qef78jhqe3" path="res://assets/common/scared_icon.png" id="5_syxq7"]
+[ext_resource type="Texture2D" uid="uid://cbqyihhh61pp1" path="res://assets/common/home_icon.png" id="7_wgcuj"]
 [ext_resource type="Script" path="res://modules/detect/detector_2d.gd" id="9_j84tw"]
 [ext_resource type="AudioStream" uid="uid://nhi86draomii" path="res://assets/actors/tricker/screams/1.wav" id="10_02k42"]
 [ext_resource type="AudioStream" uid="uid://b1ygea3aoyif5" path="res://assets/actors/tricker/screams/2.wav" id="11_52x0w"]
@@ -92,9 +93,9 @@ tracks/0/keys = {
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_wtkwg"]
 _data = {
-&"RESET": SubResource("Animation_wnc6f"),
+&"spin": SubResource("Animation_rf37g"),
 &"idle": SubResource("Animation_dbano"),
-&"spin": SubResource("Animation_rf37g")
+&"RESET": SubResource("Animation_wnc6f")
 }
 
 [node name="tricker" type="RigidBody2D" node_paths=PackedStringArray("air_transform")]
@@ -112,6 +113,7 @@ script = ExtResource("1_mqmke")
 candy_scene = ExtResource("2_v4jvc")
 scare_speed = 2.0
 navigate = true
+scream_index = 9
 move_speed = 48.0
 face_speed = 0.5
 air_control = 0.05
@@ -187,6 +189,16 @@ texture_under = ExtResource("5_2i0xn")
 texture_progress = ExtResource("5_syxq7")
 metadata/_edit_use_anchors_ = true
 
+[node name="home" type="TextureRect" parent="avatar/display"]
+use_parent_material = true
+layout_mode = 0
+offset_left = -14.0
+offset_top = -65.0
+offset_right = 26.0
+offset_bottom = -25.0
+scale = Vector2(0.75, 0.75)
+texture = ExtResource("7_wgcuj")
+
 [node name="shadow" type="Sprite2D" parent="."]
 modulate = Color(1, 1, 1, 0.423529)
 z_index = -1
@@ -197,8 +209,10 @@ script = ExtResource("9_j84tw")
 vision_radius = 72.0
 vision_theta = 1.5708
 collision_mask = 64
+debug_draw = true
 
 [node name="lantern_light" type="PointLight2D" parent="detector_2d"]
+visible = false
 color = Color(0.999999, 0.557728, 0.112623, 1)
 energy = 0.5
 texture = ExtResource("21_xr1ug")
@@ -226,7 +240,6 @@ path_desired_distance = 4.0
 target_desired_distance = 8.0
 path_max_distance = 10.0
 simplify_path = true
-debug_enabled = true
 
 [node name="audio" type="Node2D" parent="."]
 
