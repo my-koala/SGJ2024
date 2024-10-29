@@ -1,0 +1,18 @@
+[gd_scene load_steps=3 format=3 uid="uid://b4mrxlxeeprf2"]
+
+[ext_resource type="Texture2D" uid="uid://dxxkyh42xfxw7" path="res://assets/common/global.png" id="1_k3ori"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ecio3"]
+size = Vector2(21, 7)
+
+[node name="garbage_can" type="StaticBody2D"]
+
+[node name="sprite_2d" type="Sprite2D" parent="."]
+texture = ExtResource("1_k3ori")
+offset = Vector2(0, -13)
+region_enabled = true
+region_rect = Rect2(184, 704, 32, 40)
+
+[node name="collision_shape_2d" type="CollisionShape2D" parent="."]
+position = Vector2(0.5, -3.5)
+shape = SubResource("RectangleShape2D_ecio3")

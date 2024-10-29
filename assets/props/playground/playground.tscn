@@ -1,0 +1,25 @@
+[gd_scene load_steps=4 format=3 uid="uid://1bq8cq77jtrl"]
+
+[ext_resource type="Texture2D" uid="uid://dxxkyh42xfxw7" path="res://assets/common/global.png" id="1_bohfo"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_1f24t"]
+size = Vector2(75, 8)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_62mrb"]
+size = Vector2(69, 28)
+
+[node name="playground" type="StaticBody2D"]
+
+[node name="collision_shape_2d" type="CollisionShape2D" parent="."]
+position = Vector2(-33.5, -4)
+shape = SubResource("RectangleShape2D_1f24t")
+
+[node name="sprite_2d" type="Sprite2D" parent="."]
+texture = ExtResource("1_bohfo")
+offset = Vector2(0, -68)
+region_enabled = true
+region_rect = Rect2(56, 440, 160, 136)
+
+[node name="collision_shape_2d-2" type="CollisionShape2D" parent="."]
+position = Vector2(39.5, -14)
+shape = SubResource("RectangleShape2D_62mrb")

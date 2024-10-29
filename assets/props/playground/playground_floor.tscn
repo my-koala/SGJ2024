@@ -1,0 +1,11 @@
+[gd_scene load_steps=2 format=3 uid="uid://dr64lof2oxi0o"]
+
+[ext_resource type="Texture2D" uid="uid://dxxkyh42xfxw7" path="res://assets/common/global.png" id="1_jpkxw"]
+
+[node name="playground_floor" type="StaticBody2D"]
+
+[node name="sprite_2d" type="Sprite2D" parent="."]
+texture = ExtResource("1_jpkxw")
+offset = Vector2(0, 64)
+region_enabled = true
+region_rect = Rect2(32, 304, 208, 128)

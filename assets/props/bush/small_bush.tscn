@@ -1,0 +1,18 @@
+[gd_scene load_steps=3 format=3 uid="uid://c80dfkm0rrhjd"]
+
+[ext_resource type="Texture2D" uid="uid://dxxkyh42xfxw7" path="res://assets/common/global.png" id="1_iul1j"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_8ht24"]
+radius = 11.0
+
+[node name="small_bush" type="StaticBody2D"]
+
+[node name="sprite_2d" type="Sprite2D" parent="."]
+texture = ExtResource("1_iul1j")
+offset = Vector2(0, -16)
+region_enabled = true
+region_rect = Rect2(96, 976, 32, 32)
+
+[node name="collision_shape_2d" type="CollisionShape2D" parent="."]
+position = Vector2(0, -6)
+shape = SubResource("CircleShape2D_8ht24")

@@ -1,0 +1,18 @@
+[gd_scene load_steps=3 format=3 uid="uid://swguolnlygvl"]
+
+[ext_resource type="Texture2D" uid="uid://dxxkyh42xfxw7" path="res://assets/common/global.png" id="1_4s465"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_buj53"]
+size = Vector2(17, 11)
+
+[node name="tree" type="StaticBody2D"]
+
+[node name="sprite_2d" type="Sprite2D" parent="."]
+texture = ExtResource("1_4s465")
+offset = Vector2(-0.5, -32)
+region_enabled = true
+region_rect = Rect2(88, 896, 48, 64)
+
+[node name="collision_shape_2d" type="CollisionShape2D" parent="."]
+position = Vector2(0.5, -5.5)
+shape = SubResource("RectangleShape2D_buj53")

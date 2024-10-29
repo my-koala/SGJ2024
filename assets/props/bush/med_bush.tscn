@@ -1,0 +1,18 @@
+[gd_scene load_steps=3 format=3 uid="uid://tsn2hggaufg0"]
+
+[ext_resource type="Texture2D" uid="uid://dxxkyh42xfxw7" path="res://assets/common/global.png" id="1_iul1j"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_5fp2v"]
+size = Vector2(38, 20)
+
+[node name="med_bush" type="StaticBody2D"]
+
+[node name="sprite_2d" type="Sprite2D" parent="."]
+texture = ExtResource("1_iul1j")
+offset = Vector2(0, -13)
+region_enabled = true
+region_rect = Rect2(144, 976, 48, 40)
+
+[node name="collision_shape_2d" type="CollisionShape2D" parent="."]
+position = Vector2(0, -10)
+shape = SubResource("RectangleShape2D_5fp2v")

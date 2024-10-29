@@ -1,0 +1,18 @@
+[gd_scene load_steps=3 format=3 uid="uid://vo55258kpbgr"]
+
+[ext_resource type="Texture2D" uid="uid://dxxkyh42xfxw7" path="res://assets/common/global.png" id="1_v6xq2"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_o8m4h"]
+size = Vector2(12, 7)
+
+[node name="zombie_hand" type="StaticBody2D"]
+
+[node name="sprite_2d" type="Sprite2D" parent="."]
+texture = ExtResource("1_v6xq2")
+offset = Vector2(0, -16)
+region_enabled = true
+region_rect = Rect2(240, 832, 16, 32)
+
+[node name="collision_shape_2d" type="CollisionShape2D" parent="."]
+position = Vector2(1, -3.5)
+shape = SubResource("RectangleShape2D_o8m4h")
