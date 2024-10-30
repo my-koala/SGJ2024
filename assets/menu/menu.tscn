@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=3 uid="uid://d3h1qo3ed8m5s"]
+[gd_scene load_steps=19 format=3 uid="uid://d3h1qo3ed8m5s"]
 
 [ext_resource type="Script" path="res://assets/menu/menu.gd" id="1_80ymb"]
 [ext_resource type="Texture2D" uid="uid://cs1pqckh7cyjg" path="res://assets/menu/Pause Menu Artwork/Side_Profile_empty.png" id="2_uje2l"]
@@ -13,6 +13,11 @@
 [ext_resource type="Texture2D" uid="uid://dbotpdnfxlt0c" path="res://assets/menu/Game UI Artwork/Frank UI mask.png" id="10_oy14p"]
 [ext_resource type="Texture2D" uid="uid://xg6xsg0g6lk" path="res://assets/menu/Game UI Artwork/Health_Bar_base.png" id="12_apfbv"]
 [ext_resource type="Texture2D" uid="uid://6da4t8djxar8" path="res://assets/menu/Game UI Artwork/Health_Bar_bar.png" id="13_y3gn8"]
+[ext_resource type="AudioStream" uid="uid://dei2hh4gvddh0" path="res://assets/sound/music/Mr. Spooky Bones.wav" id="14_j4ac4"]
+[ext_resource type="AudioStream" uid="uid://b3utmvmqsvk7h" path="res://assets/sound/music/Waltz of Nightmares.mp3" id="15_m1d0u"]
+[ext_resource type="AudioStream" uid="uid://d4lpms38mg68x" path="res://assets/sound/music/SpiderismAttack.mp3" id="16_43uem"]
+[ext_resource type="AudioStream" uid="uid://bgsy01plsc33p" path="res://assets/sound/music/Vampire's Requiem Trimmed.mp3" id="17_ho286"]
+[ext_resource type="AudioStream" uid="uid://cveu7rwreiih" path="res://assets/sound/music/castle of demise.wav" id="18_mkwuf"]
 
 [node name="menu" type="Control"]
 layout_mode = 3
@@ -339,3 +344,20 @@ value = 0.175
 texture_under = ExtResource("12_apfbv")
 texture_progress = ExtResource("13_y3gn8")
 texture_progress_offset = Vector2(5, 0)
+
+[node name="music" type="Node" parent="."]
+
+[node name="music_menu" type="AudioStreamPlayer" parent="music"]
+stream = ExtResource("14_j4ac4")
+
+[node name="music_low_fear" type="AudioStreamPlayer" parent="music"]
+stream = ExtResource("15_m1d0u")
+
+[node name="music_medium_fear" type="AudioStreamPlayer" parent="music"]
+stream = ExtResource("16_43uem")
+
+[node name="music_high_fear" type="AudioStreamPlayer" parent="music"]
+stream = ExtResource("17_ho286")
+
+[node name="music_game_over" type="AudioStreamPlayer" parent="music"]
+stream = ExtResource("18_mkwuf")

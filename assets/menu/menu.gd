@@ -45,6 +45,17 @@ var _game_play_screen_progress_fear: TextureProgressBar = $game_play_screen/bar_
 @onready
 var _game_play_screen_progress_health: TextureProgressBar = $game_play_screen/bar_health_meter as TextureProgressBar
 
+@onready
+var _music_menu: AudioStreamPlayer = $music/music_menu as AudioStreamPlayer
+@onready
+var _music_low_fear: AudioStreamPlayer = $music/music_low_fear as AudioStreamPlayer
+@onready
+var _music_medium_fear: AudioStreamPlayer = $music/music_medium_fear as AudioStreamPlayer
+@onready
+var _music_high_fear: AudioStreamPlayer = $music/music_high_fear as AudioStreamPlayer
+@onready
+var _music_game_over: AudioStreamPlayer = $music/music_game_over as AudioStreamPlayer
+
 enum ActiveScreen { MENU, PAUSE, LOSE, WIN, PLAY }
 var _active_screen: ActiveScreen = ActiveScreen.MENU
 
@@ -57,30 +68,60 @@ func set_active_screen(active_screen: ActiveScreen) -> void:
 			_game_lose_screen.visible = false
 			_game_win_screen.visible = false
 			_game_play_screen.visible = false
+			
+			_music_menu.playing = true
+			_music_low_fear.playing = false
+			_music_medium_fear.playing = false
+			_music_high_fear.playing = false
+			_music_game_over.playing = false
 		ActiveScreen.PAUSE:
 			_game_title_screen.visible = false
 			_game_pause_screen.visible = true
 			_game_lose_screen.visible = false
 			_game_win_screen.visible = false
 			_game_play_screen.visible = false
+			
+			_music_menu.playing = true
+			_music_low_fear.playing = false
+			_music_medium_fear.playing = false
+			_music_high_fear.playing = false
+			_music_game_over.playing = false
 		ActiveScreen.LOSE:
 			_game_title_screen.visible = false
 			_game_pause_screen.visible = false
 			_game_lose_screen.visible = true
 			_game_win_screen.visible = false
 			_game_play_screen.visible = false
+			
+			_music_menu.playing = false
+			_music_low_fear.playing = false
+			_music_medium_fear.playing = false
+			_music_high_fear.playing = false
+			_music_game_over.playing = true
 		ActiveScreen.WIN:
 			_game_title_screen.visible = false
 			_game_pause_screen.visible = false
 			_game_lose_screen.visible = false
 			_game_win_screen.visible = true
 			_game_play_screen.visible = false
+			
+			_music_menu.playing = false
+			_music_low_fear.playing = false
+			_music_medium_fear.playing = false
+			_music_high_fear.playing = true
+			_music_game_over.playing = false
 		ActiveScreen.PLAY:
 			_game_title_screen.visible = false
 			_game_pause_screen.visible = false
 			_game_lose_screen.visible = false
 			_game_win_screen.visible = false
 			_game_play_screen.visible = true
+			
+			_music_menu.playing = false
+			_music_low_fear.playing = true
+			_music_medium_fear.playing = false
+			_music_high_fear.playing = false
+			_music_game_over.playing = false
 
 func _ready() -> void:
 	if Engine.is_editor_hint():
