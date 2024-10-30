@@ -1,0 +1,25 @@
+[gd_scene load_steps=4 format=3 uid="uid://yqebj64g6kfk"]
+
+[ext_resource type="Texture2D" uid="uid://dxxkyh42xfxw7" path="res://assets/common/global.png" id="1_v52vy"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_u3ka5"]
+size = Vector2(144, 143)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_eatfx"]
+size = Vector2(12, 49)
+
+[node name="house_e" type="StaticBody2D"]
+
+[node name="sprite_2d" type="Sprite2D" parent="."]
+texture = ExtResource("1_v52vy")
+offset = Vector2(0, -104)
+region_enabled = true
+region_rect = Rect2(752, 384, 176, 208)
+
+[node name="collision_shape_2d" type="CollisionShape2D" parent="."]
+position = Vector2(0, -71.5)
+shape = SubResource("RectangleShape2D_u3ka5")
+
+[node name="collision_shape_2d-2" type="CollisionShape2D" parent="."]
+position = Vector2(78, -34.5)
+shape = SubResource("RectangleShape2D_eatfx")

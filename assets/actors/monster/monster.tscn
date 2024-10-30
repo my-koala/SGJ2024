@@ -1,4 +1,4 @@
-[gd_scene load_steps=21 format=3 uid="uid://bumpjbhfi4uxm"]
+[gd_scene load_steps=24 format=3 uid="uid://bumpjbhfi4uxm"]
 
 [ext_resource type="Script" path="res://assets/actors/monster/monster.gd" id="1_0y4s8"]
 [ext_resource type="Texture2D" uid="uid://dk3dmeqx3a24b" path="res://assets/actors/monster/monster.png" id="2_q3g1v"]
@@ -10,6 +10,9 @@
 [ext_resource type="Script" path="res://modules/detect/detectable_2d.gd" id="8_77wx1"]
 [ext_resource type="Script" path="res://assets/actors/hunter/hunter_target.gd" id="9_6xnlb"]
 [ext_resource type="AudioStream" uid="uid://b75m52qtgchfd" path="res://assets/actors/tricker/screams/9.wav" id="9_it316"]
+[ext_resource type="AudioStream" uid="uid://b0hsjt6rnfhqy" path="res://assets/sound/sfx/Child_Shake.mp3" id="10_vh6n1"]
+[ext_resource type="AudioStream" uid="uid://ci7tasiph4yc3" path="res://assets/sound/sfx/Child_Kick_Strong.mp3" id="11_48mag"]
+[ext_resource type="AudioStream" uid="uid://1ilu1gufo1md" path="res://assets/sound/sfx/Pop.wav" id="12_rsat1"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_r14q1"]
 friction = 0.25
@@ -111,7 +114,7 @@ tracks/5/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [80.0]
+"values": [96.0]
 }
 tracks/6/type = "value"
 tracks/6/imported = false
@@ -241,14 +244,14 @@ _data = {
 
 [node name="monster" type="RigidBody2D" node_paths=PackedStringArray("air_transform")]
 collision_layer = 2
-collision_mask = 3
+collision_mask = 2051
 mass = 50.0
 physics_material_override = SubResource("PhysicsMaterial_r14q1")
 lock_rotation = true
 freeze_mode = 1
 continuous_cd = 2
 script = ExtResource("1_0y4s8")
-move_speed = 80.0
+move_speed = 96.0
 move_acceleration = 1024.0
 air_height = 0.125
 air_transform = NodePath("avatar")
@@ -264,13 +267,16 @@ vframes = 4
 [node name="shadow" type="Sprite2D" parent="."]
 modulate = Color(1, 1, 1, 0.423529)
 z_index = -1
+position = Vector2(0, -3)
 texture = ExtResource("7_n2y5f")
 
 [node name="collision_shape_2d" type="CollisionShape2D" parent="."]
+visible = false
 position = Vector2(1.76429e-05, 1.66893e-06)
 shape = SubResource("RectangleShape2D_2yae3")
 
 [node name="hunter_target" type="Area2D" parent="."]
+visible = false
 collision_layer = 4096
 collision_mask = 0
 monitoring = false
@@ -280,6 +286,7 @@ script = ExtResource("9_6xnlb")
 shape = SubResource("RectangleShape2D_e5wvs")
 
 [node name="hitbox_shake_2d" type="Area2D" parent="."]
+visible = false
 collision_layer = 16
 collision_mask = 0
 monitoring = false
@@ -289,6 +296,7 @@ monitorable = false
 shape = SubResource("CircleShape2D_8vxt3")
 
 [node name="hitbox_dropkick_2d" type="Area2D" parent="."]
+visible = false
 collision_layer = 16
 collision_mask = 0
 monitoring = false
@@ -298,6 +306,7 @@ monitorable = false
 shape = SubResource("CircleShape2D_no1je")
 
 [node name="detectable_2d" type="Area2D" parent="."]
+visible = false
 collision_layer = 64
 collision_mask = 0
 monitoring = false
@@ -326,6 +335,7 @@ remote_transform_offset = NodePath("remote_transform_2d/remote_transform_offset_
 [node name="marker_2d" type="Marker2D" parent="carrier_2d/remote_transform_2d"]
 
 [node name="carriable_2d" type="Area2D" parent="." node_paths=PackedStringArray("entity")]
+visible = false
 collision_layer = 128
 collision_mask = 0
 script = ExtResource("5_2gv0v")
@@ -335,6 +345,7 @@ entity = NodePath("..")
 shape = SubResource("RectangleShape2D_4s1kk")
 
 [node name="collector_2d" type="Area2D" parent="."]
+visible = false
 collision_layer = 0
 collision_mask = 32
 monitorable = false
@@ -348,12 +359,35 @@ shape = SubResource("CircleShape2D_idteb")
 
 [node name="hurt" type="AudioStreamPlayer2D" parent="audio"]
 stream = ExtResource("9_it316")
-volume_db = -20.0
+volume_db = -10.0
 pitch_scale = 0.5
-max_distance = 300.0
-attenuation = 2.73208
+max_distance = 512.0
+panning_strength = 0.5
+bus = &"Sound"
+
+[node name="shake" type="AudioStreamPlayer2D" parent="audio"]
+stream = ExtResource("10_vh6n1")
+volume_db = -12.0
+pitch_scale = 0.9
+max_distance = 512.0
+max_polyphony = 10
+panning_strength = 0.5
+bus = &"Sound"
+
+[node name="kick" type="AudioStreamPlayer2D" parent="audio"]
+stream = ExtResource("11_48mag")
+volume_db = -8.0
+max_distance = 512.0
+max_polyphony = 10
+bus = &"Sound"
+
+[node name="collect" type="AudioStreamPlayer2D" parent="audio"]
+stream = ExtResource("12_rsat1")
+volume_db = -4.0
+max_distance = 512.0
+max_polyphony = 10
 panning_strength = 2.0
-bus = &"Monster"
+bus = &"Sound"
 
 [node name="animation_player" type="AnimationPlayer" parent="."]
 callback_mode_process = 0

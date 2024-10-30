@@ -1,6 +1,7 @@
-[gd_scene load_steps=5 format=3 uid="uid://bmhh30nnu0c6r"]
+[gd_scene load_steps=6 format=3 uid="uid://bmhh30nnu0c6r"]
 
 [ext_resource type="PackedScene" uid="uid://cflfxr6fhq8xo" path="res://assets/actors/hunter/hunter.tscn" id="1_u2rja"]
+[ext_resource type="AudioStream" uid="uid://l1f0bl44eqcm" path="res://assets/actors/hunter/shotgun.mp3" id="2_8uk54"]
 [ext_resource type="AnimationLibrary" uid="uid://bodthkotl6i7b" path="res://assets/actors/hunter/hunter_b.tres" id="2_q5cfd"]
 
 [sub_resource type="Animation" id="Animation_leo4l"]
@@ -61,6 +62,15 @@ _data = {
 }
 
 [node name="hunter_b" instance=ExtResource("1_u2rja")]
+shoot_distance = 128.0
+move_speed = 40.0
+
+[node name="detector_2d" parent="." index="2"]
+vision_radius = 160.0
+
+[node name="audio" parent="gun" index="1"]
+stream = ExtResource("2_8uk54")
+pitch_scale = 1.25
 
 [node name="animation_player" parent="." index="7"]
 libraries = {

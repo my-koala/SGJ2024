@@ -107,11 +107,13 @@ pause={
 2d_physics/layer_6="collect"
 2d_physics/layer_7="detect"
 2d_physics/layer_8="carry"
+2d_physics/layer_12="oneway"
 2d_physics/layer_13="shoot"
 
 [navigation]
 
 2d/default_edge_connection_margin=24.0
+3d/merge_rasterizer_cell_scale=0.001
 
 [physics]
 
@@ -127,3 +129,4 @@ common/physics_interpolation=true
 textures/canvas_textures/default_texture_filter=0
 renderer/rendering_method="gl_compatibility"
 renderer/rendering_method.mobile="gl_compatibility"
+environment/defaults/default_clear_color=Color(0.299158, 0.15409, 0.262171, 1)

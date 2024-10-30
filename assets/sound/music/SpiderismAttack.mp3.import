@@ -12,7 +12,7 @@ dest_files=["res://.godot/imported/SpiderismAttack.mp3-9742213d84cbf366dbf05daec
 
 [params]
 
-loop=false
+loop=true
 loop_offset=0
 bpm=0
 beat_count=0

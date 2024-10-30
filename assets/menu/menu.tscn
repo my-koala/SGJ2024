@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=3 uid="uid://d3h1qo3ed8m5s"]
+[gd_scene load_steps=20 format=3 uid="uid://d3h1qo3ed8m5s"]
 
 [ext_resource type="Script" path="res://assets/menu/menu.gd" id="1_80ymb"]
 [ext_resource type="Texture2D" uid="uid://cs1pqckh7cyjg" path="res://assets/menu/Pause Menu Artwork/Side_Profile_empty.png" id="2_uje2l"]
@@ -10,6 +10,7 @@
 [ext_resource type="Texture2D" uid="uid://d0yo3hhmhdwnu" path="res://assets/menu/Lose Menu Artwork/Frank lose.png" id="8_412gn"]
 [ext_resource type="Texture2D" uid="uid://d38ptit2ix7up" path="res://assets/menu/Win Menu Artwork/Frank win.png" id="8_482cb"]
 [ext_resource type="Texture2D" uid="uid://bm5c0ibofqj3h" path="res://assets/menu/Game UI Artwork/Frank UI base.png" id="9_1mv0i"]
+[ext_resource type="Texture2D" uid="uid://bba7qy1oeyp76" path="res://assets/menu/Pause Menu Artwork/Side_Profile_stuffed.png" id="10_noe42"]
 [ext_resource type="Texture2D" uid="uid://dbotpdnfxlt0c" path="res://assets/menu/Game UI Artwork/Frank UI mask.png" id="10_oy14p"]
 [ext_resource type="Texture2D" uid="uid://xg6xsg0g6lk" path="res://assets/menu/Game UI Artwork/Health_Bar_base.png" id="12_apfbv"]
 [ext_resource type="Texture2D" uid="uid://6da4t8djxar8" path="res://assets/menu/Game UI Artwork/Health_Bar_bar.png" id="13_y3gn8"]
@@ -48,12 +49,48 @@ layout_mode = 0
 offset_right = 40.0
 offset_bottom = 40.0
 
+[node name="credits" type="TextureButton" parent="game_title_screen"]
+layout_mode = 2
+offset_left = 249.0
+offset_top = 184.0
+offset_right = 393.0
+offset_bottom = 214.0
+texture_normal = ExtResource("5_1vfqf")
+texture_pressed = ExtResource("6_4lq1n")
+texture_hover = ExtResource("6_4lq1n")
+
+[node name="label" type="Label" parent="game_title_screen/credits"]
+layout_mode = 0
+offset_right = 144.0
+offset_bottom = 30.0
+theme_override_colors/font_color = Color(0.0980392, 0.243137, 0.592157, 1)
+theme_override_fonts/font = ExtResource("5_j10mr")
+text = "Credits"
+horizontal_alignment = 1
+vertical_alignment = 1
+
 [node name="buttons_container" type="VBoxContainer" parent="game_title_screen"]
 layout_mode = 0
-offset_left = 12.0
-offset_top = 57.0
-offset_right = 156.0
-offset_bottom = 189.0
+offset_left = 9.0
+offset_top = 49.0
+offset_right = 153.0
+offset_bottom = 215.0
+
+[node name="how" type="TextureButton" parent="game_title_screen/buttons_container"]
+layout_mode = 2
+texture_normal = ExtResource("5_1vfqf")
+texture_pressed = ExtResource("6_4lq1n")
+texture_hover = ExtResource("6_4lq1n")
+
+[node name="label" type="Label" parent="game_title_screen/buttons_container/how"]
+layout_mode = 0
+offset_right = 144.0
+offset_bottom = 30.0
+theme_override_colors/font_color = Color(0.294118, 0.411765, 0.184314, 1)
+theme_override_fonts/font = ExtResource("5_j10mr")
+text = "How to Play"
+horizontal_alignment = 1
+vertical_alignment = 1
 
 [node name="play" type="TextureButton" parent="game_title_screen/buttons_container"]
 layout_mode = 2
@@ -132,6 +169,28 @@ offset_bottom = 30.0
 theme_override_colors/font_color = Color(0.294118, 0.411765, 0.184314, 1)
 theme_override_fonts/font = ExtResource("5_j10mr")
 text = "Quit"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="texture_rect" type="TextureRect" parent="game_title_screen"]
+modulate = Color(0, 0.541176, 0.627451, 1)
+layout_mode = 0
+offset_left = -505.0
+offset_top = 2.0
+offset_right = -361.0
+offset_bottom = 42.0
+scale = Vector2(13.18, 1)
+texture = ExtResource("5_1vfqf")
+
+[node name="title" type="Label" parent="game_title_screen"]
+offset_left = 47.0
+offset_top = 11.0
+offset_right = 368.0
+offset_bottom = 41.0
+theme_override_colors/font_color = Color(0.839216, 0.956863, 0.556863, 1)
+theme_override_fonts/font = ExtResource("5_j10mr")
+theme_override_font_sizes/font_size = 25
+text = "FRANKENGRIND: THE HUNT"
 horizontal_alignment = 1
 vertical_alignment = 1
 
@@ -280,6 +339,40 @@ text = "Main Menu"
 horizontal_alignment = 1
 vertical_alignment = 1
 
+[node name="score" type="Label" parent="game_lose_screen"]
+offset_left = 235.0
+offset_top = 2.0
+offset_right = 384.0
+offset_bottom = 32.0
+theme_override_colors/font_color = Color(1, 0.411765, 0.184314, 1)
+theme_override_fonts/font = ExtResource("5_j10mr")
+text = "Score: 2"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="message_hunted" type="Label" parent="game_lose_screen"]
+offset_left = 199.0
+offset_top = 103.0
+offset_right = 348.0
+offset_bottom = 133.0
+theme_override_colors/font_color = Color(0.686468, 0, 0.284784, 1)
+theme_override_fonts/font = ExtResource("5_j10mr")
+text = "You were hunted!"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="message_home" type="Label" parent="game_lose_screen"]
+offset_left = 156.0
+offset_top = 98.0
+offset_right = 393.0
+offset_bottom = 137.0
+theme_override_colors/font_color = Color(0.686468, 0, 0.284784, 1)
+theme_override_fonts/font = ExtResource("5_j10mr")
+text = "All the kids
+returned Home!"
+horizontal_alignment = 1
+vertical_alignment = 1
+
 [node name="game_win_screen" type="Control" parent="."]
 visible = false
 anchors_preset = 0
@@ -317,7 +410,142 @@ text = "Main Menu"
 horizontal_alignment = 1
 vertical_alignment = 1
 
+[node name="game_how_screen" type="Control" parent="."]
+visible = false
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="texture_rect" type="TextureRect" parent="game_how_screen"]
+layout_mode = 0
+offset_left = -27.0
+offset_top = 52.0
+offset_right = 373.0
+offset_bottom = 277.0
+texture = ExtResource("8_482cb")
+
+[node name="buttons_container" type="VBoxContainer" parent="game_how_screen"]
+layout_mode = 0
+offset_left = 251.0
+offset_top = 5.0
+offset_right = 395.0
+offset_bottom = 137.0
+
+[node name="menu" type="TextureButton" parent="game_how_screen/buttons_container"]
+layout_mode = 2
+texture_normal = ExtResource("5_1vfqf")
+texture_pressed = ExtResource("6_4lq1n")
+texture_hover = ExtResource("6_4lq1n")
+
+[node name="label" type="Label" parent="game_how_screen/buttons_container/menu"]
+layout_mode = 0
+offset_right = 144.0
+offset_bottom = 30.0
+theme_override_colors/font_color = Color(0.294118, 0.411765, 0.184314, 1)
+theme_override_fonts/font = ExtResource("5_j10mr")
+text = "Main Menu"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="label" type="Label" parent="game_how_screen"]
+offset_left = 251.0
+offset_top = 110.0
+offset_right = 395.0
+offset_bottom = 212.0
+theme_override_colors/font_color = Color(0.764119, 0.925814, 0.631417, 1)
+theme_override_fonts/font = ExtResource("5_j10mr")
+text = "- controls -
+MOVE: WASD
+pick up: E
+shake: space
+dropkick: e"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="label-2" type="Label" parent="game_how_screen"]
+offset_left = 10.0
+offset_top = 6.0
+offset_right = 245.0
+offset_bottom = 162.0
+theme_override_colors/font_color = Color(0.764119, 0.925814, 0.631417, 1)
+theme_override_fonts/font = ExtResource("5_j10mr")
+theme_override_font_sizes/font_size = 12
+text = "Play as a monster and hunt trick-or-treaters for their candy!
+
+Kids with too much candy will return home - and never come back!
+
+Beware of hunters! More hunters arrive with higher fear!
+"
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 3
+
+[node name="game_credits_screen" type="Control" parent="."]
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="texture_rect" type="TextureRect" parent="game_credits_screen"]
+layout_mode = 0
+offset_left = 54.0
+offset_right = 454.0
+offset_bottom = 225.0
+texture = ExtResource("10_noe42")
+
+[node name="buttons_container" type="VBoxContainer" parent="game_credits_screen"]
+layout_mode = 0
+offset_left = 251.0
+offset_top = 5.0
+offset_right = 395.0
+offset_bottom = 137.0
+
+[node name="menu" type="TextureButton" parent="game_credits_screen/buttons_container"]
+layout_mode = 2
+texture_normal = ExtResource("5_1vfqf")
+texture_pressed = ExtResource("6_4lq1n")
+texture_hover = ExtResource("6_4lq1n")
+
+[node name="label" type="Label" parent="game_credits_screen/buttons_container/menu"]
+layout_mode = 0
+offset_right = 144.0
+offset_bottom = 30.0
+theme_override_colors/font_color = Color(0.294118, 0.411765, 0.184314, 1)
+theme_override_fonts/font = ExtResource("5_j10mr")
+text = "Main Menu"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="label-2" type="Label" parent="game_credits_screen"]
+offset_left = 6.0
+offset_top = 135.0
+offset_right = 241.0
+offset_bottom = 291.0
+theme_override_colors/font_color = Color(0.764119, 0.925814, 0.631417, 1)
+theme_override_fonts/font = ExtResource("5_j10mr")
+theme_override_font_sizes/font_size = 10
+text = "Music:
+castle of deminse - by raiori​
+Mr. Spooky Bones - by mazzoumenos​
+Spiderism Attack - by Delfino​
+Vampire's Requiem - by Deadric336​
+Waltz of Nightmares - by robusta​"
+autowrap_mode = 3
+
+[node name="label-3" type="Label" parent="game_credits_screen"]
+offset_left = 3.0
+offset_top = 5.0
+offset_right = 238.0
+offset_bottom = 161.0
+theme_override_colors/font_color = Color(0.764119, 0.925814, 0.631417, 1)
+theme_override_fonts/font = ExtResource("5_j10mr")
+theme_override_font_sizes/font_size = 10
+text = "Programming, art - 
+Environment art - 
+UI art, - "
+autowrap_mode = 3
+
 [node name="game_play_screen" type="Control" parent="."]
+visible = false
 anchors_preset = 0
 offset_right = 40.0
 offset_bottom = 40.0
@@ -345,19 +573,49 @@ texture_under = ExtResource("12_apfbv")
 texture_progress = ExtResource("13_y3gn8")
 texture_progress_offset = Vector2(5, 0)
 
+[node name="score" type="Label" parent="game_play_screen"]
+offset_left = 59.0
+offset_top = 23.0
+offset_right = 208.0
+offset_bottom = 53.0
+theme_override_colors/font_color = Color(1, 0.411765, 0.184314, 1)
+theme_override_fonts/font = ExtResource("5_j10mr")
+text = "Score: 2"
+vertical_alignment = 1
+
+[node name="trickers" type="Label" parent="game_play_screen"]
+offset_left = 58.0
+offset_top = 1.0
+offset_right = 207.0
+offset_bottom = 31.0
+theme_override_colors/font_color = Color(1, 0.411765, 0.184314, 1)
+theme_override_fonts/font = ExtResource("5_j10mr")
+text = "Trickers Left: 90"
+vertical_alignment = 1
+
 [node name="music" type="Node" parent="."]
 
 [node name="music_menu" type="AudioStreamPlayer" parent="music"]
 stream = ExtResource("14_j4ac4")
+volume_db = -20.0
+bus = &"Music"
 
 [node name="music_low_fear" type="AudioStreamPlayer" parent="music"]
 stream = ExtResource("15_m1d0u")
+volume_db = -20.0
+bus = &"Music"
 
 [node name="music_medium_fear" type="AudioStreamPlayer" parent="music"]
 stream = ExtResource("16_43uem")
+volume_db = -20.0
+bus = &"Music"
 
 [node name="music_high_fear" type="AudioStreamPlayer" parent="music"]
 stream = ExtResource("17_ho286")
+volume_db = -20.0
+bus = &"Music"
 
 [node name="music_game_over" type="AudioStreamPlayer" parent="music"]
 stream = ExtResource("18_mkwuf")
+volume_db = -20.0
+bus = &"Music"

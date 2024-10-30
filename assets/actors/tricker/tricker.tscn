@@ -1,4 +1,4 @@
-[gd_scene load_steps=32 format=3 uid="uid://dvfbewn5n6mdq"]
+[gd_scene load_steps=35 format=3 uid="uid://dvfbewn5n6mdq"]
 
 [ext_resource type="Script" path="res://assets/actors/tricker/tricker.gd" id="1_mqmke"]
 [ext_resource type="PackedScene" uid="uid://baj207k0pptso" path="res://assets/collectables/candy/candy.tscn" id="2_v4jvc"]
@@ -31,6 +31,10 @@ bounce = 0.75
 radius = 6.0
 height = 12.0
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_5g6ju"]
+atlas = ExtResource("2_ypw4m")
+region = Rect2(0, 0, 32, 32)
+
 [sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_76ud7"]
 light_mode = 1
 
@@ -39,21 +43,6 @@ size = Vector2(16, 8)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_0udtk"]
 size = Vector2(32, 32)
-
-[sub_resource type="Animation" id="Animation_wnc6f"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("avatar/sprite_2d:rotation")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [0.0]
-}
 
 [sub_resource type="Animation" id="Animation_rf37g"]
 resource_name = "spin"
@@ -71,6 +60,18 @@ tracks/0/keys = {
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
 "values": [0.0, 6.28319]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("avatar/sprite_2d:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = false
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, -12)]
 }
 
 [sub_resource type="Animation" id="Animation_dbano"]
@@ -90,17 +91,118 @@ tracks/0/keys = {
 "update": 0,
 "values": [0.0]
 }
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("avatar/sprite_2d:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = false
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, -12)]
+}
+
+[sub_resource type="Animation" id="Animation_wnc6f"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("avatar/sprite_2d:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = false
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("avatar/sprite_2d:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = false
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, -12)]
+}
+
+[sub_resource type="Animation" id="Animation_g133u"]
+resource_name = "move"
+length = 0.80002
+loop_mode = 1
+step = 0.2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("avatar/sprite_2d:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = false
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.4, 0.6, 0.8),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 0,
+"values": [0.0523599, 0.0, -0.0523599, 0.0, 0.0523599]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("avatar/sprite_2d:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = false
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.20001, 0.4, 0.60001, 0.8),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(1, -14), Vector2(0, -12), Vector2(-1, -14), Vector2(0, -12), Vector2(1, -14)]
+}
+
+[sub_resource type="Animation" id="Animation_b2ppn"]
+resource_name = "panic"
+length = 0.40001
+loop_mode = 1
+step = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("avatar/sprite_2d:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = false
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 0,
+"values": [0.0523599, 0.0, -0.0523599, 0.0, 0.0523599]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("avatar/sprite_2d:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = false
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.10001, 0.2, 0.30001, 0.4),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(1, -14), Vector2(0, -12), Vector2(-1, -14), Vector2(0, -12), Vector2(1, -14)]
+}
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_wtkwg"]
 _data = {
-&"RESET": SubResource("Animation_wnc6f"),
 &"idle": SubResource("Animation_dbano"),
-&"spin": SubResource("Animation_rf37g")
+&"spin": SubResource("Animation_rf37g"),
+&"panic": SubResource("Animation_b2ppn"),
+&"move": SubResource("Animation_g133u"),
+&"RESET": SubResource("Animation_wnc6f")
 }
 
 [node name="tricker" type="RigidBody2D" node_paths=PackedStringArray("air_transform")]
 collision_layer = 2
-collision_mask = 3
+collision_mask = 2051
 collision_priority = 18.935
 mass = 20.0
 physics_material_override = SubResource("PhysicsMaterial_v0la8")
@@ -128,10 +230,8 @@ shape = SubResource("CapsuleShape2D_eplpf")
 
 [node name="sprite_2d" type="Sprite2D" parent="avatar"]
 position = Vector2(0, -12)
-texture = ExtResource("2_ypw4m")
+texture = SubResource("AtlasTexture_5g6ju")
 offset = Vector2(0.5, 0)
-hframes = 4
-vframes = 4
 
 [node name="display" type="Control" parent="avatar"]
 material = SubResource("CanvasItemMaterial_76ud7")
@@ -205,6 +305,7 @@ z_index = -1
 texture = ExtResource("4_k8mfx")
 
 [node name="detector_2d" type="Node2D" parent="."]
+modulate = Color(1, 0.666667, 0.113725, 0.239216)
 script = ExtResource("9_j84tw")
 vision_radius = 72.0
 vision_theta = 1.5708
@@ -236,16 +337,16 @@ entity = NodePath("..")
 shape = SubResource("RectangleShape2D_0udtk")
 
 [node name="navigation_agent_2d" type="NavigationAgent2D" parent="."]
-path_desired_distance = 4.0
+path_desired_distance = 8.0
 target_desired_distance = 8.0
-path_max_distance = 10.0
+path_max_distance = 16.0
 simplify_path = true
 
 [node name="audio" type="Node2D" parent="."]
 
 [node name="scream_1" type="AudioStreamPlayer2D" parent="audio"]
 stream = ExtResource("10_02k42")
-volume_db = -20.0
+volume_db = -10.0
 max_distance = 300.0
 attenuation = 2.73208
 panning_strength = 2.0
@@ -253,7 +354,7 @@ bus = &"Scream"
 
 [node name="scream_2" type="AudioStreamPlayer2D" parent="audio"]
 stream = ExtResource("11_52x0w")
-volume_db = -20.0
+volume_db = -10.0
 max_distance = 300.0
 attenuation = 2.73208
 panning_strength = 2.0
@@ -261,7 +362,7 @@ bus = &"Scream"
 
 [node name="scream_3" type="AudioStreamPlayer2D" parent="audio"]
 stream = ExtResource("12_mijov")
-volume_db = -20.0
+volume_db = -10.0
 max_distance = 300.0
 attenuation = 2.73208
 panning_strength = 2.0
@@ -269,7 +370,7 @@ bus = &"Scream"
 
 [node name="scream_4" type="AudioStreamPlayer2D" parent="audio"]
 stream = ExtResource("13_nbprp")
-volume_db = -20.0
+volume_db = -10.0
 max_distance = 300.0
 attenuation = 2.73208
 panning_strength = 2.0
@@ -277,7 +378,7 @@ bus = &"Scream"
 
 [node name="scream_5" type="AudioStreamPlayer2D" parent="audio"]
 stream = ExtResource("14_ao551")
-volume_db = -20.0
+volume_db = -10.0
 max_distance = 300.0
 attenuation = 2.73208
 panning_strength = 2.0
@@ -285,7 +386,7 @@ bus = &"Scream"
 
 [node name="scream_6" type="AudioStreamPlayer2D" parent="audio"]
 stream = ExtResource("15_epsqm")
-volume_db = -20.0
+volume_db = -10.0
 max_distance = 300.0
 attenuation = 2.73208
 panning_strength = 2.0
@@ -293,7 +394,7 @@ bus = &"Scream"
 
 [node name="scream_7" type="AudioStreamPlayer2D" parent="audio"]
 stream = ExtResource("16_1gtaa")
-volume_db = -20.0
+volume_db = -10.0
 max_distance = 300.0
 attenuation = 2.73208
 panning_strength = 2.0
@@ -301,7 +402,7 @@ bus = &"Scream"
 
 [node name="scream_8" type="AudioStreamPlayer2D" parent="audio"]
 stream = ExtResource("17_p21vx")
-volume_db = -20.0
+volume_db = -10.0
 max_distance = 300.0
 attenuation = 2.73208
 panning_strength = 2.0
@@ -309,7 +410,7 @@ bus = &"Scream"
 
 [node name="scream_9" type="AudioStreamPlayer2D" parent="audio"]
 stream = ExtResource("18_t1po4")
-volume_db = -20.0
+volume_db = -10.0
 max_distance = 300.0
 attenuation = 2.73208
 panning_strength = 2.0
@@ -317,7 +418,7 @@ bus = &"Scream"
 
 [node name="scream_10" type="AudioStreamPlayer2D" parent="audio"]
 stream = ExtResource("19_lolem")
-volume_db = -20.0
+volume_db = -10.0
 max_distance = 300.0
 attenuation = 2.73208
 panning_strength = 2.0
@@ -325,7 +426,7 @@ bus = &"Scream"
 
 [node name="scream_11" type="AudioStreamPlayer2D" parent="audio"]
 stream = ExtResource("20_7jv24")
-volume_db = -20.0
+volume_db = -10.0
 max_distance = 300.0
 attenuation = 2.73208
 panning_strength = 2.0

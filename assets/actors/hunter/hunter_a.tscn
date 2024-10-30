@@ -62,10 +62,9 @@ _data = {
 }
 
 [node name="hunter_a" instance=ExtResource("1_s1cgt")]
-shoot_distance = 72.0
+shoot_distance = 96.0
 shoot_cooldown = 1.5
 shoot_damage = 10.0
-move_speed = 24.0
 
 [node name="sprite_2d" parent="avatar" index="0"]
 texture = ExtResource("2_mbawb")
@@ -77,9 +76,6 @@ region_rect = Rect2(0, 8, 32, 16)
 
 [node name="gun_particles" parent="avatar/sprite_2d/gun_sprite" index="0"]
 amount = 2
-
-[node name="detector_2d" parent="." index="2"]
-vision_radius = 96.0
 
 [node name="animation_player" parent="." index="7"]
 libraries = {

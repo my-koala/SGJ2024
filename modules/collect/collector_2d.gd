@@ -2,6 +2,8 @@
 extends Area2D
 class_name Collector2D
 
+signal collected()
+
 @export var vacuum_force: float = 50.0 
 @export var collect_distance: float = 16
 var collectables: Array[Collectable2D] = []
@@ -41,6 +43,7 @@ func apply_vacuum(collectable: Collectable2D) -> void:
 	
 	if distance_squared < (collect_distance * collect_distance):
 		_collected_count += 1
+		collected.emit()
 		collectable.queue_free()
 	else:
 		var force: float = vacuum_force / distance_squared

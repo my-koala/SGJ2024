@@ -1,0 +1,17 @@
+[gd_scene load_steps=3 format=3 uid="uid://l4fg51p5qhro"]
+
+[ext_resource type="Texture2D" uid="uid://dxxkyh42xfxw7" path="res://assets/common/global.png" id="1_75h0f"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_3xlxx"]
+size = Vector2(34, 14)
+
+[node name="fence_spooky_f" type="StaticBody2D"]
+
+[node name="sprite_2d" type="Sprite2D" parent="."]
+position = Vector2(0, -17.5)
+texture = ExtResource("1_75h0f")
+region_enabled = true
+region_rect = Rect2(384, 141, 34, 35)
+
+[node name="collision_shape_2d" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_3xlxx")

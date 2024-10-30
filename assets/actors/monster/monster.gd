@@ -38,6 +38,8 @@ var _carrier: Carrier2D = $carrier_2d as Carrier2D
 @onready
 var _carriable: Carriable2D = $carriable_2d as Carriable2D
 @onready
+var _collector: Collector2D = $collector_2d as Collector2D
+@onready
 var _animation_player: AnimationPlayer = $animation_player as AnimationPlayer
 @onready
 var _hunter_target: HunterTarget = $hunter_target as HunterTarget
@@ -48,14 +50,20 @@ var _health: float = 100.0
 var _audio_hurt: AudioStreamPlayer2D = $audio/hurt as AudioStreamPlayer2D
 @onready
 var _avatar_sprite: Sprite2D = $avatar/sprite_2d as Sprite2D
+@onready
+var _audio_collect: AudioStreamPlayer2D = $audio/collect as AudioStreamPlayer2D
 
 func _ready() -> void:
 	if Engine.is_editor_hint():
 		return
 	
+	_collector.collected.connect(_on_collector_collected)
 	_health = health
 	_hunter_target.hit.connect(_on_hunter_target_hit)
 	_animation_player.callback_mode_process = AnimationMixer.ANIMATION_CALLBACK_MODE_PROCESS_MANUAL
+
+func _on_collector_collected() -> void:
+	_audio_collect.play()
 
 func _on_hunter_target_hit(damage: float) -> void:
 	_health -= damage
@@ -150,7 +158,8 @@ func _physics_process(delta: float) -> void:
 		pass
 	elif _carrier.has_carriable():
 		if _animation_player.is_playing() && !current_animation.begins_with("monster_a/carry"):
-			_animation_player.play(&"monster_a/carry_pickup-" + str(blend_face))
+			#_animation_player.play(&"monster_a/carry_pickup-" + str(blend_face))
+			_animation_player.play(&"monster_a/carry_pickup-0")
 		elif drop_anim:
 			_animation_player.play(&"monster_a/carry_drop-" + str(blend_face))
 		elif dropkick_anim:

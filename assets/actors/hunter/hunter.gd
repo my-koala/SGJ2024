@@ -37,6 +37,8 @@ var _detector: Detector2D = $detector_2d as Detector2D
 var _navigation_agent: NavigationAgent2D = $navigation_agent_2d as NavigationAgent2D
 @onready
 var _carriable: Carriable2D = $carriable_2d as Carriable2D
+@onready
+var _gun_audio: AudioStreamPlayer2D = $gun/audio as AudioStreamPlayer2D
 
 enum AIState { NONE, PATROL, CHASE, CHASE_LOST }
 var _ai_state_curr: AIState = AIState.NONE
@@ -56,6 +58,7 @@ var shoot_cooldown: float = 1.0
 var shoot_damage: float = 25.0
 var _shoot_cooldown: float = 0.0
 func shoot() -> void:
+	_gun_audio.play()
 	for particle: int in shoot_pellets:
 		_gun_particles.restart()
 	if _gun_ray_cast.is_colliding():

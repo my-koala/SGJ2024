@@ -28,6 +28,23 @@ var global_scare_threshold_b: float = 120.0
 var global_scare_threshold_c: float = 180.0
 var _global_scare: float = 0
 
+func end(hunted: bool = false) -> void:
+	var environment: Environment = _world_environment.environment
+	var tween: Tween = create_tween()
+	
+	tween.set_ease(Tween.EASE_IN_OUT)
+	tween.set_process_mode(Tween.TWEEN_PROCESS_IDLE)
+	tween.set_parallel(false)
+	tween.tween_property(environment, NodePath("adjustment_saturation"), 0.01, 0.75)
+	tween.tween_property(environment, NodePath("adjustment_saturation"), 0.01, 1.0)
+	await tween.finished
+	if hunted:
+		game_over.emit.call_deferred(GameOver.DEAD, _player_collector.get_collected_count())
+	else:
+		game_over.emit.call_deferred(GameOver.NO_KIDS, _player_collector.get_collected_count())
+	
+	process_mode = Node.PROCESS_MODE_DISABLED
+
 func get_global_scare() -> float:
 	return _global_scare
 
@@ -106,24 +123,12 @@ func _ready() -> void:
 
 func _on_tricker_tree_exiting(tricker: Tricker) -> void:
 	_trickers.erase(tricker)
-	print("goodbye tricker...")
 
 func _on_tricker_scared_started() -> void:
 	_global_scare += global_scare_tricker_amount
 
 func _on_player_died() -> void:
-	var environment: Environment = _world_environment.environment
-	var tween: Tween = create_tween()
-	
-	tween.set_ease(Tween.EASE_IN_OUT)
-	tween.set_process_mode(Tween.TWEEN_PROCESS_IDLE)
-	tween.set_parallel(false)
-	tween.tween_property(environment, NodePath("adjustment_saturation"), 0.01, 0.75)
-	tween.tween_property(environment, NodePath("adjustment_saturation"), 0.01, 1.0)
-	await tween.finished
-	game_over.emit.call_deferred(GameOver.DEAD, _player_collector.get_collected_count())
-	print("map game over")
-	process_mode = Node.PROCESS_MODE_DISABLED
+	end(true)
 
 func _physics_process(delta: float) -> void:
 	if Engine.is_editor_hint():
@@ -144,4 +149,4 @@ func _physics_process(delta: float) -> void:
 			hunter.process_mode = Node.PROCESS_MODE_INHERIT
 	
 	if _trickers.is_empty():
-		game_over.emit(GameOver.NO_KIDS, get_player_candy_count())
+		end(false)

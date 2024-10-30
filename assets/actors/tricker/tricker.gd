@@ -18,6 +18,9 @@ const DoorNetwork: = preload("res://assets/props/door/door_network.gd")
 signal scared_started()
 
 @export
+var texture: Texture2D = null
+
+@export
 var door_network: DoorNetwork = null
 
 @export
@@ -80,6 +83,9 @@ var _lantern_light: PointLight2D = $detector_2d/lantern_light as PointLight2D
 var _home_icon: TextureRect = $avatar/display/home as TextureRect
 
 @onready
+var _sprite: Sprite2D = $avatar/sprite_2d as Sprite2D
+
+@onready
 var _audio_screams: Array[AudioStreamPlayer2D] = [
 	$audio/scream_1 as AudioStreamPlayer2D,
 	$audio/scream_2 as AudioStreamPlayer2D,
@@ -113,13 +119,16 @@ func _ready() -> void:
 	body_entered.connect(_on_body_entered)
 	_carriable.drop_kicked.connect(_on_carriable_drop_kicked)
 	
+	if is_instance_valid(texture):
+		_sprite.texture = texture
+	
 	var home_index: int = assigned_door % door_network.doors.size()
 	var home_position: Vector2 = door_network.doors[home_index].root.global_position
 	global_position = home_position
 
 func _on_carriable_drop_kicked() -> void:
 	var index: int = scream_index % _audio_screams.size()
-	_audio_screams[index].pitch_scale = randf_range(0.9, 1.1)
+	_audio_screams[index].pitch_scale = randf_range(1.0, 1.2)
 	_audio_screams[index].play()# scream
 
 func _on_hurtbox_area_entered(area: Area2D) -> void:
@@ -313,6 +322,11 @@ func _physics_process(delta: float) -> void:
 	
 	if linear_velocity.length() > 256.0 && is_airborne():
 		_animation_player.play(&"spin")
+	elif is_move_active():
+		if !scared:
+			_animation_player.play(&"move")
+		else:
+			_animation_player.play(&"panic")
 	else:
 		_animation_player.play(&"idle")
 	

@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=3 uid="uid://cflfxr6fhq8xo"]
+[gd_scene load_steps=20 format=3 uid="uid://cflfxr6fhq8xo"]
 
 [ext_resource type="Script" path="res://assets/actors/hunter/hunter.gd" id="1_yadwm"]
 [ext_resource type="Texture2D" uid="uid://lfvn81ia207t" path="res://assets/actors/hunter/hunter_b.png" id="2_gfl0d"]
@@ -9,6 +9,7 @@
 [ext_resource type="Texture2D" uid="uid://cpio1ami5ytom" path="res://assets/common/white.png" id="7_b4awl"]
 [ext_resource type="Script" path="res://modules/carry/carriable_2d.gd" id="7_fktmr"]
 [ext_resource type="Texture2D" uid="uid://y5rthwjmjb5i" path="res://assets/actors/hunter/guns.png" id="7_i6rv7"]
+[ext_resource type="AudioStream" uid="uid://pki3bta4hqsl" path="res://assets/actors/hunter/gunshot.mp3" id="9_rpdom"]
 [ext_resource type="AnimationLibrary" uid="uid://c8w217arny40s" path="res://assets/actors/hunter/hunter_c.tres" id="10_ioixa"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_vwver"]
@@ -167,6 +168,7 @@ texture_progress = ExtResource("5_tiv77")
 metadata/_edit_use_anchors_ = true
 
 [node name="detector_2d" type="Node2D" parent="."]
+modulate = Color(0.807843, 0, 0, 0.305882)
 script = ExtResource("5_f1ttn")
 vision_radius = 128.0
 vision_theta = 1.309
@@ -191,6 +193,12 @@ target_position = Vector2(0, 192)
 collision_mask = 4097
 hit_from_inside = true
 collide_with_areas = true
+
+[node name="audio" type="AudioStreamPlayer2D" parent="gun"]
+stream = ExtResource("9_rpdom")
+volume_db = -35.0
+max_polyphony = 32
+panning_strength = 0.5
 
 [node name="carriable_2d" type="Area2D" parent="." node_paths=PackedStringArray("entity")]
 collision_layer = 128

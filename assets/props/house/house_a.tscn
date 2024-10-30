@@ -1,5 +1,14 @@
 [gd_scene load_steps=2 format=3 uid="uid://cds7rbd7qsk7f"]
 
-[ext_resource type="PackedScene" uid="uid://e61pk8ahrknt" path="res://assets/props/house/house.tscn" id="1_h04xt"]
+[ext_resource type="Texture2D" uid="uid://dxxkyh42xfxw7" path="res://assets/common/global.png" id="1_m4qlt"]
 
-[node name="house_a" instance=ExtResource("1_h04xt")]
+[node name="house_a" type="StaticBody2D"]
+
+[node name="collision_polygon_2d" type="CollisionPolygon2D" parent="."]
+polygon = PackedVector2Array(-40, 0, 40, 0, 40, -52, -40, -52)
+
+[node name="sprite_2d" type="Sprite2D" parent="."]
+texture = ExtResource("1_m4qlt")
+offset = Vector2(0, -56)
+region_enabled = true
+region_rect = Rect2(624, 256, 80, 112)

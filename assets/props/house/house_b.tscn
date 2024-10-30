@@ -1,8 +1,14 @@
-[gd_scene load_steps=2 format=3 uid="uid://c86teevh8ienc"]
+[gd_scene load_steps=2 format=3 uid="uid://bqeuhyxsfuyaq"]
 
-[ext_resource type="PackedScene" uid="uid://e61pk8ahrknt" path="res://assets/props/house/house.tscn" id="1_i2p64"]
+[ext_resource type="Texture2D" uid="uid://dxxkyh42xfxw7" path="res://assets/common/global.png" id="1_mrvfi"]
 
-[node name="house_b" instance=ExtResource("1_i2p64")]
+[node name="house_b" type="StaticBody2D"]
 
-[node name="sprite_2d" parent="." index="1"]
-region_rect = Rect2(608, 480, 112, 112)
+[node name="collision_polygon_2d" type="CollisionPolygon2D" parent="."]
+polygon = PackedVector2Array(-40, 0, 40, 0, 40, -52, -40, -52)
+
+[node name="sprite_2d" type="Sprite2D" parent="."]
+texture = ExtResource("1_mrvfi")
+offset = Vector2(0, -52)
+region_enabled = true
+region_rect = Rect2(608, 376, 112, 104)

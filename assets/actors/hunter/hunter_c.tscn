@@ -7,10 +7,10 @@
 scare_speed = 4.0
 scare_timer = 5.0
 shoot_pellets = 1
-shoot_distance = 160.0
+shoot_distance = 124.0
 shoot_cooldown = 0.1
 shoot_damage = 5.0
-move_speed = 48.0
+move_speed = 64.0
 
 [node name="sprite_2d" parent="avatar" index="0"]
 texture = ExtResource("2_murv8")
@@ -26,5 +26,6 @@ initial_velocity_min = 2000.0
 initial_velocity_max = 2500.0
 
 [node name="detector_2d" parent="." index="2"]
-vision_radius = 192.0
-vision_theta = 1.0472
+modulate = Color(0.807843, 0, 0, 0.305882)
+vision_radius = 148.0
+vision_theta = 1.5708
