@@ -23,6 +23,8 @@ func _process(delta: float) -> void:
 	if is_instance_valid(_map):
 		_menu.set_global_scare_threshold_percents(_map.get_global_scare_threshold_percents())
 		_menu.set_player_health_percent(_map.get_player_health_percent())
+		_menu.set_player_candy_count(_map.get_player_candy_count())
+		_menu.set_tricker_count(_map.get_tricker_count())
 
 func _on_map_game_over(state: Map.GameOver, score: int) -> void:
 	if state == Map.GameOver.NO_KIDS:

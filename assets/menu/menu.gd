@@ -128,16 +128,16 @@ func _menu() -> void:
 	menu.emit()
 
 func set_global_scare(global_scare: float) -> void:
-	pass
+	pass# probably not needed since we have percent
 
 func set_player_health_percent(percent: float) -> void:
 	_game_play_screen_progress_health.value = percent
 
-func set_player_candy_count() -> void:
-	pass
+func set_player_candy_count(candy_count: int) -> void:
+	pass# TODO: implement me!
 
-func set_tricker_count() -> void:
-	pass
+func set_tricker_count(tricker_count: int) -> void:
+	pass# TODO: implement me!
 
 func set_global_scare_threshold_percents(thresholds: Array[float]) -> void:
 	# temporary
