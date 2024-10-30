@@ -58,6 +58,7 @@ agent_radius = 8.0
 size = Vector2(96, 7)
 
 [sub_resource type="Environment" id="Environment_51u15"]
+resource_local_to_scene = true
 background_mode = 3
 adjustment_enabled = true
 

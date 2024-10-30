@@ -99,7 +99,7 @@ func _physics_process(delta: float) -> void:
 	if Engine.is_editor_hint():
 		return
 	
-	if _health < 0.0:
+	if _health <= 0.0:
 		# play death animation
 		move_target_direction = Vector2.ZERO
 		face_target_direction = Vector2.ZERO

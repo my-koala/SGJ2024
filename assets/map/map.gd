@@ -8,7 +8,7 @@ const Monster: = preload("res://assets/actors/monster/monster.gd")
 const Hunter: = preload("res://assets/actors/hunter/hunter.gd")
 const Tricker: = preload("res://assets/actors/tricker/tricker.gd")
 
-signal map_stopped(game_over: GameOver, score: int)
+signal game_over(game_over: GameOver, score: int)
 
 enum GameOver { DEAD, NO_KIDS }
 
@@ -102,6 +102,7 @@ func _ready() -> void:
 		if is_instance_valid(hunter):
 			_hunters_c.append(hunter)
 			hunter.process_mode = Node.PROCESS_MODE_DISABLED
+	
 
 func _on_tricker_tree_exiting(tricker: Tricker) -> void:
 	_trickers.erase(tricker)
@@ -120,7 +121,7 @@ func _on_player_died() -> void:
 	tween.tween_property(environment, NodePath("adjustment_saturation"), 0.01, 0.75)
 	tween.tween_property(environment, NodePath("adjustment_saturation"), 0.01, 1.0)
 	await tween.finished
-	map_stopped.emit(GameOver.DEAD, _player_collector.get_collected_count())
+	game_over.emit(GameOver.DEAD, _player_collector.get_collected_count())
 	process_mode = Node.PROCESS_MODE_DISABLED
 
 func _physics_process(delta: float) -> void:
@@ -142,4 +143,4 @@ func _physics_process(delta: float) -> void:
 			hunter.process_mode = Node.PROCESS_MODE_INHERIT
 	
 	if _trickers.is_empty():
-		map_stopped.emit(GameOver.NO_KIDS, get_player_candy_count())
+		game_over.emit(GameOver.NO_KIDS, get_player_candy_count())

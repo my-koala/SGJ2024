@@ -1,12 +1,13 @@
-[gd_scene load_steps=2 format=3 uid="uid://ba4vxo3ccjcvh"]
+[gd_scene load_steps=3 format=3 uid="uid://ba4vxo3ccjcvh"]
 
 [ext_resource type="Script" path="res://assets/main/main.gd" id="1_g15i4"]
+[ext_resource type="PackedScene" uid="uid://d3h1qo3ed8m5s" path="res://assets/menu/menu.tscn" id="3_f677r"]
 
 [node name="main" type="Node"]
 script = ExtResource("1_g15i4")
 
-[node name="game" type="CanvasLayer" parent="."]
-layer = 0
-follow_viewport_enabled = true
+[node name="game" type="Node" parent="."]
 
 [node name="gui" type="CanvasLayer" parent="."]
+
+[node name="menu" parent="gui" instance=ExtResource("3_f677r")]

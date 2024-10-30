@@ -1,10 +1,9 @@
-[gd_scene load_steps=15 format=3 uid="uid://d3h1qo3ed8m5s"]
+[gd_scene load_steps=14 format=3 uid="uid://d3h1qo3ed8m5s"]
 
 [ext_resource type="Script" path="res://assets/menu/menu.gd" id="1_80ymb"]
 [ext_resource type="Texture2D" uid="uid://cs1pqckh7cyjg" path="res://assets/menu/Pause Menu Artwork/Side_Profile_empty.png" id="2_uje2l"]
 [ext_resource type="Texture2D" uid="uid://43tjceop8fdo" path="res://assets/menu/Main Menu Artwork/Frank Main menu.png" id="2_ymcpn"]
 [ext_resource type="Texture2D" uid="uid://clw883jios6dx" path="res://assets/menu/Pause Menu Artwork/side_profile_background.png" id="3_2ps03"]
-[ext_resource type="Script" path="res://assets/menu/pause_menu_gui.gd" id="3_ahm3t"]
 [ext_resource type="Texture2D" uid="uid://igh08kyx80ug" path="res://assets/menu/Button_base.png" id="5_1vfqf"]
 [ext_resource type="FontFile" uid="uid://dsl248ujndh7w" path="res://assets/fonts/8-bitanco.ttf" id="5_j10mr"]
 [ext_resource type="Texture2D" uid="uid://k7jxupfu4mbs" path="res://assets/menu/Button_selected.png" id="6_4lq1n"]
@@ -24,7 +23,7 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_80ymb")
 
-[node name="title_screen" type="Control" parent="."]
+[node name="game_title_screen" type="Control" parent="."]
 visible = false
 layout_mode = 1
 anchors_preset = 15
@@ -33,31 +32,31 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="splash" type="TextureRect" parent="title_screen"]
+[node name="splash" type="TextureRect" parent="game_title_screen"]
 layout_mode = 0
 offset_right = 40.0
 offset_bottom = 40.0
 texture = ExtResource("2_ymcpn")
 
-[node name="background" type="TextureRect" parent="title_screen"]
+[node name="background" type="TextureRect" parent="game_title_screen"]
 layout_mode = 0
 offset_right = 40.0
 offset_bottom = 40.0
 
-[node name="buttons_container" type="VBoxContainer" parent="title_screen"]
+[node name="buttons_container" type="VBoxContainer" parent="game_title_screen"]
 layout_mode = 0
 offset_left = 12.0
 offset_top = 57.0
 offset_right = 156.0
 offset_bottom = 189.0
 
-[node name="texture_button" type="TextureButton" parent="title_screen/buttons_container"]
+[node name="play" type="TextureButton" parent="game_title_screen/buttons_container"]
 layout_mode = 2
 texture_normal = ExtResource("5_1vfqf")
 texture_pressed = ExtResource("6_4lq1n")
 texture_hover = ExtResource("6_4lq1n")
 
-[node name="label" type="Label" parent="title_screen/buttons_container/texture_button"]
+[node name="label" type="Label" parent="game_title_screen/buttons_container/play"]
 layout_mode = 0
 offset_right = 144.0
 offset_bottom = 30.0
@@ -67,43 +66,45 @@ text = "Play"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="texture_button-4" type="TextureButton" parent="title_screen/buttons_container"]
+[node name="sound" type="TextureButton" parent="game_title_screen/buttons_container"]
 layout_mode = 2
+disabled = true
 texture_normal = ExtResource("5_1vfqf")
 texture_pressed = ExtResource("6_4lq1n")
 texture_hover = ExtResource("6_4lq1n")
 
-[node name="h_slider" type="HSlider" parent="title_screen/buttons_container/texture_button-4"]
+[node name="h_slider" type="HSlider" parent="game_title_screen/buttons_container/sound"]
 layout_mode = 0
 offset_left = 62.0
 offset_top = 7.0
 offset_right = 129.0
 offset_bottom = 23.0
 
-[node name="label" type="Label" parent="title_screen/buttons_container/texture_button-4"]
+[node name="label" type="Label" parent="game_title_screen/buttons_container/sound"]
 layout_mode = 0
-offset_left = 27.0
+offset_left = 7.0
 offset_right = 144.0
 offset_bottom = 30.0
 theme_override_colors/font_color = Color(0.294118, 0.411765, 0.184314, 1)
 theme_override_fonts/font = ExtResource("5_j10mr")
-text = "SFX"
+text = "Sound"
 vertical_alignment = 1
 
-[node name="texture_button-5" type="TextureButton" parent="title_screen/buttons_container"]
+[node name="music" type="TextureButton" parent="game_title_screen/buttons_container"]
 layout_mode = 2
+disabled = true
 texture_normal = ExtResource("5_1vfqf")
 texture_pressed = ExtResource("6_4lq1n")
 texture_hover = ExtResource("6_4lq1n")
 
-[node name="h_slider" type="HSlider" parent="title_screen/buttons_container/texture_button-5"]
+[node name="h_slider" type="HSlider" parent="game_title_screen/buttons_container/music"]
 layout_mode = 0
 offset_left = 62.0
 offset_top = 7.0
 offset_right = 129.0
 offset_bottom = 23.0
 
-[node name="label" type="Label" parent="title_screen/buttons_container/texture_button-5"]
+[node name="label" type="Label" parent="game_title_screen/buttons_container/music"]
 layout_mode = 0
 offset_left = 11.0
 offset_right = 128.0
@@ -113,23 +114,23 @@ theme_override_fonts/font = ExtResource("5_j10mr")
 text = "Music"
 vertical_alignment = 1
 
-[node name="texture_button-2" type="TextureButton" parent="title_screen/buttons_container"]
+[node name="quit" type="TextureButton" parent="game_title_screen/buttons_container"]
 layout_mode = 2
 texture_normal = ExtResource("5_1vfqf")
 texture_pressed = ExtResource("6_4lq1n")
 texture_hover = ExtResource("6_4lq1n")
 
-[node name="label" type="Label" parent="title_screen/buttons_container/texture_button-2"]
+[node name="label" type="Label" parent="game_title_screen/buttons_container/quit"]
 layout_mode = 0
 offset_right = 144.0
 offset_bottom = 30.0
 theme_override_colors/font_color = Color(0.294118, 0.411765, 0.184314, 1)
 theme_override_fonts/font = ExtResource("5_j10mr")
-text = "Close Game"
+text = "Quit"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="game_paused" type="Control" parent="." node_paths=PackedStringArray("side_profile_node")]
+[node name="game_pause_screen" type="Control" parent="."]
 visible = false
 layout_mode = 1
 anchors_preset = 15
@@ -137,53 +138,50 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-script = ExtResource("3_ahm3t")
-side_profile_node = NodePath("side_profile")
 
-[node name="side_profile-background" type="TextureRect" parent="game_paused"]
+[node name="side_profile-background" type="TextureRect" parent="game_pause_screen"]
 layout_mode = 0
 offset_left = -4.0
 offset_right = 396.0
 offset_bottom = 225.0
 texture = ExtResource("3_2ps03")
 
-[node name="side_profile" type="TextureRect" parent="game_paused"]
+[node name="side_profile" type="TextureRect" parent="game_pause_screen"]
 layout_mode = 0
 offset_right = 400.0
 offset_bottom = 225.0
 texture = ExtResource("2_uje2l")
-script = ExtResource("3_ahm3t")
 
-[node name="buttons_container" type="VBoxContainer" parent="game_paused"]
+[node name="buttons_container" type="VBoxContainer" parent="game_pause_screen"]
 layout_mode = 0
 offset_left = 39.0
 offset_top = 29.0
 offset_right = 183.0
 offset_bottom = 195.0
 
-[node name="texture_button" type="TextureButton" parent="game_paused/buttons_container"]
+[node name="resume" type="TextureButton" parent="game_pause_screen/buttons_container"]
 layout_mode = 2
 texture_normal = ExtResource("5_1vfqf")
 texture_pressed = ExtResource("6_4lq1n")
 texture_hover = ExtResource("6_4lq1n")
 
-[node name="label" type="Label" parent="game_paused/buttons_container/texture_button"]
+[node name="label" type="Label" parent="game_pause_screen/buttons_container/resume"]
 layout_mode = 0
 offset_right = 144.0
 offset_bottom = 30.0
 theme_override_colors/font_color = Color(0.294118, 0.411765, 0.184314, 1)
 theme_override_fonts/font = ExtResource("5_j10mr")
-text = "Play"
+text = "Resume"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="texture_button-2" type="TextureButton" parent="game_paused/buttons_container"]
+[node name="menu" type="TextureButton" parent="game_pause_screen/buttons_container"]
 layout_mode = 2
 texture_normal = ExtResource("5_1vfqf")
 texture_pressed = ExtResource("6_4lq1n")
 texture_hover = ExtResource("6_4lq1n")
 
-[node name="label" type="Label" parent="game_paused/buttons_container/texture_button-2"]
+[node name="label" type="Label" parent="game_pause_screen/buttons_container/menu"]
 layout_mode = 0
 offset_right = 144.0
 offset_bottom = 30.0
@@ -193,59 +191,43 @@ text = "Main Menu"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="texture_button-3" type="TextureButton" parent="game_paused/buttons_container"]
+[node name="sound" type="TextureButton" parent="game_pause_screen/buttons_container"]
 layout_mode = 2
 texture_normal = ExtResource("5_1vfqf")
 texture_pressed = ExtResource("6_4lq1n")
 texture_hover = ExtResource("6_4lq1n")
 
-[node name="label" type="Label" parent="game_paused/buttons_container/texture_button-3"]
-layout_mode = 0
-offset_right = 144.0
-offset_bottom = 30.0
-theme_override_colors/font_color = Color(0.294118, 0.411765, 0.184314, 1)
-theme_override_fonts/font = ExtResource("5_j10mr")
-text = "Close Game"
-horizontal_alignment = 1
-vertical_alignment = 1
-
-[node name="texture_button-4" type="TextureButton" parent="game_paused/buttons_container"]
-layout_mode = 2
-texture_normal = ExtResource("5_1vfqf")
-texture_pressed = ExtResource("6_4lq1n")
-texture_hover = ExtResource("6_4lq1n")
-
-[node name="h_slider" type="HSlider" parent="game_paused/buttons_container/texture_button-4"]
+[node name="h_slider" type="HSlider" parent="game_pause_screen/buttons_container/sound"]
 layout_mode = 0
 offset_left = 62.0
 offset_top = 7.0
 offset_right = 129.0
 offset_bottom = 23.0
 
-[node name="label" type="Label" parent="game_paused/buttons_container/texture_button-4"]
+[node name="label" type="Label" parent="game_pause_screen/buttons_container/sound"]
 layout_mode = 0
-offset_left = 27.0
+offset_left = 7.0
 offset_right = 144.0
 offset_bottom = 30.0
 theme_override_colors/font_color = Color(0.294118, 0.411765, 0.184314, 1)
 theme_override_fonts/font = ExtResource("5_j10mr")
-text = "SFX"
+text = "Sound"
 vertical_alignment = 1
 
-[node name="texture_button-5" type="TextureButton" parent="game_paused/buttons_container"]
+[node name="music" type="TextureButton" parent="game_pause_screen/buttons_container"]
 layout_mode = 2
 texture_normal = ExtResource("5_1vfqf")
 texture_pressed = ExtResource("6_4lq1n")
 texture_hover = ExtResource("6_4lq1n")
 
-[node name="h_slider" type="HSlider" parent="game_paused/buttons_container/texture_button-5"]
+[node name="h_slider" type="HSlider" parent="game_pause_screen/buttons_container/music"]
 layout_mode = 0
 offset_left = 62.0
 offset_top = 7.0
 offset_right = 129.0
 offset_bottom = 23.0
 
-[node name="label" type="Label" parent="game_paused/buttons_container/texture_button-5"]
+[node name="label" type="Label" parent="game_pause_screen/buttons_container/music"]
 layout_mode = 0
 offset_left = 11.0
 offset_right = 128.0
@@ -255,57 +237,35 @@ theme_override_fonts/font = ExtResource("5_j10mr")
 text = "Music"
 vertical_alignment = 1
 
-[node name="game_over" type="Control" parent="." node_paths=PackedStringArray("side_profile_node", "buttons_node")]
+[node name="game_lose_screen" type="Control" parent="."]
+visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-script = ExtResource("3_ahm3t")
-side_profile_node = NodePath("texture_rect")
-buttons_node = NodePath("buttons_container")
-face_start_position = Vector2(0, 226)
-buttons_start_position = Vector2(238, 330)
-buttons_end_position = Vector2(238, 29)
-buttons_slide_duration = 0.15
 
-[node name="texture_rect" type="TextureRect" parent="game_over"]
+[node name="texture_rect" type="TextureRect" parent="game_lose_screen"]
 layout_mode = 0
 offset_right = 400.0
 offset_bottom = 225.0
 texture = ExtResource("8_412gn")
 
-[node name="buttons_container" type="VBoxContainer" parent="game_over"]
+[node name="buttons_container" type="VBoxContainer" parent="game_lose_screen"]
 layout_mode = 0
 offset_left = 239.0
 offset_top = 29.0
 offset_right = 383.0
 offset_bottom = 127.0
 
-[node name="texture_button" type="TextureButton" parent="game_over/buttons_container"]
+[node name="menu" type="TextureButton" parent="game_lose_screen/buttons_container"]
 layout_mode = 2
 texture_normal = ExtResource("5_1vfqf")
 texture_pressed = ExtResource("6_4lq1n")
 texture_hover = ExtResource("6_4lq1n")
 
-[node name="label" type="Label" parent="game_over/buttons_container/texture_button"]
-layout_mode = 0
-offset_right = 144.0
-offset_bottom = 30.0
-theme_override_colors/font_color = Color(0.294118, 0.411765, 0.184314, 1)
-theme_override_fonts/font = ExtResource("5_j10mr")
-text = "Play Again"
-horizontal_alignment = 1
-vertical_alignment = 1
-
-[node name="texture_button-2" type="TextureButton" parent="game_over/buttons_container"]
-layout_mode = 2
-texture_normal = ExtResource("5_1vfqf")
-texture_pressed = ExtResource("6_4lq1n")
-texture_hover = ExtResource("6_4lq1n")
-
-[node name="label" type="Label" parent="game_over/buttons_container/texture_button-2"]
+[node name="label" type="Label" parent="game_lose_screen/buttons_container/menu"]
 layout_mode = 0
 offset_right = 144.0
 offset_bottom = 30.0
@@ -315,29 +275,13 @@ text = "Main Menu"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="texture_button-3" type="TextureButton" parent="game_over/buttons_container"]
-layout_mode = 2
-texture_normal = ExtResource("5_1vfqf")
-texture_pressed = ExtResource("6_4lq1n")
-texture_hover = ExtResource("6_4lq1n")
-
-[node name="label" type="Label" parent="game_over/buttons_container/texture_button-3"]
-layout_mode = 0
-offset_right = 144.0
-offset_bottom = 30.0
-theme_override_colors/font_color = Color(0.294118, 0.411765, 0.184314, 1)
-theme_override_fonts/font = ExtResource("5_j10mr")
-text = "Close Game"
-horizontal_alignment = 1
-vertical_alignment = 1
-
-[node name="win_screen" type="Control" parent="."]
+[node name="game_win_screen" type="Control" parent="."]
 visible = false
 anchors_preset = 0
 offset_right = 40.0
 offset_bottom = 40.0
 
-[node name="texture_rect" type="TextureRect" parent="win_screen"]
+[node name="texture_rect" type="TextureRect" parent="game_win_screen"]
 layout_mode = 0
 offset_left = 3.0
 offset_top = -1.0
@@ -345,36 +289,20 @@ offset_right = 403.0
 offset_bottom = 224.0
 texture = ExtResource("8_482cb")
 
-[node name="buttons_container" type="VBoxContainer" parent="win_screen"]
+[node name="buttons_container" type="VBoxContainer" parent="game_win_screen"]
 layout_mode = 0
 offset_left = 248.0
 offset_top = 17.0
 offset_right = 392.0
 offset_bottom = 149.0
 
-[node name="texture_button" type="TextureButton" parent="win_screen/buttons_container"]
+[node name="menu" type="TextureButton" parent="game_win_screen/buttons_container"]
 layout_mode = 2
 texture_normal = ExtResource("5_1vfqf")
 texture_pressed = ExtResource("6_4lq1n")
 texture_hover = ExtResource("6_4lq1n")
 
-[node name="label" type="Label" parent="win_screen/buttons_container/texture_button"]
-layout_mode = 0
-offset_right = 144.0
-offset_bottom = 30.0
-theme_override_colors/font_color = Color(0.294118, 0.411765, 0.184314, 1)
-theme_override_fonts/font = ExtResource("5_j10mr")
-text = "Play again"
-horizontal_alignment = 1
-vertical_alignment = 1
-
-[node name="texture_button-2" type="TextureButton" parent="win_screen/buttons_container"]
-layout_mode = 2
-texture_normal = ExtResource("5_1vfqf")
-texture_pressed = ExtResource("6_4lq1n")
-texture_hover = ExtResource("6_4lq1n")
-
-[node name="label" type="Label" parent="win_screen/buttons_container/texture_button-2"]
+[node name="label" type="Label" parent="game_win_screen/buttons_container/menu"]
 layout_mode = 0
 offset_right = 144.0
 offset_bottom = 30.0
@@ -384,55 +312,30 @@ text = "Main Menu"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="texture_button-3" type="TextureButton" parent="win_screen/buttons_container"]
-layout_mode = 2
-texture_normal = ExtResource("5_1vfqf")
-texture_pressed = ExtResource("6_4lq1n")
-texture_hover = ExtResource("6_4lq1n")
-
-[node name="label" type="Label" parent="win_screen/buttons_container/texture_button-3"]
-layout_mode = 0
-offset_right = 144.0
-offset_bottom = 30.0
-theme_override_colors/font_color = Color(0.294118, 0.411765, 0.184314, 1)
-theme_override_fonts/font = ExtResource("5_j10mr")
-text = "Close Game"
-horizontal_alignment = 1
-vertical_alignment = 1
-
-[node name="game_ui" type="Control" parent="."]
-visible = false
+[node name="game_play_screen" type="Control" parent="."]
 anchors_preset = 0
 offset_right = 40.0
 offset_bottom = 40.0
 
-[node name="base_fear_meter" type="TextureRect" parent="game_ui"]
-layout_mode = 0
-offset_right = 40.0
-offset_bottom = 40.0
-texture = ExtResource("9_1mv0i")
-
-[node name="bar_fear_meter" type="TextureProgressBar" parent="game_ui"]
+[node name="bar_fear_meter" type="TextureProgressBar" parent="game_play_screen"]
 layout_mode = 0
 offset_right = 60.0
 offset_bottom = 80.0
+max_value = 1.0
+step = 0.0
+value = 0.545
 fill_mode = 3
-texture_under = ExtResource("10_oy14p")
-texture_over = ExtResource("10_oy14p")
+texture_under = ExtResource("9_1mv0i")
 texture_progress = ExtResource("10_oy14p")
 
-[node name="base_health_meter" type="TextureRect" parent="game_ui"]
-layout_mode = 0
-offset_left = 245.0
-offset_right = 400.0
-offset_bottom = 44.0
-texture = ExtResource("12_apfbv")
-
-[node name="bar_health_meter" type="TextureProgressBar" parent="game_ui"]
+[node name="bar_health_meter" type="TextureProgressBar" parent="game_play_screen"]
 layout_mode = 0
 offset_left = 250.0
 offset_right = 394.0
 offset_bottom = 44.0
-texture_under = ExtResource("13_y3gn8")
-texture_over = ExtResource("13_y3gn8")
+max_value = 1.0
+step = 0.0
+value = 0.175
+texture_under = ExtResource("12_apfbv")
 texture_progress = ExtResource("13_y3gn8")
+texture_progress_offset = Vector2(5, 0)
