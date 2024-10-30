@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://bgsy01plsc33p"
+path="res://.godot/imported/Vampire's Requiem Trimmed.mp3-d95991c4984c03d7eb2a2baf59cd0625.mp3str"
+
+[deps]
+
+source_file="res://assets/sound/music/Vampire's Requiem Trimmed.mp3"
+dest_files=["res://.godot/imported/Vampire's Requiem Trimmed.mp3-d95991c4984c03d7eb2a2baf59cd0625.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4
