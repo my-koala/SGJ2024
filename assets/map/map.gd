@@ -121,7 +121,8 @@ func _on_player_died() -> void:
 	tween.tween_property(environment, NodePath("adjustment_saturation"), 0.01, 0.75)
 	tween.tween_property(environment, NodePath("adjustment_saturation"), 0.01, 1.0)
 	await tween.finished
-	game_over.emit(GameOver.DEAD, _player_collector.get_collected_count())
+	game_over.emit.call_deferred(GameOver.DEAD, _player_collector.get_collected_count())
+	print("map game over")
 	process_mode = Node.PROCESS_MODE_DISABLED
 
 func _physics_process(delta: float) -> void:

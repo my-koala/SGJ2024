@@ -31,6 +31,7 @@ func _on_map_game_over(state: Map.GameOver, score: int) -> void:
 		_menu.lose(score, true)
 	if is_instance_valid(_map):
 		_map.process_mode = Node.PROCESS_MODE_DISABLED
+	print("menu game over")
 
 func _on_menu_play() -> void:
 	if !is_instance_valid(_map):

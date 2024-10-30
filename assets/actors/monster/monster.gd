@@ -59,7 +59,7 @@ func _ready() -> void:
 
 func _on_hunter_target_hit(damage: float) -> void:
 	_health -= damage
-	if _health < 0.0:
+	if _health <= 0.0:
 		died.emit()
 	_audio_hurt.play()
 	
